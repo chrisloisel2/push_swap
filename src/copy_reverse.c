@@ -12,81 +12,76 @@
 
 #include "../swap.h"
 
-void    ra(t_stack *s)
+void    ra_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stacka);
-    test[0] = s->a[s->stacka - 1];
+    test[0] = s->orda[s->stacka - 1];
     while (i < s->stacka - 1)
     {
-        test[i + 1] = s->a[i];
+        test[i + 1] = s->orda[i];
         i++;
     }
-    free(s->a);
-    s->a = test;
-    ra_order(s);
-    printf("ra\n");
+    free(s->orda);
+    s->orda = test;
 }
 
-void    rb(t_stack *s)
+void    rb_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stackb);
-    test[0] = s->b[s->stackb - 1];
+    test[0] = s->ordb[s->stackb - 1];
     while (i < s->stackb - 1)
     {
-        test[i + 1] = s->b[i];
+        test[i + 1] = s->ordb[i];
         i++;
     }
-    free(s->b);
-    s->b = test;
-    rb_order(s);
-    printf("rb\n");
+    free(s->ordb);
+    s->ordb = test;
 }
 
-void    ft_rb(t_stack *s)
+void    ft_rb_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stackb);
-    test[0] = s->b[s->stackb - 1];
+    test[0] = s->ordb[s->stackb - 1];
     while (i < s->stackb - 1)
     {
-        test[i + 1] = s->b[i];
+        test[i + 1] = s->ordb[i];
         i++;
     }
-    free(s->b);
-    s->b = test;
+    free(s->ordb);
+    s->ordb = test;
 }
 
-void    ft_ra(t_stack *s)
+void    ft_ra_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stacka);
-    test[0] = s->a[s->stacka - 1];
+    test[0] = s->orda[s->stacka - 1];
     while (i < s->stacka - 1)
     {
-        test[i + 1] = s->a[i];
+        test[i + 1] = s->orda[i];
         i++;
     }
-    free(s->a);
-    s->a = test;
+    free(s->orda);
+    s->orda = test;
 }
 
-void    rr(t_stack *s)
+void    rr_order(t_stack *s)
 {
-    ft_rb(s);
-    ft_ra(s);
-    printf("rr\n");
+    ft_rb_order(s);
+    ft_ra_order(s);
 }

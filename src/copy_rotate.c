@@ -12,81 +12,76 @@
 
 #include "../swap.h"
 
-void    ra(t_stack *s)
+void    rra_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stacka);
-    test[0] = s->a[s->stacka - 1];
+    test[s->stacka - 1] = s->orda[0];
     while (i < s->stacka - 1)
     {
-        test[i + 1] = s->a[i];
+        test[i] = s->orda[i + 1];
         i++;
     }
-    free(s->a);
-    s->a = test;
-    ra_order(s);
-    printf("ra\n");
+    free(s->orda);
+    s->orda = test;
 }
 
-void    rb(t_stack *s)
+void    rrb_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stackb);
-    test[0] = s->b[s->stackb - 1];
+    test[s->stackb - 1] = s->ordb[0];
     while (i < s->stackb - 1)
     {
-        test[i + 1] = s->b[i];
+        test[i] = s->ordb[i + 1];
         i++;
     }
-    free(s->b);
-    s->b = test;
-    rb_order(s);
-    printf("rb\n");
+    free(s->ordb);
+    s->ordb = test;
 }
 
-void    ft_rb(t_stack *s)
-{
-    int *test;
-    int i;
-
-    i = 0;
-    test = malloc(sizeof(int)* s->stackb);
-    test[0] = s->b[s->stackb - 1];
-    while (i < s->stackb - 1)
-    {
-        test[i + 1] = s->b[i];
-        i++;
-    }
-    free(s->b);
-    s->b = test;
-}
-
-void    ft_ra(t_stack *s)
+void    ft_rra_order(t_stack *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->stacka);
-    test[0] = s->a[s->stacka - 1];
+    test[s->stacka - 1] = s->orda[0];
     while (i < s->stacka - 1)
     {
-        test[i + 1] = s->a[i];
+        test[i] = s->orda[i + 1];
         i++;
     }
-    free(s->a);
-    s->a = test;
+    free(s->orda);
+    s->orda = test;
 }
 
-void    rr(t_stack *s)
+void    ft_rrb_order(t_stack *s)
 {
-    ft_rb(s);
-    ft_ra(s);
-    printf("rr\n");
+    int *test;
+    int i;
+
+    i = 0;
+    test = malloc(sizeof(int)* s->stackb);
+    test[s->stackb - 1] = s->ordb[0];
+    while (i < s->stackb - 1)
+    {
+        test[i] = s->ordb[i + 1];
+        i++;
+    }
+    free(s->ordb);
+    s->ordb = test;
+}
+
+void    rrr_order(t_stack *s)
+{
+    ft_rra_order(s);
+    ft_rrb_order(s);
 }

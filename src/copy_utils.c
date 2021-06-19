@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-void    sa(t_stack *s)
+void    sa_order(t_stack *s)
 {
     int i;
     int indexa;
@@ -22,14 +22,12 @@ void    sa(t_stack *s)
         return ;
     indexa = s->stacka - 1;
     indexb = s->stacka - 2;
-    i = s->a[indexb];
-    s->a[indexb] = s->a[indexa];
-    s->a[indexa] = i;
-    sa_order(s);
-    printf("sa\n");
+    i = s->orda[indexb];
+    s->orda[indexb] = s->orda[indexa];
+    s->orda[indexa] = i;
 }
 
-void    sb(t_stack *s)
+void    sb_order(t_stack *s)
 { 
     int i;
     int indexa;
@@ -39,56 +37,41 @@ void    sb(t_stack *s)
         return ;
     indexa = s->stackb - 1;
     indexb = s->stackb - 2;
-    i = s->b[indexb];
-    s->b[indexb] = s->b[indexa];
-    s->b[indexa] = i;
-    sb_order(s);
-    printf("sb\n");
+    i = s->ordb[indexb];
+    s->ordb[indexb] = s->ordb[indexa];
+    s->ordb[indexa] = i;
 }
 
-void    ss(t_stack *s)
+void    ss_order(t_stack *s)
 {
     int i;
     int indexa;
     int indexb;
     
-    if (s->stacka < 2 || s->stackb < 2)
-        return ;
+ 
     indexa = s->stacka - 1;
     indexb = s->stacka - 2;
-    i = s->a[indexb];
-    s->a[indexb] = s->a[indexa];
-    s->a[indexa] = i;
+    i = s->orda[indexb];
+    s->orda[indexb] = s->orda[indexa];
+    s->orda[indexa] = i;
     indexa = s->stackb - 1;
     indexb = s->stackb - 2;
-    i = s->b[indexb];
-    s->b[indexb] = s->b[indexa];
-    s->b[indexa] = i;
-    ss_order(s);
-    printf("ss\n");
+    i = s->ordb[indexb];
+    s->ordb[indexb] = s->ordb[indexa];
+    s->ordb[indexa] = i;
 
 }
 
-void    pa(t_stack *s)
+void    pa_order(t_stack *s)
 {
-    if (s->stackb < 1)
-        return ;
-    s->stackb--;
-    s->a[s->stacka] = s->b[s->stackb];
-    s->b[s->stackb] = 0;
+    s->orda[s->stacka] = s->ordb[s->stackb];
+    s->ordb[s->stackb] = 0;
     s->stacka++;
-    pa_order(s);
-    printf("pa\n");
 }
 
-void    pb(t_stack *s)
+void    pb_order(t_stack *s)
 {
-    if (s->stacka < 1)
-        return ;
-    s->stacka--;
-    s->b[s->stackb] = s->a[s->stacka];
-    s->a[s->stacka] = 0;
+    s->ordb[s->stackb] = s->orda[s->stacka];
+    s->orda[s->stacka] = 0;
     s->stackb++;
-    pb_order(s);
-    printf("pb\n");
 }

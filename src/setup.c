@@ -39,6 +39,8 @@ int     ft_fill_stack(int num, char **argv, t_stack *s)
     i = 0;
     s->a = malloc(sizeof(int)* num + 1);
     s->b = malloc(sizeof(int)* num + 1);
+    s->orda = malloc(sizeof(int)* num + 1);
+    s->ordb = malloc(sizeof(int)* num + 1);
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
@@ -86,7 +88,7 @@ void    ft_print_stack(t_stack *s)
     printf("   {%d}            {%d}\n", s->stacka, s->stackb);
     while (i >= 0)
     {
-        printf("|a[%d] =%d          b[%d] =%d|\n", i, s->a[i], i, s->b[i]);
+        printf("|a[%d] =%d          b[%d] =%d|\n", s->orda[i], s->a[i], s->ordb[i], s->b[i]);
         i--;
     }
     printf("\n");

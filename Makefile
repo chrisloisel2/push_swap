@@ -21,7 +21,10 @@ SRC		=	main\
 			utils\
 			rotate\
 			reverse\
-			ft_algo
+			ft_algo\
+			copy_utils\
+			copy_rotate\
+			copy_reverse\
 
 O		=	$(addprefix src/, $(addsuffix .o, $(SRC)))
 
