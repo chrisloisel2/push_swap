@@ -61,8 +61,11 @@ int     ft_push_swap(int num, char **argv)
         return (-1);
     ft_marks(s);
     ft_algo(s);
+    ft_print_stack(s);
     free(s->a);
     free(s->b);
+    free(s->orda);
+    free(s->ordb);
     return (0);
 }
 

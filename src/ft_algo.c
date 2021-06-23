@@ -25,7 +25,7 @@ int     look_for_order(t_stack *s)
         i--;
     }
     if (i == -1 && s->stackb == 0)
-        return (0);
+        return (i);
     if (i == -1 && s->stackb > 0)
     {
         y = 0;
@@ -36,9 +36,9 @@ int     look_for_order(t_stack *s)
             i--;
         }
         if (i == -1)
-            return (0);
+            return (i);
     }
-    return (1);
+    return (i);
 }
 
 void    smart_push_b(t_stack *s)
@@ -71,13 +71,39 @@ void    smart_push_b(t_stack *s)
     }
 }
 
+int    smart_roll_a(t_stack *s, int i)
+{
+    int minus;
+    int maximus;
+    int cpt;
+
+    cpt = 0;
+    maximus = 0;
+    minus = 0;
+    while (cpt < i)
+    {
+        minus += s->orda[cpt];
+        cpt++;
+    }
+    while (cpt < s->stacka)
+    {
+        maximus += s->orda[cpt];
+        cpt++;
+    }
+    if (minus > maximus)
+        return (0);
+    return (1);
+}
+
 void    ft_split_half(t_stack *s)
 {
     int i;
+    int y;
 
     i = s->stacka / 2;
     while (s->stacka > i)
     {
+        ft_print_stack(s);
         if (s->orda[s->stacka - 1] >= i)
             smart_push_b(s);
         else if (s->orda[0] > i)
@@ -87,10 +113,25 @@ void    ft_split_half(t_stack *s)
         }
         else
         {
-            if (s->orda[s->stacka - 1] > s->orda[0])
-                rra(s);
+            if (smart_roll_a(s, i))
+            {
+                y = s->stacka - 1;
+                while (s->orda[y] < i)
+                {
+                    y--;
+                    ra(s);
+                }
+            }
             else
-                ra(s);
+            {
+                y = 0;
+                while (s->orda[y] < i)
+                {
+                    y++;
+                    ra(s);
+                }
+            }
+            
         }
     }
 }
@@ -104,9 +145,13 @@ int     ft_organizer(t_stack *s)
 
 void    ft_algo(t_stack *s)
 {
-    while (look_for_order(s))
+    int i;
+
+    i = 0;
+    ft_organizer(s);
+    while ((i = look_for_order(s)) != -1)
     {
-        ft_organizer(s);
+
     }
     if (s->stackb > 0)
         ft_full_pb(s);
