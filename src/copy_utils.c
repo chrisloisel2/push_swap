@@ -66,12 +66,10 @@ void    pa_order(t_stack *s)
 {
     s->orda[s->stacka] = s->ordb[s->stackb];
     s->ordb[s->stackb] = 0;
-    s->stacka++;
 }
 
 void    pb_order(t_stack *s)
 {
-    s->ordb[s->stackb] = s->orda[s->stacka];
+    s->ordb[s->stackb - 1] = s->orda[s->stacka];
     s->orda[s->stacka] = 0;
-    s->stackb++;
 }

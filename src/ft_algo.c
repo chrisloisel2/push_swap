@@ -30,7 +30,7 @@ int     look_for_order(t_stack *s)
     {
         y = 0;
         i = s->stackb - 1;
-        while (s->ordb[i] == y && i >= 0)
+        while (s->ordb[i] == i && i >= 0)
         {
             y++;
             i--;
@@ -59,13 +59,13 @@ void    smart_push_b(t_stack *s)
     {
         while (i < s->ordb[s->stackb - 1])
         {
-            rb(s);
+            rrb(s);
             y++;
         }
         pb(s);
         while (y > 0)
         {
-            rrb(s);
+            rb(s);
             y--;
         }
     }
@@ -108,4 +108,6 @@ void    ft_algo(t_stack *s)
     {
         ft_organizer(s);
     }
+    if (s->stackb > 0)
+        ft_full_pb(s);
 }

@@ -27,6 +27,7 @@ typedef struct  s_stack
 int     ft_recup(int num, char **argv, t_stack *s);
 void    ft_print_stack(t_stack *s);
 void    ft_algo(t_stack *s);
+void    ft_full_pb(t_stack *s);
 void    sa(t_stack *s);
 void    sb(t_stack *s);
 void    ss(t_stack *s);

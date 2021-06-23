@@ -60,7 +60,6 @@ int     ft_push_swap(int num, char **argv)
     if (ft_recup(num, argv, s) == -1)
         return (-1);
     ft_marks(s);
-    ft_print_stack(s);
     ft_algo(s);
     free(s->a);
     free(s->b);

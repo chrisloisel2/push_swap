@@ -19,6 +19,7 @@ H		=	push_swap.h
 SRC		=	main\
 			setup\
 			utils\
+			help\
 			rotate\
 			reverse\
 			ft_algo\
