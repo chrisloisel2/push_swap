@@ -25,7 +25,6 @@ void    sa(t_stack *s)
     i = s->a[indexb];
     s->a[indexb] = s->a[indexa];
     s->a[indexa] = i;
-    sa_order(s);
     printf("sa\n");
 }
 
@@ -42,7 +41,6 @@ void    sb(t_stack *s)
     i = s->b[indexb];
     s->b[indexb] = s->b[indexa];
     s->b[indexa] = i;
-    sb_order(s);
     printf("sb\n");
 }
 
@@ -64,7 +62,6 @@ void    ss(t_stack *s)
     i = s->b[indexb];
     s->b[indexb] = s->b[indexa];
     s->b[indexa] = i;
-    ss_order(s);
     printf("ss\n");
 
 }
@@ -73,11 +70,10 @@ void    pa(t_stack *s)
 {
     if (s->stackb < 1)
         return ;
-    s->stackb--;
-    s->a[s->stacka] = s->b[s->stackb];
-    s->b[s->stackb] = 0;
+    s->a[s->stacka] = s->b[s->stackb - 1];
+    s->b[s->stackb - 1] = 0;
     s->stacka++;
-    pa_order(s);
+    s->stackb--;
     printf("pa\n");
 }
 
@@ -89,6 +85,5 @@ void    pb(t_stack *s)
     s->b[s->stackb] = s->a[s->stacka];
     s->a[s->stacka] = 0;
     s->stackb++;
-    pb_order(s);
     printf("pb\n");
 }

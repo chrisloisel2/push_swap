@@ -28,7 +28,6 @@ void    rra(t_stack *s)
     printf("rra\n");
     free(s->a);
     s->a = test;
-    rra_order(s);
 }
 
 void    rrb(t_stack *s)
@@ -47,7 +46,6 @@ void    rrb(t_stack *s)
     printf("rb\n");
     free(s->b);
     s->b = test;
-    rrb_order(s);
 }
 
 void    ft_rra(t_stack *s)
@@ -88,7 +86,5 @@ void    rrr(t_stack *s)
 {
     ft_rra(s);
     ft_rrb(s);
-    rra_order(s);
-    rrb_order(s);
     printf("rrr\n");
 }

@@ -12,147 +12,120 @@
 
 #include "../swap.h"
 
-int     look_for_order(t_stack *s)
+int     ft_check_order(t_stack *s)
 {
     int i;
-    int y;
 
-    y = 0;
     i = s->stacka - 1;
-    while (s->orda[i] == y && i >= 0)
-    {
-        y++;
+    while (i > 0 && (s->a[i] < s->a[i - 1]))
         i--;
-    }
-    if (i == -1 && s->stackb == 0)
-        return (i);
-    if (i == -1 && s->stackb > 0)
-    {
-        y = 0;
-        i = s->stackb - 1;
-        while (s->ordb[i] == i && i >= 0)
-        {
-            y++;
-            i--;
-        }
-        if (i == -1)
-            return (i);
-    }
-    return (i);
+    if (i != 0)
+        return (1);
+    if (i == 0 && s->stackb == 0)
+        return (0);
+    i = s->stackb - 1;
+    while (i > 0 && s->a[i] > s->a[i - 1])
+        i--;
+    if (i != 0)
+        return (2);
+    return (0);
 }
 
-void    smart_push_b(t_stack *s)
+int     ft_milieu(t_stack *s, int d)
 {
     int i;
-    int y;
+    int res;
 
-    i = s->orda[s->stacka - 1];
-    y = 0;
-    if (s->stackb == 0)
-        pb(s);
-    else if (i < s->ordb[0])
+    i = 0;
+    res = 0;
+    if (d == 1)
     {
-        pb(s);
-        rb(s);
+        while (i <= s->stacka - 1)
+        {
+            res += s->a[i];
+            i++;
+        }
     }
     else
     {
-        while (i < s->ordb[s->stackb - 1])
+        while (i <= s->stackb - 1)
         {
-            rrb(s);
-            y++;
-        }
-        pb(s);
-        while (y > 0)
-        {
-            rb(s);
-            y--;
+            res += s->b[i];
+            i++;
         }
     }
+    res /= i;
+    return (res);
 }
 
-int    smart_roll_a(t_stack *s, int i)
-{
-    int minus;
-    int maximus;
-    int cpt;
-
-    cpt = 0;
-    maximus = 0;
-    minus = 0;
-    while (cpt < i)
-    {
-        minus += s->orda[cpt];
-        cpt++;
-    }
-    while (cpt < s->stacka)
-    {
-        maximus += s->orda[cpt];
-        cpt++;
-    }
-    if (minus > maximus)
-        return (0);
-    return (1);
-}
-
-void    ft_split_half(t_stack *s)
+int     ft_check_first(t_stack *s, int test)
 {
     int i;
-    int y;
 
-    i = s->stacka / 2;
-    while (s->stacka > i)
+    i = 0;
+    while (s->num[i] != test)
+        i++;
+    if (s->num[i + 1] == s->a[s->stacka - 1])
+        pa(s);
+    return (0);
+}
+
+int     ft_check_last(t_stack *s, int test)
+{
+    int i;
+
+    i = 0;
+    while (s->num[i] != test)
+        i++;
+    if (s->num[i + 1] == s->a[s->stacka - 1])
     {
-        ft_print_stack(s);
-        if (s->orda[s->stacka - 1] >= i)
-            smart_push_b(s);
-        else if (s->orda[0] > i)
-        {
-            rra(s);
-            smart_push_b(s);
-        }
-        else
-        {
-            if (smart_roll_a(s, i))
-            {
-                y = s->stacka - 1;
-                while (s->orda[y] < i)
-                {
-                    y--;
-                    ra(s);
-                }
-            }
-            else
-            {
-                y = 0;
-                while (s->orda[y] < i)
-                {
-                    y++;
-                    ra(s);
-                }
-            }
-            
-        }
+        rb(s);
+        pa(s);
+    }
+    return (0);
+}
+
+void    ft_smart_depush(t_stack *s)
+{
+    int i;
+
+    i = s->stackb - 1;
+    ft_check_first(s, s->b[i]);
+    ft_check_last(s, s->b[0]);
+}
+
+void    ft_smart_push(t_stack *s)
+{
+    int i;
+    int milieu;
+
+    i = s->stacka - 1;
+    milieu = ft_milieu(s, 1);
+    while (s->a[i] < milieu)
+    {
+        pb(s);
+        i--;
+    }
+    i = 0;
+    while (s->a[i] <= milieu)
+    {
+        rra(s);
+        pb(s);
     }
 }
 
-int     ft_organizer(t_stack *s)
+void    ft_organizer(t_stack *s, int i)
 {
-    ft_split_half(s);
-    ft_print_stack(s);
-    return (0);
+    if (i == 1)
+        ft_smart_push(s);
+    else
+        ft_smart_depush(s);
 }
 
 void    ft_algo(t_stack *s)
 {
     int i;
-
     i = 0;
-    ft_organizer(s);
-    while ((i = look_for_order(s)) != -1)
-    {
-
-    }
-    if (s->stackb > 0)
-        ft_full_pb(s);
+    while ((i = ft_check_order(s)) > 0 || s->stackb > 0)
+        ft_organizer(s, i);
 }

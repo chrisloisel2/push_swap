@@ -15,39 +15,31 @@
 void    ft_marks(t_stack *s)
 {
     int i;
-    int num;
     int y;
     int test;
-    int min;
 
     i = s->stacka - 1;
-    num = 0;
+    s->i = i;
     y = 1;
     test = 2147483647;
     while (i >= 0)
     {
-        if (s->a[i] < test && s->a[i] < min)
-        {        
-            min = s->a[i];
-            num = i;
-        }
+        if (s->a[i] < test)
+            test = s->a[i];
         i--;
     }
-    s->orda[num] = 0;
+    s->num[0] = test;
+    test = 2147483647;
     while (y < s->stacka)
     {
         while (i < s->stacka)
-        {                
-            if (s->a[i] < test && s->a[i] > min)
-            {                
-                num = i;
+        {         
+            if (s->a[i] < test && s->a[i] > s->num[y - 1])        
                 test = s->a[i];
-            }
             i++;
         }
+        s->num[y] = test;
         test = 2147483647;
-        s->orda[num] = y;
-        min = s->a[num];
         y++;
         i = 0;
     }
@@ -61,11 +53,9 @@ int     ft_push_swap(int num, char **argv)
         return (-1);
     ft_marks(s);
     ft_algo(s);
-    ft_print_stack(s);
     free(s->a);
     free(s->b);
-    free(s->orda);
-    free(s->ordb);
+    free(s->num);
     return (0);
 }
 

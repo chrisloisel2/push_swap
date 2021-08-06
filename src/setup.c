@@ -39,8 +39,7 @@ int     ft_fill_stack(int num, char **argv, t_stack *s)
     i = 0;
     s->a = malloc(sizeof(int)* num + 1);
     s->b = malloc(sizeof(int)* num + 1);
-    s->orda = malloc(sizeof(int)* num + 1);
-    s->ordb = malloc(sizeof(int)* num + 1);
+    s->num = malloc(sizeof(int)* num + 1);
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
@@ -79,16 +78,32 @@ int     ft_check_arg(int num, char **argv, t_stack *s)
 void    ft_print_stack(t_stack *s)
 {
     int i;
-
+    int cpy;
+    
     if (s->stacka > s->stackb)
         i = s->stacka - 1;
     else
         i = s->stackb - 1;
+    cpy = s->i;
     printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}            {%d}\n", s->stacka, s->stackb);
+    printf("   {%d}            {%d}\nnum = ", s->stacka, s->stackb);
+    while (cpy > 0)
+    {
+        printf("%d , ", s->num[cpy]);
+        cpy--;
+    }
+    printf("%d\n", s->num[cpy]);
     while (i >= 0)
     {
-        printf("|a[%d] =%d          b[%d] =%d|\n", s->orda[i], s->a[i], s->ordb[i], s->b[i]);
+        if (s->stacka > i)
+            printf("|a[%d]", s->a[i]);
+        else
+            printf("     ");
+        printf("    %d       ", i);
+        if (s->stackb > i)
+            printf("b[%d]|\n", s->b[i]);
+        else
+            printf("\n");
         i--;
     }
     printf("\n");
@@ -103,4 +118,24 @@ int     ft_recup(int num, char **argv, t_stack *s)
         return (-1);
     }
     return (0);
+}
+
+void    ft_print_stack2(t_stack *s)
+{
+      int i;
+
+    if (s->stacka > s->stackb)
+        i = s->stacka - 1;
+    else
+        i = s->stackb - 1;
+    printf("  état de la stack\n-----------------------\n");
+    printf("   {%d}                   {%d}\n", s->stacka, s->stackb);
+    while (i >= 0)
+    {    
+        printf("|a[%d]", s->a[i]);
+        printf("    %d       ", i);
+        printf("b[%d]|\n", s->b[i]);
+        i--;
+    }
+    printf("\n");
 }

@@ -27,7 +27,6 @@ void    ra(t_stack *s)
     }
     free(s->a);
     s->a = test;
-    ra_order(s);
     printf("ra\n");
 }
 
@@ -46,7 +45,6 @@ void    rb(t_stack *s)
     }
     free(s->b);
     s->b = test;
-    rb_order(s);
     printf("rb\n");
 }
 
