@@ -30,6 +30,7 @@ void    ft_marks(t_stack *s)
     }
     s->num[0] = test;
     test = 2147483647;
+    i = 0;
     while (y < s->stacka)
     {
         while (i < s->stacka)

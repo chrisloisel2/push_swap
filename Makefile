@@ -43,13 +43,13 @@ all:
 
 $(NAME): $O
 	@echo -n "\n\033[0;34mCompiling...\n"
-	gcc -o $@ $O libft/libft.a -o $(NAME)
+	gcc  -o  $@ $O libft/libft.a -o $(NAME)
 	@echo -n "\n\033[1;32mpush_swap generated\n\n"
 
 
 debug:
 	@echo -n "\n\033[0;34mCompiling...\n"
-	gcc -g3 -o $@ $C libft/libft.a -o $(NAME)
+	gcc -fsanitize=address -g3 -o $@ $C libft/libft.a -o $(NAME)
 	@echo -n "\n\033[1;32mpush_swap generated\n\n"
 
 
