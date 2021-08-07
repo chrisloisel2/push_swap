@@ -66,11 +66,42 @@ int     ft_check_first(t_stack *s, int test)
     while (s->num[i] != test)
         i++;
     if (s->num[i + 1] == s->a[s->stacka - 1])
+    {
         pa(s);
+        return (0);
+    }
+    return (1);
+}
+
+int     ft_reorg(t_stack *s, int test)
+{
+    int i;
+    int y;
+
+    y = 0;
+    i = 0;
+    while (s->num[i] != test)
+        i++;
+    while (s->num[i + 1] != s->a[s->stacka - 1])
+    {
+        rrb(s);
+        y++;
+    }
+    while (s->num[i + 1] == s->a[s->stacka - 1])
+    {
+        pb(s);
+        i++;
+    }
+    while (y > 0)
+    {
+        rb(s);
+        y--;
+    }
+    rb(s);
     return (0);
 }
 
-int     ft_check_last(t_stack *s, int test)
+int     ft_check_sec(t_stack *s, int test)
 {
     int i;
 
@@ -79,10 +110,11 @@ int     ft_check_last(t_stack *s, int test)
         i++;
     if (s->num[i + 1] == s->a[s->stacka - 1])
     {
-        rb(s);
+        sb(s);
         pa(s);
+        return (0);
     }
-    return (0);
+    return (1);
 }
 
 void    ft_smart_depush(t_stack *s)
@@ -90,36 +122,41 @@ void    ft_smart_depush(t_stack *s)
     int i;
 
     i = s->stackb - 1;
-    ft_check_first(s, s->b[i]);
-    ft_check_last(s, s->b[0]);
+    if (ft_check_first(s, s->b[i]) && ft_check_sec(s, s->b[i - 1]))
+        ft_reorg(s, s->b[i]);
 }
 
 void    ft_smart_push(t_stack *s)
 {
     int i;
     int milieu;
+    int jmp;
 
+    jmp = 0;
     i = s->stacka - 1;
     milieu = ft_milieu(s, 1);
-    while (s->a[i] < milieu)
+    while (s->stacka > ((i + 1) / 2))
     {
-        pb(s);
-        i--;
-    }
-    i = 0;
-    while (s->a[i] <= milieu)
-    {
-        rra(s);
-        pb(s);
+        while (s->a[s->stacka - 1] <= milieu)
+            pb(s);
+        while (s->a[0] <= milieu)
+        {
+            rra(s);
+            pb(s);
+        }
+        while (s->a[s->stacka - 1] > milieu && s->stacka > ((i + 1) / 2))
+            ra(s);
     }
 }
 
 void    ft_organizer(t_stack *s, int i)
 {
+    ft_print_stack(s);
     if (i == 1)
         ft_smart_push(s);
     else
         ft_smart_depush(s);
+    ft_print_stack(s);
 }
 
 void    ft_algo(t_stack *s)
