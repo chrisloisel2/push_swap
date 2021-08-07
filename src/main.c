@@ -56,6 +56,7 @@ int     ft_push_swap(int num, char **argv)
     free(s->a);
     free(s->b);
     free(s->num);
+    free(s);
     return (0);
 }
 
