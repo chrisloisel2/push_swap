@@ -145,9 +145,7 @@ void    ft_smart_push(t_stack *s)
 {
     int i;
     int milieu;
-    int jmp;
 
-    jmp = 0;
     i = s->stacka - 1;
     milieu = ft_milieu(s, 1);
     while (s->stacka > ((i + 1) / 2))
