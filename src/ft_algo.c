@@ -12,6 +12,20 @@
 
 #include "../swap.h"
 
+void    ft_spdfix(t_stack *s)
+{
+    while (s->stacka > 1 && s->a[s->stacka - 1] > s->a[0])
+        ra(s);
+    while (s->stackb > 1 && s->b[s->stackb - 1] < s->b[0])
+        rb(s);
+    if (s->stackb > 1 && s->b[s->stackb - 1] < s->b[s->stackb - 2] && s->a[s->stacka - 1] > s->a[s->stacka - 2])
+        ss(s);
+    if (s->stackb > 1 && s->b[s->stackb - 1] < s->b[s->stackb - 2])
+        sb(s);
+    if (s->stacka > 1 && s->a[s->stacka - 1] > s->a[s->stacka - 2])
+        sa(s);
+}
+
 int     ft_check_order(t_stack *s)
 {
     int i;
@@ -122,6 +136,7 @@ void    ft_smart_depush(t_stack *s)
     int i;
 
     i = s->stackb - 1;
+    ft_spdfix(s);
     if (ft_check_first(s, s->b[i]) && ft_check_sec(s, s->b[i - 1]))
         ft_reorg(s, s->b[i]);
 }
@@ -137,6 +152,7 @@ void    ft_smart_push(t_stack *s)
     milieu = ft_milieu(s, 1);
     while (s->stacka > ((i + 1) / 2))
     {
+        ft_spdfix(s);
         while (s->a[s->stacka - 1] <= milieu)
             pb(s);
         while (s->a[0] <= milieu)
@@ -151,18 +167,18 @@ void    ft_smart_push(t_stack *s)
 
 void    ft_organizer(t_stack *s, int i)
 {
-    ft_print_stack(s);
+    ft_spdfix(s);
     if (i == 1)
         ft_smart_push(s);
     else
         ft_smart_depush(s);
-    ft_print_stack(s);
 }
 
 void    ft_algo(t_stack *s)
 {
     int i;
     i = 0;
+    ft_spdfix(s);
     while ((i = ft_check_order(s)) > 0 || s->stackb > 0)
         ft_organizer(s, i);
 }
