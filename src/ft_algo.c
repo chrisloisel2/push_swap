@@ -12,36 +12,6 @@
 
 #include "../swap.h"
 
-int    ft_spdfix(t_stack *s)
-{
-    int i;
-
-    i = 0;
-    while (s->stacka > 1 && s->a[s->stacka - 1] > s->a[0])
-    {
-        ra(s);
-        i++;
-    }
-    while (s->stackb > 1 && s->b[s->stackb - 1] < s->b[0])
-    {
-        rb(s);
-        i++;
-    }
-    if (s->stackb > 1 && s->b[s->stackb - 1] < s->b[s->stackb - 2])
-    {
-        sb(s);
-        i++;
-    }
-    if (s->stacka > 1 && s->a[s->stacka - 1] > s->a[s->stacka - 2])
-    {
-        sa(s);
-        i++;
-    }
-    if ((i > 0) || (ft_check_order(s) != 1))
-        return (0);
-    return (1);
-}
-
 int     ft_check_order(t_stack *s)
 {
     int i;
@@ -80,95 +50,6 @@ int     ft_milieu(t_stack *s, char c)
         free(nb);
     }
     return (res);
-}
-
-int     ft_check_first(t_stack *s, int test)
-{
-    int i;
-
-    i = 0;
-    while (s->num[i] != test)
-        i++;
-    if (s->num[i + 1] == s->a[s->stacka - 1])
-    {
-        pa(s);
-        return (0);
-    }
-    return (1);
-}
-
-int     ft_reorg(t_stack *s, int test)
-{
-    int i;
-    int y;
-
-    y = 0;
-    i = 0;
-    while (s->num[i] != test)
-        i++;
-    while (s->num[i + 1] != s->b[s->stackb - 1])
-    {
-        rb(s);
-        y++;
-    }
-    while (s->num[i + 1] == s->b[s->stackb - 1])
-    {
-        pb(s);
-        i++;
-    }
-    while (y > 0)
-    {
-        rb(s);
-        y--;
-    }
-    return (0);
-}
-
-int     ft_check_sec(t_stack *s, int test)
-{
-    int i;
-
-    i = 0;
-    while (s->num[i] != test)
-        i++;
-    if (s->num[i + 1] == s->a[s->stacka - 1])
-    {
-        sb(s);
-        pa(s);
-        return (0);
-    }
-    return (1);
-}
-
-void    ft_smart_depush(t_stack *s)
-{
-    int i;
-
-    i = s->stackb - 1;
-    ft_spdfix(s);
-    if (ft_check_first(s, s->b[i]) && ft_check_sec(s, s->b[i - 1]))
-        ft_reorg(s, s->b[i]);
-}
-
-void    ft_smart_push(t_stack *s)
-{
-    int i;
-    int milieu;
-
-    i = s->stacka - 1;
-    milieu = ft_milieu(s, 'a');
-    while (s->stacka > ((i + 1) / 2) && ft_spdfix(s))
-    {
-        while (s->a[s->stacka - 1] <= milieu && ft_spdfix(s))
-            pb(s);
-        while (s->a[0] <= milieu && ft_spdfix(s))
-        {
-            rra(s);
-            pb(s);
-        }
-        while (s->a[s->stacka - 1] > milieu && s->stacka > ((i + 1) / 2) && ft_spdfix(s))
-            ra(s);
-    }
 }
 
 void    ft_organizer(t_stack *s, int i)
