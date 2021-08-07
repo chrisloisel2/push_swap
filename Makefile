@@ -49,9 +49,13 @@ $(NAME): $O
 
 debug:
 	@echo -n "\n\033[0;34mCompiling...\n"
-	gcc -fsanitize=address -g3 -o $@ $C libft/libft.a -o $(NAME)
+	gcc -g3 -o $@ $C libft/libft.a -o $(NAME)
 	@echo -n "\n\033[1;32mpush_swap generated\n\n"
 
+sanitize:
+	@echo -n "\n\033[0;34mCompiling...\n"
+	gcc -fsanitize=address -g3 -o $@ $C libft/libft.a -o $(NAME)
+	@echo -n "\n\033[1;32mpush_swap generated\n\n"
 
 clean:
 	rm -rf $O

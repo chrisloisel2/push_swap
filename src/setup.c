@@ -37,6 +37,7 @@ int     ft_fill_stack(int num, char **argv, t_stack *s)
 
     y = 0;
     i = 0;
+    s->max = num;
     s->a = malloc(sizeof(int)* num + 1);
     s->b = malloc(sizeof(int)* num + 1);
     s->num = malloc(sizeof(int)* num + 1);

@@ -18,7 +18,7 @@ void    ra(t_stack *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->stacka);
+    test = malloc(sizeof(int)* s->max);
     test[0] = s->a[s->stacka - 1];
     while (i < s->stacka - 1)
     {
@@ -36,7 +36,7 @@ void    rb(t_stack *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->stackb);
+    test = malloc(sizeof(int)* s->max);
     test[0] = s->b[s->stackb - 1];
     while (i < s->stackb - 1)
     {
@@ -54,7 +54,7 @@ void    ft_rb(t_stack *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->stackb);
+    test = malloc(sizeof(int)* s->max);
     test[0] = s->b[s->stackb - 1];
     while (i < s->stackb - 1)
     {
@@ -71,7 +71,7 @@ void    ft_ra(t_stack *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->stacka);
+    test = malloc(sizeof(int)* s->max);
     test[0] = s->a[s->stacka - 1];
     while (i < s->stacka - 1)
     {

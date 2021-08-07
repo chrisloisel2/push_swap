@@ -43,7 +43,7 @@ void    rrb(t_stack *s)
         test[i] = s->b[i + 1];
         i++;
     }
-    printf("rb\n");
+    printf("rrb\n");
     free(s->b);
     s->b = test;
 }

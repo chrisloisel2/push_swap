@@ -18,6 +18,10 @@ void    ft_spdfix(t_stack *s)
         ra(s);
     while (s->stackb > 1 && s->b[s->stackb - 1] < s->b[0])
         rb(s);
+    while (s->stacka > 1 && s->a[s->stacka - 1] < s->a[0])
+        rra(s);
+    while (s->stackb > 1 && s->b[s->stackb - 1] > s->b[0])
+        rrb(s);
     if (s->stackb > 1 && s->b[s->stackb - 1] < s->b[s->stackb - 2] && s->a[s->stacka - 1] > s->a[s->stacka - 2])
         ss(s);
     if (s->stackb > 1 && s->b[s->stackb - 1] < s->b[s->stackb - 2])
@@ -96,12 +100,14 @@ int     ft_reorg(t_stack *s, int test)
     i = 0;
     while (s->num[i] != test)
         i++;
-    while (s->num[i + 1] != s->a[s->stacka - 1])
+    ft_print_stack(s);
+    while (s->num[i + 1] != s->b[s->stackb - 1])
     {
-        rrb(s);
+        printf("%d != %d\n", s->num[i + 1], s->b[s->stackb - 1]);
+        rb(s);
         y++;
     }
-    while (s->num[i + 1] == s->a[s->stacka - 1])
+    while (s->num[i + 1] == s->b[s->stackb - 1])
     {
         pb(s);
         i++;
@@ -111,7 +117,6 @@ int     ft_reorg(t_stack *s, int test)
         rb(s);
         y--;
     }
-    rb(s);
     return (0);
 }
 

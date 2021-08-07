@@ -21,6 +21,7 @@ typedef struct  s_stack
     int     stacka;
     int     stackb;
     int     *num;
+    int     max;
     int     i;
 }               t_stack;
 

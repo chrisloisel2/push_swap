@@ -81,9 +81,9 @@ void    pb(t_stack *s)
 {
     if (s->stacka < 1)
         return ;
-    s->stacka--;
-    s->b[s->stackb] = s->a[s->stacka];
-    s->a[s->stacka] = 0;
+    s->b[s->stackb] = s->a[s->stacka - 1];
+    s->a[s->stacka - 1] = 0;
     s->stackb++;
+    s->stacka--;
     printf("pb\n");
 }
