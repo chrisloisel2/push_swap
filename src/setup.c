@@ -37,7 +37,7 @@ int     ft_fill_stack(int num, char **argv, t_stack *s)
 
     y = 0;
     i = 0;
-    s->max = num;
+    s->max = num ;
     s->a = malloc(sizeof(int)* num + 1);
     s->b = malloc(sizeof(int)* num + 1);
     s->num = malloc(sizeof(int)* num + 1);
@@ -85,7 +85,7 @@ void    ft_print_stack(t_stack *s)
         i = s->stacka - 1;
     else
         i = s->stackb - 1;
-    cpy = s->i;
+    cpy = s->max - 1;
     printf("  état de la stack\n-----------------------\n");
     printf("   {%d}            {%d}\nnum = ", s->stacka, s->stackb);
     while (cpy > 0)

@@ -22,7 +22,6 @@ typedef struct  s_stack
     int     stackb;
     int     *num;
     int     max;
-    int     i;
 }               t_stack;
 
 int     ft_recup(int num, char **argv, t_stack *s);
@@ -30,6 +29,8 @@ void    ft_print_stack(t_stack *s);
 void    ft_print_stack2(t_stack *s);
 void    ft_algo(t_stack *s);
 void    ft_full_pb(t_stack *s);
+void    order(int *d, int x, int *a);
+int     ft_check_order(t_stack *s);
 void    ft_smart_depush(t_stack *s);
 void    sa(t_stack *s);
 void    sb(t_stack *s);

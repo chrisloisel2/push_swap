@@ -12,34 +12,33 @@
 
 #include "../swap.h"
 
-void    ft_marks(t_stack *s)
+void    order(int *d, int x, int *a)
 {
     int i;
     int y;
     int test;
 
-    i = s->stacka - 1;
-    s->i = i;
+    i = x - 1;
     y = 1;
     test = 2147483647;
     while (i >= 0)
     {
-        if (s->a[i] < test)
-            test = s->a[i];
+        if (a[i] < test)
+            test = a[i];
         i--;
     }
-    s->num[0] = test;
+    d[0] = test;
     test = 2147483647;
     i = 0;
-    while (y < s->stacka)
+    while (y <= x)
     {
-        while (i < s->stacka)
+        while (i <= x)
         {         
-            if (s->a[i] < test && s->a[i] > s->num[y - 1])        
-                test = s->a[i];
+            if (a[i] < test && a[i] > d[y - 1])        
+                test = a[i];
             i++;
         }
-        s->num[y] = test;
+        d[y] = test;
         test = 2147483647;
         y++;
         i = 0;
@@ -52,7 +51,7 @@ int     ft_push_swap(int num, char **argv)
     s = malloc(sizeof(t_stack));
     if (ft_recup(num, argv, s) == -1)
         return (-1);
-    ft_marks(s);
+    order(s->num, s->stacka, s->a);
     ft_algo(s);
     free(s->a);
     free(s->b);
