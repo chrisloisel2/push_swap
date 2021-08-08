@@ -12,6 +12,22 @@
 
 #include "../swap.h"
 
+int    speed_depush(t_stack *s)
+{
+    int i;
+    int y;
+
+    i = 0;
+    y = 0;
+    while (s->num[i] != s->a[s->stacka - 1])
+        i++;
+    if (s->b[s->stackb - 1] == s->num[i - 1])
+        pa(s);
+    if (i > 0)
+        return (1);
+    return (0);
+}
+ 
 int     ft_depush_first(t_stack *s, int test)
 {
     int i;
@@ -32,7 +48,7 @@ int     ft_depush_sec(t_stack *s, int test)
     int i;
 
     i = 0;
-    while (s->num[i] != test)
+    while (i < s->stackb && s->num[i] != test)
         i++;
     if (s->num[i + 1] == s->a[s->stacka - 1])
     {
@@ -50,21 +66,21 @@ int     ft_depush_reorganizer(t_stack *s, int test)
 
     y = 0;
     i = 0;
-    while (s->num[i] != test)
+    while (i < s->stackb && s->num[i] != test)
         i++;
-    while (s->num[i + 1] != s->b[s->stackb - 1])
+    while (s->stackb > 1 && s->num[i - 1] != s->b[s->stackb - 1] && speed_depush(s))
     {
         rb(s);
         y++;
     }
-    while (s->num[i + 1] == s->b[s->stackb - 1])
+    while (s->num[i - 1] == s->b[s->stackb - 1] && speed_depush(s))
     {
-        pb(s);
+        pa(s);
         i++;
     }
-    while (y > 0)
+    while (y > 0 && speed_depush(s))
     {
-        rb(s);
+        rrb(s);
         y--;
     }
     return (0);
@@ -77,5 +93,5 @@ void    ft_smart_depush(t_stack *s)
     i = s->stackb - 1;
     speed_push(s);
     if (ft_depush_first(s, s->b[i]) && ft_depush_sec(s, s->b[i - 1]))
-        ft_depush_reorganizer(s, s->b[i]);
+        ft_depush_reorganizer(s, s->a[s->stacka - 1]);
 }

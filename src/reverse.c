@@ -35,6 +35,8 @@ void    rb(t_stack *s)
     int *test;
     int i;
 
+    if (s->stackb < 2)
+        return ;
     i = 0;
     test = malloc(sizeof(int)* s->max);
     test[0] = s->b[s->stackb - 1];

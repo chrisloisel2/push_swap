@@ -24,7 +24,8 @@ SRC		=	main\
 			reverse\
 			ft_algo\
 			depush\
-			push
+			push\
+			print
 
 O		=	$(addprefix src/, $(addsuffix .o, $(SRC)))
 

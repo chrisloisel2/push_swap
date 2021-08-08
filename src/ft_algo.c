@@ -15,20 +15,24 @@
 int     ft_check_order(t_stack *s)
 {
     int i;
+    int y;
+    int test;
 
-    i = s->stacka - 1;
-    while (i > 0 && (s->a[i] < s->a[i - 1]))
-        i--;
-    if (i != 0)
-        return (1);
-    if (i == 0 && s->stackb == 0)
-        return (0);
-    i = s->stackb - 1;
-    while (i > 0 && s->a[i] > s->a[i - 1])
-        i--;
-    if (i != 0)
+    y = s->max - 1;
+    i = 0;
+    if (s->stacka == 0)
         return (2);
-    return (0);
+    test = s->num[y];
+    while (i < s->stacka && (s->a[i] == s->num[y]))
+    {
+        i++;
+        y--;
+    }
+    if (y == -1)
+        return (0);
+    if (i == s->stacka)
+        return (2);
+    return (1);
 }
 
 int     ft_milieu(t_stack *s, char c)
@@ -65,5 +69,7 @@ void    ft_algo(t_stack *s)
     int i;
     i = 0;
     while ((i = ft_check_order(s)) > 0 || s->stackb > 0)
+    {
         ft_organizer(s, i);
+    }
 }
