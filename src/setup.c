@@ -30,6 +30,37 @@ int     ft_test(char *str, t_stack *s, int max)
     return (1);
 }
 
+int     ft_fill_stack2(char **argv, t_stack *s, int num)
+{
+    int i;
+    int y;
+    char **tab;
+
+    y = 0;
+    i = 0;
+    s->max = s->stacka;
+    s->a = malloc(sizeof(int)* s->max + 1);
+    s->b = malloc(sizeof(int)* s->max + 1);
+    s->num = malloc(sizeof(int)* s->max + 1);
+    tab = ft_split(argv[1], ' ');
+    while (num >= 0)
+    {
+        while (tab[num][i] != '\0' && (ft_isdigit(tab[num][i]) || 
+                (tab[num][i] == '-' && i == 0)))
+            i++;
+        if (i != ft_strlen(tab[num]))
+            return (1);
+        if (!((tab[num][i] == '\0') && ft_test(tab[num], s, y)))
+            return (1);
+        s->a[y] = ft_atoi(tab[num]);
+        y++;
+        i = 0;
+        num--;
+    }
+    s->stacka = s->max;
+    return(0);
+}
+
 int     ft_fill_stack(int num, char **argv, t_stack *s)
 {
     int i;
@@ -44,8 +75,10 @@ int     ft_fill_stack(int num, char **argv, t_stack *s)
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
-                argv[num][i] == '-'))
+                (argv[num][i] == '-' && i == 0)))
             i++;
+        if (i != ft_strlen(argv[num]))
+            return (-1);
         if (!((argv[num][i] == '\0') && ft_test(argv[num], s, y)))
             return (-1);
         s->a[y] = ft_atoi(argv[num]);
@@ -66,8 +99,10 @@ int     ft_check_arg(int num, char **argv, t_stack *s)
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
-                argv[num][i] == '-'))
+                (argv[num][i] == '-' && i == 0)))
             i++;
+        if (i != ft_strlen(argv[num]))
+            return (-1);
         if (!(argv[num][i] == '\0'))
             return (-1);
         i = 0;
@@ -76,67 +111,40 @@ int     ft_check_arg(int num, char **argv, t_stack *s)
     return(1);
 }
 
-void    ft_print_stack(t_stack *s)
+int     ft_recup_split(char **argv, t_stack *s)
 {
     int i;
-    int cpy;
-    
-    if (s->stacka > s->stackb)
-        i = s->stacka - 1;
-    else
-        i = s->stackb - 1;
-    cpy = s->max - 1;
-    printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}            {%d}\nnum = ", s->stacka, s->stackb);
-    while (cpy > 0)
+    int len;
+
+    len = ft_strlen(argv[1]) - 1;
+    i = 0;
+    s->stacka = 1;
+    s->stackb = 0;
+    while (argv[1][i] != '\0' && (ft_isdigit(argv[1][i + 1]) || 
+                argv[1][i + 1] == '-' || argv[1][i + 1] == ' '))
     {
-        printf("%d , ", s->num[cpy]);
-        cpy--;
+        if (argv[1][i] == ' ' && (ft_isdigit(argv[1][i + 1]) || 
+                argv[1][i + 1] == '-'))
+            s->stacka++;
+        i++;
     }
-    printf("%d\n", s->num[cpy]);
-    while (i >= 0)
-    {
-        if (s->stacka > i)
-            printf("|a[%d]", s->a[i]);
-        else
-            printf("     ");
-        printf("    %d       ", i);
-        if (s->stackb > i)
-            printf("b[%d]|\n", s->b[i]);
-        else
-            printf("\n");
-        i--;
-    }
-    printf("\n");
+    if (i == len)
+        return(ft_fill_stack2(argv, s, s->stacka - 1));
+    return (1);
 }
 
 int     ft_recup(int num, char **argv, t_stack *s)
 {
-    if (ft_check_arg(num - 1, argv, s) == -1 || 
-        ft_fill_stack(num -1, argv, s) == -1)
+    if (num == 2 && (ft_strlen(argv[1]) > 2) && ft_recup_split(argv, s) == 1)
     {
-        printf("ERROR");
+        printf("ERROR\n");
+        return (-1);
+    }
+    else if (num > 2 && (ft_check_arg(num - 1, argv, s) == -1 || 
+        ft_fill_stack(num -1, argv, s) == -1))
+    {
+        printf("ERROR\n");
         return (-1);
     }
     return (0);
-}
-
-void    ft_print_stack2(t_stack *s)
-{
-      int i;
-
-    if (s->stacka > s->stackb)
-        i = s->stacka - 1;
-    else
-        i = s->stackb - 1;
-    printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}                   {%d}\n", s->stacka, s->stackb);
-    while (i >= 0)
-    {    
-        printf("|a[%d]", s->a[i]);
-        printf("    %d       ", i);
-        printf("b[%d]|\n", s->b[i]);
-        i--;
-    }
-    printf("\n");
 }

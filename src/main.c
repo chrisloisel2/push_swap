@@ -69,4 +69,5 @@ int     main(int argc, char **argv)
     }
     else
         ft_push_swap(argc, argv);
+    return (0);
 }
