@@ -70,6 +70,8 @@ void    ft_algo(t_stack *s)
     i = 0;
     while ((i = ft_check_order(s)) > 0 || s->stackb > 0)
     {
+        ft_print_stack(s);
         ft_organizer(s, i);
+        ft_print_stack(s);
     }
 }

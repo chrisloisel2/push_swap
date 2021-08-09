@@ -59,31 +59,22 @@ int    speed_depush(t_stack *s)
     return (0);
 }
  
-int     ft_depush_reorganizer(t_stack *s, int test)
+void     ft_depush(t_stack *s)
 {
     int i;
-    int y;
+    int milieu;
 
-    y = 0;
-    i = 0;
-    while (i < s->stackb && s->num[i] != test)
-        i++;
-    while (s->stackb > 1 && s->num[i - 1] != s->b[s->stackb - 1] && speed_depush(s))
+    i = s->stackb - 1;
+    milieu = ft_milieu(s, 'b');
+    while (s->stackb > ((i + 1) / 2))
     {
-        rb(s);
-        y++;
+        while (s->b[s->stackb - 1] >= milieu)
+            pa(s);
+        while (s->b[0] > s->b[s->stackb - 1])
+            rrb(s);
+        while (s->b[s->stackb - 1] < milieu && s->stackb > ((i + 1) / 2))
+            rb(s);
     }
-    while (s->num[i - 1] == s->b[s->stackb - 1] && speed_depush(s))
-    {
-        pa(s);
-        i++;
-    }
-    while (y > 0 && speed_depush(s))
-    {
-        rrb(s);
-        y--;
-    }
-    return (0);
 }
 
 void    ft_smart_depush(t_stack *s)
@@ -92,5 +83,5 @@ void    ft_smart_depush(t_stack *s)
 
     i = s->stackb - 1;
     if (ft_depush_first(s, s->b[i]) && ft_depush_sec(s, s->b[i - 1]))
-        ft_depush_reorganizer(s, s->a[s->stacka - 1]);
+        ft_depush(s);
 }
