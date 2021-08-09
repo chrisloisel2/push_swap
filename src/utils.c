@@ -20,6 +20,8 @@ void    sa(t_stack *s)
     
     if (s->stacka < 2)
         return ;
+    s->sa++;
+    s->coups++;
     indexa = s->stacka - 1;
     indexb = s->stacka - 2;
     i = s->a[indexb];
@@ -36,6 +38,8 @@ void    sb(t_stack *s)
     
     if (s->stackb < 2)
         return ;
+    s->sb++;
+    s->coups++;
     indexa = s->stackb - 1;
     indexb = s->stackb - 2;
     i = s->b[indexb];
@@ -52,6 +56,8 @@ void    ss(t_stack *s)
     
     if (s->stacka < 2 || s->stackb < 2)
         return ;
+    s->ss++;
+    s->coups++;
     indexa = s->stacka - 1;
     indexb = s->stacka - 2;
     i = s->a[indexb];
@@ -70,6 +76,8 @@ void    pa(t_stack *s)
 {
     if (s->stackb < 1)
         return ;
+    s->pa++;
+    s->coups++;
     s->a[s->stacka] = s->b[s->stackb - 1];
     s->b[s->stackb - 1] = 0;
     s->stacka++;
@@ -81,6 +89,8 @@ void    pb(t_stack *s)
 {
     if (s->stacka < 1)
         return ;
+    s->pb++;
+    s->coups++;
     s->b[s->stackb] = s->a[s->stacka - 1];
     s->a[s->stacka - 1] = 0;
     s->stackb++;

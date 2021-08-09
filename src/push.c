@@ -17,26 +17,7 @@ int    speed_push(t_stack *s)
     int i;
 
     i = 0;
-    while (s->stacka > 1 && s->a[s->stacka - 1] > s->a[0])
-    {
-        ra(s);
-        i++;
-    }
-    while (s->stackb > 1 && s->b[s->stackb - 1] < s->b[0])
-    {
-        rb(s);
-        i++;
-    }
-    if (s->stackb > 1 && s->b[s->stackb - 1] < s->b[s->stackb - 2])
-    {
-        sb(s);
-        i++;
-    }
-    if (s->stacka > 1 && s->a[s->stacka - 1] > s->a[s->stacka - 2])
-    {
-        sa(s);
-        i++;
-    }
+
     if ((i > 0) || (ft_check_order(s) != 1))
         return (0);
     return (1);

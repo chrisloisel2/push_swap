@@ -22,6 +22,21 @@ typedef struct  s_stack
     int     stackb;
     int     *num;
     int     max;
+
+
+    int rr;
+    int rrr;
+    int pa;
+    int pb;
+    int rb;
+    int ra;
+    int rrb;
+    int rra;
+    int sa;
+    int sb;
+    int ss;
+
+    int coups;
 }               t_stack;
 
 int     ft_recup(int num, char **argv, t_stack *s);
