@@ -12,6 +12,79 @@
 
 #include "../swap.h"
 
+int     speed_depush(t_stack *s)
+{
+    int topb;
+    int topa;
+    int bota;
+    int botb;
+    int seca;
+    int secb;
+
+    ft_print_stack(s);
+    if (s->stackb > 0 && s->stacka > 0)
+    {
+        topb = pos(s, s->b[s->stackb - 1]);
+        botb = pos(s, s->b[0]);
+        topa = pos(s, s->a[s->stacka - 1]);
+        bota = pos(s, s->a[0]);
+        if (s->stackb > 1)
+            secb = pos(s, s->b[s->stacka - 2]);
+        if (s->stacka > 1)
+            seca = pos(s, s->a[s->stacka - 2]);
+        if (topb < s->max && s->num[topb + 1] == s->b[s->stackb - 1])
+        {
+            sb(s);
+            return (1);
+        }
+//        printf("s->num[%d] == s->b[%d]\n",  s->num[seca - 1], s->b[s->stackb - 1]);
+        if (seca > 0 && s->num[topa - 1] == s->b[s->stackb - 2])
+        {
+            sb(s);
+            pa(s);
+            return (1);
+        }
+        if (seca > 0 && s->num[seca - 1] == s->b[s->stackb - 2])
+        {
+            sb(s);
+            pa(s);
+            sa(s);
+            return (1);
+        }
+    //    printf("s->num[%d] == s->b[%d]\n", s->num[topb + 1], s->b[0]);
+        if (topb < s->max && s->num[topb + 1] == s->b[0])
+        {
+            rrb(s);
+            return (1);
+        }
+    //    printf("s->num[%d] == s->b[%d]\n", s->num[topb + 1], s->b[s->stackb - 2]);
+        if (topb > 0 && s->num[topb + 1] == s->b[s->stackb - 2])
+        {
+            sb(s);
+            return (1);
+        }
+    //    printf("s->num[%d] == s->num[%d]\n", s->num[topb], s->num[s->max - 1]);
+        if (s->stackb > 1 && s->num[topb] == s->num[s->max - 1])
+        {
+            rb(s);
+            return (1);
+        }
+    //    printf("s->num[%d] == s->num[%d]\n", s->num[botb], s->num[topb - 1]);
+        if (s->stackb > 1 && s->num[botb] == s->num[topb - 1])
+        {
+            rb(s);
+            return (1);
+        }
+    //    printf("s->num[%d] == s->b[%d]\n", s->num[topb - 1], s->b[0]);
+        if (s->num[topb - 1] == s->b[0])
+        {
+            rrb(s);
+            return (1);
+        }
+    }
+    return (0);
+}
+
 int     ft_depush_first(t_stack *s, int test)
 {
     int i;
@@ -42,38 +115,38 @@ int     ft_depush_sec(t_stack *s, int test)
     }
     return (1);
 }
-
-int    speed_depush(t_stack *s)
-{
-    int i;
-    int y;
-
-    i = 0;
-    y = 0;
-    while (s->num[i] != s->a[s->stacka - 1])
-        i++;
-    if (s->b[s->stackb - 1] == s->num[i - 1])
-        pa(s);
-    if (i > 0)
-        return (1);
-    return (0);
-}
  
 void     ft_depush(t_stack *s)
 {
     int i;
+    int y;
     int milieu;
 
+    y = 0;
     i = s->stackb - 1;
-    milieu = ft_milieu(s, 'b');
-    while (s->stackb > ((i + 1) / 2))
+    milieu = (s->max - s->stacka) / 10;
+    milieu *= 10;
+    while (s->stackb >= milieu && s->stackb > 0)
     {
-        while (s->b[s->stackb - 1] >= milieu)
+        if (s->b[s->stackb - 1] == s->num[pos(s, s->a[s->stacka - 1]) - 1])
             pa(s);
-        while (s->b[0] > s->b[s->stackb - 1])
-            rrb(s);
-        while (s->b[s->stackb - 1] < milieu && s->stackb > ((i + 1) / 2))
+        while (s->b[s->stackb - 1] != s->num[pos(s, s->a[s->stacka - 1]) - 1])
+        {
             rb(s);
+            y++;
+        }
+        while (s->b[s->stackb - 1] == s->num[pos(s, s->a[s->stacka - 1]) - 1])
+            pa(s);
+        while (y > 1)
+        {
+            rrb(s);
+            y--;
+        }
+        while (s->a[s->stacka - 1] > s->a[s->stacka - 2])
+        {
+            sa(s);
+            pb(s);
+        }
     }
 }
 

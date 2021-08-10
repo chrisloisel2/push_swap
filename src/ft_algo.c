@@ -49,9 +49,9 @@ int     ft_milieu(t_stack *s, char c)
     }
     else
     {
-        order(nb, s->stackb, s->b);
-        res = nb[(s->stackb - 1)/2];
+        res = (s->a[s->stacka - 1] / 10);
         free(nb);
+        res *= 10;
     }
     return (res);
 }
@@ -70,7 +70,7 @@ void    ft_algo(t_stack *s)
     i = 0;
     while ((i = ft_check_order(s)) > 0 || s->stackb > 0)
     {
-        ft_print_stack(s);
+   //     ft_print_stack(s);
         ft_organizer(s, i);
         ft_print_stack(s);
     }

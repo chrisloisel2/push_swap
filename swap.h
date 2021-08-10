@@ -50,6 +50,7 @@ void    ft_smart_depush(t_stack *s);
 void    ft_smart_push(t_stack *s);
 int     speed_push(t_stack *s);
 int     ft_milieu(t_stack *s, char c);
+int     pos(t_stack *s, int t);
 void    sa(t_stack *s);
 void    sb(t_stack *s);
 void    ss(t_stack *s);
