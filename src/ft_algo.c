@@ -61,7 +61,7 @@ void    ft_organizer(t_stack *s, int i)
     if (i == 1)
         ft_smart_push(s);
     else
-        ft_smart_depush(s);
+        ft_depush(s);
 }
 
 void    ft_algo(t_stack *s)
@@ -70,7 +70,6 @@ void    ft_algo(t_stack *s)
     i = 0;
     while ((i = ft_check_order(s)) > 0 || s->stackb > 0)
     {
-   //     ft_print_stack(s);
         ft_organizer(s, i);
         ft_print_stack(s);
     }

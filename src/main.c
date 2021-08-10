@@ -60,7 +60,7 @@ int     ft_push_swap(int num, char **argv)
     s->ss = 0;
     s->rr = 0;
     s->rrr = 0;
-
+    s->push = 0;
     s->coups = 0;
     if (ft_recup(num, argv, s) == -1)
         return (-1);

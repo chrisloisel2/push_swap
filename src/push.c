@@ -59,13 +59,6 @@ int     speed_push(t_stack *s)
     {
         topb = pos(s, s->a[s->stackb - 1]);
         botb = pos(s, s->a[0]);
-//        printf("s->num[%d] == s->b[%d]\n", s->num[topb + 1], s->b[s->stackb - 1]);
-//        if (topb < s->max && s->num[topb + 1] == s->b[s->stackb - 1])
-//        {
-//            sb(s);
-//            return (1);
-//        }
-     //   printf("s->num[%d] == s->b[%d]\n", s->num[topb + 1], s->b[0]);
         if (topb < s->max && s->num[topb + 1] == s->b[0])
         {
             rrb(s);
@@ -76,7 +69,6 @@ int     speed_push(t_stack *s)
     {
         topa = pos(s, s->a[s->stacka - 1]);
         bota = pos(s, s->a[0]);
-     //   printf("s->num[%d] == s->a[%d]\n",  s->num[(pos(s, s->a[s->stacka - 3])) - 1], s->a[s->stacka - 1]);
         if (s->stacka > 2 && s->num[(pos(s, s->a[s->stacka - 3])) - 1] == s->a[s->stacka - 1])
         {
             sa(s);

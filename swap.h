@@ -36,6 +36,7 @@ typedef struct  s_stack
     int sb;
     int ss;
 
+    int push;
     int coups;
 }               t_stack;
 
@@ -51,6 +52,7 @@ void    ft_smart_push(t_stack *s);
 int     speed_push(t_stack *s);
 int     ft_milieu(t_stack *s, char c);
 int     pos(t_stack *s, int t);
+void     ft_depush(t_stack *s);
 void    sa(t_stack *s);
 void    sb(t_stack *s);
 void    ss(t_stack *s);
