@@ -54,7 +54,6 @@ int     speed_push(t_stack *s)
     int bota;
     int botb;
 
-    ft_print_stack(s);
     if (s->stackb > 0 && s->stacka > 0)
     {
         topb = pos(s, s->a[s->stackb - 1]);

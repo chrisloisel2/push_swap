@@ -66,7 +66,6 @@ int     ft_push_swap(int num, char **argv)
         return (-1);
     order(s->num, s->stacka, s->a);
     ft_algo(s);
- //   ft_print_stack(s);
     free(s->a);
     free(s->b);
     free(s->num);
