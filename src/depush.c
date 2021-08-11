@@ -14,9 +14,25 @@
 
 int     linking(t_stack *s)
 {
+    if (s->num[pos(s, s->a[s->stacka - 1]) + 1] == s->a[s->stacka - 3])
+    {
+        sa(s);
+        return (1);
+    }
+    if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->b[s->stackb - 2])
+    {
+        sb(s);
+        pa(s);
+        return (1);
+    }
     if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->b[s->stackb - 1])
     {
         pa(s);
+        return (1);
+    }
+    if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->a[0])
+    {
+        rra(s);
         return (1);
     }
     if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->b[0])
@@ -25,20 +41,50 @@ int     linking(t_stack *s)
         pa(s);
         return (2);
     }
-    return (1);
+    return (0);
 }
 
-int     ft_depush_two(t_stack *s, int i)
+int     ft_inversed_push(t_stack *s, int i, int min)
 {
     int t;
+    int y;
 
+    y = 0;
     t = 0;
     while (i > 2)
     {
-        rb(s);
-        i--;
-        t++;
+        while (i > 2 && s->b[s->stackb - 1] < min)
+        {
+            rb(s);
+            i--;
+            t++;
+        }
+        while (i > 2 && s->b[s->stackb - 1] >= min)
+        {
+            pa(s);
+            while (s->a[0] != s->num[s->max - 1] && s->a[0] > s->a[s->stacka - 1])
+            {
+                rra(s);
+                sa(s);
+                y++;
+            }
+            while (y > 0)
+            {
+                y--;
+                ra(s);
+            }
+            ra(s);
+            i--;
+        }
     }
+    return (t);
+}
+
+int     ft_depush_two(t_stack *s, int i, int min)
+{
+    int t;
+
+    t = ft_inversed_push(s, i, min);
     sb(s);
     pa(s);
     while (t > 0)
@@ -67,16 +113,21 @@ int     speed_depush(t_stack *s, int min, int max, int milieu)
         botb = pos(s, s->b[0]);
         topa = pos(s, s->a[s->stacka - 1]);
         bota = pos(s, s->a[0]);
-        min = 0;
-        max = 0;
         int i;
 
         i = 1;
-        while (s->num[topa - 1] != s->b[s->stackb - i])
+        if (s->num[pos(s, s->a[s->stacka - 1]) + 1] == s->a[s->stacka - 3])
+        {
+            sa(s);
+            return (1);
+        }
+        while (i <= s->stackb && s->num[topa - 1] != s->b[s->stackb - i])
             i++;
+        if (i > s->stackb)
+            return (1);
         if (i > 2)
         {
-            ft_depush_two(s, i);
+            ft_depush_two(s, i, min);
             return (1);
         }
         if (i == 2)
@@ -101,7 +152,7 @@ int     speed_depush(t_stack *s, int min, int max, int milieu)
 
 int     ft_fixing(t_stack *s)
 {
-    ft_print_stack(s);
+    linking(s);
     return (0);
 }
 
@@ -125,8 +176,7 @@ void     ft_depush(t_stack *s)
     max = s->num[(milieu) + 9];
     while (s->stackb >= milieu && s->stackb > 0)
     {
-        if  (ft_check_order(s) == 1)
-            ft_fixing(s);
+        ft_fixing(s);
         if (s->b[s->stackb - 1] >= min && s->b[s->stackb - 1] <= max)
             speed_depush(s, min, max, mil);
         else
@@ -135,7 +185,7 @@ void     ft_depush(t_stack *s)
             s->push++;
         }
     }
-    while (s->push > 0)// && s->b[0] > s->b[s->stackb - 1]
+    while (s->push > 0)
     {
         rrb(s);
         if (linking(s) == 2)
