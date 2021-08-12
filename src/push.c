@@ -100,17 +100,15 @@ int     speed_push(t_lst *s)
 void    ft_smart_push(t_lst *s)
 {
     int i;
-    int milieu;
 
     i = s->lena - 1;
-    milieu = ft_milieu(s, 'a');
     while (s->lena > ((i + 1) / 2) && (ft_check_order(s) == 1))
     {
-        while (s->a[s->lena - 1] <= milieu && !speed_push(s))
+        while (s->a[s->lena - 1] <= s->min && !speed_push(s))
             pb(s);
         while (s->a[0] < s->a[s->lena - 1] && !speed_push(s))
             rra(s);
-        while (s->a[s->lena - 1] > milieu && s->lena > ((i + 1) / 2) && !speed_push(s))
+        while (s->a[s->lena - 1] > s->min && s->lena > ((i + 1) / 2) && !speed_push(s))
             ra(s);
     }
 }

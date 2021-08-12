@@ -50,8 +50,10 @@ void    ft_algo(t_lst *s)
     int i;
     i = 0;
     s->range = s->lena / 2;
-    s->posmax = s->lena;
+    s->posmax = s->lena - 1;
     s->posmin = s->posmax - s->range;
+    s->max = s->tl[s->posmax];
+    s->min = s->tl[s->posmin];
     while ((i = ft_check_order(s)) > 0)
     {
         ft_organizer(s, i);
