@@ -26,10 +26,10 @@ void    ft_print_lst(t_lst *s)
     printf("   {%d}            {%d}\nnum = ", s->lena, s->lenb);
     while (cpy > 0)
     {
-        printf("%d , ", s->num[cpy]);
+        printf("%d , ", s->tl[cpy]);
         cpy--;
     }
-    printf("%d\n", s->num[cpy]);
+    printf("%d\n", s->tl[cpy]);
     while (i >= 0)
     {
         if (s->lena > i)

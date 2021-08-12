@@ -20,8 +20,11 @@ typedef struct  s_lst
     int     *b;
     int     lena;
     int     lenb;
-    int     *num;
+    int     lenmax;
+    int     *tl;
+    int     min;
     int     max;
+    int     range;
 
     int push;
     struct s_lst *next;
@@ -54,5 +57,9 @@ void    rr(t_lst *s);
 void    rra(t_lst *s);
 void    rrb(t_lst *s);
 void    rrr(t_lst *s);
+
+void	lstadd_back(t_lst **alst, t_lst *new);
+t_lst	*lstlast(t_lst *lst);
+t_lst	*lstnew();
 
 #endif

@@ -12,49 +12,44 @@
 
 #include "../swap.h"
 
-int     ft_milieu(t_lst *s, char c)
+t_lst	*lstnew()
 {
-    int res;
-    int *nb;
+	t_lst *lsnext;
 
-    nb = malloc(sizeof(int)* s->max + 1);
-    if (c == 'a')
-    {
-        order(nb, s->lena, s->a);
-        res = nb[(s->lena - 1)/2];
-        free(nb);
-    }
-    else
-    {
-        res = (s->a[s->lena - 1] / 10);
-        free(nb);
-        res *= 10;
-    }
-    return (res);
+	if (!(lsnext = malloc(sizeof(t_lst))))
+		return (NULL);
+	lsnext->next = NULL;
+	return (lsnext);
 }
 
-void    ft_organizer(t_lst *s, int i)
+t_lst	*lstlast(t_lst *lst)
 {
-    if (i == 1)
-    {
-        lstadd_back(&s, lstnew());
-        s = (lstlast(s));
-        ft_smart_push(s);
-    }
-    else
-    {
-        ft_depush(s);
-    }
+	t_lst	*t;
+
+	t = lst;
+	if (lst != NULL)
+	{
+		while (t->next != NULL)
+			t = t->next;
+	}
+	return (t);
 }
 
-void    ft_algo(t_lst *s)
+void	lstadd_back(t_lst **alst, t_lst *new)
 {
-    int i;
-    i = 0;
-    s->range = s->lena / 2;
-    while ((i = ft_check_order(s)) > 0)
-    {
-        ft_organizer(s, i);
-        ft_print_lst(s);
-    }
+	t_lst *p;
+
+	if (*alst == NULL)
+	{
+		new->next = NULL;
+		*alst = new;
+	}
+	p = (lstlast(*alst));
+	p->next = new;
+	new->next = NULL;
+    new->a = p->a;
+    new->b = p->b;
+    new->max = p->max;
+    new->min = p->min;
+    new->range = p->range / 2;
 }

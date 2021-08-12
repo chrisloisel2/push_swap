@@ -14,28 +14,28 @@
 
 int     linking(t_lst *s)
 {
-    if (s->num[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
+    if (s->tl[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
     {
         sa(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 2])
+    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 2])
     {
         sb(s);
         pa(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 1])
+    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 1])
     {
         pa(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->a[0])
+    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->a[0])
     {
         rra(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->b[0])
+    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->b[0])
     {
         rrb(s);
         pa(s);
@@ -62,7 +62,7 @@ int     ft_inversed_push(t_lst *s, int i, int min)
         while (i > 2 && s->b[s->lenb - 1] >= min)
         {
             pa(s);
-            while (s->a[0] != s->num[s->max - 1] && s->a[0] > s->a[s->lena - 1])
+            while (s->a[0] != s->tl[s->max - 1] && s->a[0] > s->a[s->lena - 1])
             {
                 rra(s);
                 sa(s);
@@ -116,12 +116,12 @@ int     speed_depush(t_lst *s, int min, int milieu)
         int i;
 
         i = 1;
-        if (s->num[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
+        if (s->tl[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
         {
             sa(s);
             return (1);
         }
-        while (i <= s->lenb && s->num[topa - 1] != s->b[s->lenb - i])
+        while (i <= s->lenb && s->tl[topa - 1] != s->b[s->lenb - i])
             i++;
         if (i > s->lenb)
             return (1);
@@ -136,12 +136,12 @@ int     speed_depush(t_lst *s, int min, int milieu)
             pb(s);
             return (1);
         }
-        if (s->num[topa - 1] == s->b[s->lenb - 1])
+        if (s->tl[topa - 1] == s->b[s->lenb - 1])
         {
             pa(s);
             return (1);
         }
-        if (s->b[s->lenb - 1] >= s->num[milieu])
+        if (s->b[s->lenb - 1] >= s->tl[milieu])
         {
             pa(s);
             return (1);
@@ -163,11 +163,11 @@ void     ft_depush(t_lst *s)
     i = s->lenb - 1;
     milieu = (s->max - s->lena) / 10;
     milieu *= 10;
-    mil = s->num[(5 + milieu)];
-    min = s->num[(milieu) - 1];
+    mil = s->tl[(5 + milieu)];
+    min = s->tl[(milieu) - 1];
     if (milieu == 0)
-        min = s->num[0];
-    max = s->num[(milieu) + 9];
+        min = s->tl[0];
+    max = s->tl[(milieu) + 9];
     while (s->lenb >= milieu && s->lenb > 0)
     {
         linking(s);

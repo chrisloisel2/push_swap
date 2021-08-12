@@ -26,7 +26,8 @@ SRC		=	main\
 			depush\
 			push\
 			print\
-			order
+			order\
+			list
 
 O		=	$(addprefix src/, $(addsuffix .o, $(SRC)))
 

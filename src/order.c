@@ -55,8 +55,8 @@ int     ft_check_order(t_lst *s)
     i = 0;
     if (s->lena == 0)
         return (2);
-    test = s->num[y];
-    while (i < s->lena && (s->a[i] == s->num[y]))
+    test = s->tl[y];
+    while (i < s->lena && (s->a[i] == s->tl[y]))
     {
         i++;
         y--;

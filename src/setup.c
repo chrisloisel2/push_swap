@@ -38,10 +38,10 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num)
 
     y = 0;
     i = 0;
-    s->max = s->lena;
-    s->a = malloc(sizeof(int)* s->max + 1);
-    s->b = malloc(sizeof(int)* s->max + 1);
-    s->num = malloc(sizeof(int)* s->max + 1);
+    s->lenmax = s->lena;
+    s->a = malloc(sizeof(int)* s->lenmax + 1);
+    s->b = malloc(sizeof(int)* s->lenmax + 1);
+    s->tl = malloc(sizeof(int)* s->lenmax + 1);
     tab = ft_split(argv[1], ' ');
     while (num >= 0)
     {
@@ -57,7 +57,7 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num)
         i = 0;
         num--;
     }
-    s->lena = s->max;
+    s->lena = s->lenmax;
     return(0);
 }
 
@@ -71,7 +71,7 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s)
     s->max = num ;
     s->a = malloc(sizeof(int)* num + 1);
     s->b = malloc(sizeof(int)* num + 1);
-    s->num = malloc(sizeof(int)* num + 1);
+    s->tl = malloc(sizeof(int)* num + 1);
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
