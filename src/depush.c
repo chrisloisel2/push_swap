@@ -62,7 +62,7 @@ int     ft_inversed_push(t_lst *s, int i, int min)
         while (i > 2 && s->b[s->lenb - 1] >= min)
         {
             pa(s);
-            while (s->a[0] != s->tl[s->max - 1] && s->a[0] > s->a[s->lena - 1])
+            while (s->a[0] != s->tl[s->lenmax - 1] && s->a[0] > s->a[s->lena - 1])
             {
                 rra(s);
                 sa(s);
@@ -102,17 +102,11 @@ int     ft_depush_two(t_lst *s, int i, int min)
 
 int     speed_depush(t_lst *s, int min, int milieu)
 {
-    int topb;
     int topa;
-    int bota;
-    int botb;
 
     if (s->lenb > 0 && s->lena > 0)
     {
-        topb = pos(s, s->b[s->lenb - 1]);
-        botb = pos(s, s->b[0]);
         topa = pos(s, s->a[s->lena - 1]);
-        bota = pos(s, s->a[0]);
         int i;
 
         i = 1;
@@ -152,16 +146,12 @@ int     speed_depush(t_lst *s, int min, int milieu)
 
 void     ft_depush(t_lst *s)
 {
-    int i;
-    int y;
     int max;
     int min;
     int milieu;
     int mil;
 
-    y = 0;
-    i = s->lenb - 1;
-    milieu = (s->max - s->lena) / 10;
+    milieu = (s->lenmax - s->lena) / 10;
     milieu *= 10;
     mil = s->tl[(5 + milieu)];
     min = s->tl[(milieu) - 1];

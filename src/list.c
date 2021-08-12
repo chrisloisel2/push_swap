@@ -49,7 +49,19 @@ void	lstadd_back(t_lst **alst, t_lst *new)
 	new->next = NULL;
     new->a = p->a;
     new->b = p->b;
-    new->max = p->max;
-    new->min = p->min;
+	new->lena = p->lena;
+	new->lenb = p->lenb;
+	new->lenmax = p->lenmax;
+
     new->range = p->range / 2;
+	new->tl = p->tl;
+	ft_print_lst(new);
+	new->posmax = p->posmin--;
+	new->posmin = new->posmax - new->range;
+    new->max = new->tl[new->posmax];
+    new->min = new->tl[new->posmin];
+
+
+	new->prev = p;
+	new->push = 0;
 }

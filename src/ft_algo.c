@@ -17,7 +17,7 @@ int     ft_milieu(t_lst *s, char c)
     int res;
     int *nb;
 
-    nb = malloc(sizeof(int)* s->max + 1);
+    nb = malloc(sizeof(int)* s->lenmax + 1);
     if (c == 'a')
     {
         order(nb, s->lena, s->a);
@@ -37,8 +37,6 @@ void    ft_organizer(t_lst *s, int i)
 {
     if (i == 1)
     {
-        lstadd_back(&s, lstnew());
-        s = (lstlast(s));
         ft_smart_push(s);
     }
     else
@@ -52,9 +50,16 @@ void    ft_algo(t_lst *s)
     int i;
     i = 0;
     s->range = s->lena / 2;
+    s->posmax = s->lena;
+    s->posmin = s->posmax - s->range;
     while ((i = ft_check_order(s)) > 0)
     {
         ft_organizer(s, i);
         ft_print_lst(s);
+        if ((i = ft_check_order(s)) == 1)
+        {        
+            lstadd_back(&s, lstnew());
+            s = (lstlast(s));
+        }
     }
 }

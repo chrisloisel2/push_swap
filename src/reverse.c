@@ -18,7 +18,7 @@ void    ra(t_lst *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->max);
+    test = malloc(sizeof(int)* s->lenmax);
     test[0] = s->a[s->lena - 1];
     while (i < s->lena - 1)
     {
@@ -38,7 +38,7 @@ void    rb(t_lst *s)
     if (s->lenb < 2)
         return ;
     i = 0;
-    test = malloc(sizeof(int)* s->max);
+    test = malloc(sizeof(int)* s->lenmax);
     test[0] = s->b[s->lenb - 1];
     while (i < s->lenb - 1)
     {
@@ -56,7 +56,7 @@ void    ft_rb(t_lst *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->max);
+    test = malloc(sizeof(int)* s->lenmax);
     test[0] = s->b[s->lenb - 1];
     while (i < s->lenb - 1)
     {
@@ -73,7 +73,7 @@ void    ft_ra(t_lst *s)
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->max);
+    test = malloc(sizeof(int)* s->lenmax);
     test[0] = s->a[s->lena - 1];
     while (i < s->lena - 1)
     {

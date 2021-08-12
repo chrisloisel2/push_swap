@@ -25,6 +25,8 @@ typedef struct  s_lst
     int     min;
     int     max;
     int     range;
+    int     posmax;
+	int     posmin;
 
     int push;
     struct s_lst *next;

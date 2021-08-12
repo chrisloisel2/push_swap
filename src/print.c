@@ -21,7 +21,7 @@ void    ft_print_lst(t_lst *s)
         i = s->lena - 1;
     else
         i = s->lenb - 1;
-    cpy = s->max - 1;
+    cpy = s->lenmax - 1;
     printf("  état de la stack\n-----------------------\n");
     printf("   {%d}            {%d}\nnum = ", s->lena, s->lenb);
     while (cpy > 0)

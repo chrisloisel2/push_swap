@@ -49,13 +49,11 @@ int     ft_check_order(t_lst *s)
 {
     int i;
     int y;
-    int test;
 
-    y = s->max - 1;
+    y = s->lenmax - 1;
     i = 0;
     if (s->lena == 0)
         return (2);
-    test = s->tl[y];
     while (i < s->lena && (s->a[i] == s->tl[y]))
     {
         i++;

@@ -17,14 +17,14 @@ int     pos(t_lst *s, int t)
     int i;
 
     i = 0;
-    while (i < s->max && s->tl[i] != t)
+    while (i < s->lenmax && s->tl[i] != t)
         i++;
     return (i);
 }
 
 int     push_last_n(t_lst *s, int topa)
 {
-    if (s->lena > 1 && s->tl[topa] == s->tl[s->max - 1] && s->a[s->lena - 2] == s->tl[(topa - 1)])
+    if (s->lena > 1 && s->tl[topa] == s->tl[s->lenmax - 1] && s->a[s->lena - 2] == s->tl[(topa - 1)])
     {
         int y;
 
@@ -52,13 +52,11 @@ int     speed_push(t_lst *s)
     int topb;
     int topa;
     int bota;
-    int botb;
 
     if (s->lenb > 0 && s->lena > 0)
     {
         topb = pos(s, s->a[s->lenb - 1]);
-        botb = pos(s, s->a[0]);
-        if (topb < s->max && s->tl[topb + 1] == s->b[0])
+        if (topb < s->lenmax && s->tl[topb + 1] == s->b[0])
         {
             rrb(s);
             return (1);
@@ -80,7 +78,7 @@ int     speed_push(t_lst *s)
         }
         if (push_last_n(s, topa))
             return (1);
-        if (s->lena > 1 && s->tl[topa] == s->tl[s->max - 1])
+        if (s->lena > 1 && s->tl[topa] == s->tl[s->lenmax - 1])
         {
             ra(s);
             return (1);
