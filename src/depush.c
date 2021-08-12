@@ -12,30 +12,30 @@
 
 #include "../swap.h"
 
-int     linking(t_stack *s)
+int     linking(t_lst *s)
 {
-    if (s->num[pos(s, s->a[s->stacka - 1]) + 1] == s->a[s->stacka - 3])
+    if (s->num[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
     {
         sa(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->b[s->stackb - 2])
+    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 2])
     {
         sb(s);
         pa(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->b[s->stackb - 1])
+    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 1])
     {
         pa(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->a[0])
+    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->a[0])
     {
         rra(s);
         return (1);
     }
-    if (s->num[pos(s, s->a[s->stacka - 1]) - 1] == s->b[0])
+    if (s->num[pos(s, s->a[s->lena - 1]) - 1] == s->b[0])
     {
         rrb(s);
         pa(s);
@@ -44,7 +44,7 @@ int     linking(t_stack *s)
     return (0);
 }
 
-int     ft_inversed_push(t_stack *s, int i, int min)
+int     ft_inversed_push(t_lst *s, int i, int min)
 {
     int t;
     int y;
@@ -53,16 +53,16 @@ int     ft_inversed_push(t_stack *s, int i, int min)
     t = 0;
     while (i > 2)
     {
-        while (i > 2 && s->b[s->stackb - 1] < min)
+        while (i > 2 && s->b[s->lenb - 1] < min)
         {
             rb(s);
             i--;
             t++;
         }
-        while (i > 2 && s->b[s->stackb - 1] >= min)
+        while (i > 2 && s->b[s->lenb - 1] >= min)
         {
             pa(s);
-            while (s->a[0] != s->num[s->max - 1] && s->a[0] > s->a[s->stacka - 1])
+            while (s->a[0] != s->num[s->max - 1] && s->a[0] > s->a[s->lena - 1])
             {
                 rra(s);
                 sa(s);
@@ -80,7 +80,7 @@ int     ft_inversed_push(t_stack *s, int i, int min)
     return (t);
 }
 
-int     ft_depush_two(t_stack *s, int i, int min)
+int     ft_depush_two(t_lst *s, int i, int min)
 {
     int t;
 
@@ -100,30 +100,30 @@ int     ft_depush_two(t_stack *s, int i, int min)
     return (0);
 }
 
-int     speed_depush(t_stack *s, int min, int max, int milieu)
+int     speed_depush(t_lst *s, int min, int milieu)
 {
     int topb;
     int topa;
     int bota;
     int botb;
 
-    if (s->stackb > 0 && s->stacka > 0)
+    if (s->lenb > 0 && s->lena > 0)
     {
-        topb = pos(s, s->b[s->stackb - 1]);
+        topb = pos(s, s->b[s->lenb - 1]);
         botb = pos(s, s->b[0]);
-        topa = pos(s, s->a[s->stacka - 1]);
+        topa = pos(s, s->a[s->lena - 1]);
         bota = pos(s, s->a[0]);
         int i;
 
         i = 1;
-        if (s->num[pos(s, s->a[s->stacka - 1]) + 1] == s->a[s->stacka - 3])
+        if (s->num[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
         {
             sa(s);
             return (1);
         }
-        while (i <= s->stackb && s->num[topa - 1] != s->b[s->stackb - i])
+        while (i <= s->lenb && s->num[topa - 1] != s->b[s->lenb - i])
             i++;
-        if (i > s->stackb)
+        if (i > s->lenb)
             return (1);
         if (i > 2)
         {
@@ -136,12 +136,12 @@ int     speed_depush(t_stack *s, int min, int max, int milieu)
             pb(s);
             return (1);
         }
-        if (s->num[topa - 1] == s->b[s->stackb - 1])
+        if (s->num[topa - 1] == s->b[s->lenb - 1])
         {
             pa(s);
             return (1);
         }
-        if (s->b[s->stackb - 1] >= s->num[milieu])
+        if (s->b[s->lenb - 1] >= s->num[milieu])
         {
             pa(s);
             return (1);
@@ -150,13 +150,7 @@ int     speed_depush(t_stack *s, int min, int max, int milieu)
     return (0);
 }
 
-int     ft_fixing(t_stack *s)
-{
-    linking(s);
-    return (0);
-}
-
-void     ft_depush(t_stack *s)
+void     ft_depush(t_lst *s)
 {
     int i;
     int y;
@@ -166,19 +160,19 @@ void     ft_depush(t_stack *s)
     int mil;
 
     y = 0;
-    i = s->stackb - 1;
-    milieu = (s->max - s->stacka) / 10;
+    i = s->lenb - 1;
+    milieu = (s->max - s->lena) / 10;
     milieu *= 10;
     mil = s->num[(5 + milieu)];
     min = s->num[(milieu) - 1];
     if (milieu == 0)
         min = s->num[0];
     max = s->num[(milieu) + 9];
-    while (s->stackb >= milieu && s->stackb > 0)
+    while (s->lenb >= milieu && s->lenb > 0)
     {
-        ft_fixing(s);
-        if (s->b[s->stackb - 1] >= min && s->b[s->stackb - 1] <= max)
-            speed_depush(s, min, max, mil);
+        linking(s);
+        if (s->b[s->lenb - 1] >= min && s->b[s->lenb - 1] <= max)
+            speed_depush(s, min, mil);
         else
         {
             rb(s);

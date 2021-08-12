@@ -14,55 +14,45 @@
 # define SWAP_H
 #include "libft/libft.h"
 
-typedef struct  s_stack
+typedef struct  s_lst
 {
     int     *a;
     int     *b;
-    int     stacka;
-    int     stackb;
+    int     lena;
+    int     lenb;
     int     *num;
     int     max;
 
-
-    int rr;
-    int rrr;
-    int pa;
-    int pb;
-    int rb;
-    int ra;
-    int rrb;
-    int rra;
-    int sa;
-    int sb;
-    int ss;
-
     int push;
-    int coups;
-}               t_stack;
+    struct s_lst *next;
+    struct s_lst *prev;
+}               t_lst;
 
-int     ft_recup(int num, char **argv, t_stack *s);
-void    ft_print_stack(t_stack *s);
-void    ft_print_stack2(t_stack *s);
-void    ft_algo(t_stack *s);
-void    ft_full_pb(t_stack *s);
+int     ft_recup(int num, char **argv, t_lst *s);
+void    ft_print_lst(t_lst *s);
+void    ft_print_lst2(t_lst *s);
+void    ft_algo(t_lst *s);
+void    ft_full_pb(t_lst *s);
 void    order(int *d, int x, int *a);
-int     ft_check_order(t_stack *s);
-void    ft_smart_depush(t_stack *s);
-void    ft_smart_push(t_stack *s);
-int     speed_push(t_stack *s);
-int     ft_milieu(t_stack *s, char c);
-int     pos(t_stack *s, int t);
-void     ft_depush(t_stack *s);
-void    sa(t_stack *s);
-void    sb(t_stack *s);
-void    ss(t_stack *s);
-void    pa(t_stack *s);
-void    pb(t_stack *s);
-void    ra(t_stack *s);
-void    rb(t_stack *s);
-void    rr(t_stack *s);
-void    rra(t_stack *s);
-void    rrb(t_stack *s);
-void    rrr(t_stack *s);
+int     ft_check_order(t_lst *s);
+void    ft_smart_depush(t_lst *s);
+void    ft_smart_push(t_lst *s);
+int     speed_push(t_lst *s);
+int     ft_milieu(t_lst *s, char c);
+int     pos(t_lst *s, int t);
+void     ft_depush(t_lst *s);
+void    order(int *d, int x, int *a);
+int     ft_check_order(t_lst *s);
+void    sa(t_lst *s);
+void    sb(t_lst *s);
+void    ss(t_lst *s);
+void    pa(t_lst *s);
+void    pb(t_lst *s);
+void    ra(t_lst *s);
+void    rb(t_lst *s);
+void    rr(t_lst *s);
+void    rra(t_lst *s);
+void    rrb(t_lst *s);
+void    rrr(t_lst *s);
 
 #endif

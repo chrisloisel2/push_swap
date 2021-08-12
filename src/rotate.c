@@ -12,17 +12,15 @@
 
 #include "../swap.h"
 
-void    rra(t_stack *s)
+void    rra(t_lst *s)
 {
     int *test;
     int i;
 
     i = 0;
-    s->rra++;
-    s->coups++;
     test = malloc(sizeof(int)* s->max + 1);
-    test[s->stacka - 1] = s->a[0];
-    while (i < s->stacka - 1)
+    test[s->lena - 1] = s->a[0];
+    while (i < s->lena - 1)
     {
         test[i] = s->a[i + 1];
         i++;
@@ -32,17 +30,15 @@ void    rra(t_stack *s)
     s->a = test;
 }
 
-void    rrb(t_stack *s)
+void    rrb(t_lst *s)
 {
     int *test;
     int i;
 
     i = 0;
-    s->rrb++;
-    s->coups++;
     test = malloc(sizeof(int)* s->max + 1);
-    test[s->stackb - 1] = s->b[0];
-    while (i < s->stackb - 1)
+    test[s->lenb - 1] = s->b[0];
+    while (i < s->lenb - 1)
     {
         test[i] = s->b[i + 1];
         i++;
@@ -52,15 +48,15 @@ void    rrb(t_stack *s)
     s->b = test;
 }
 
-void    ft_rra(t_stack *s)
+void    ft_rra(t_lst *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->max + 1);
-    test[s->stacka - 1] = s->a[0];
-    while (i < s->stacka - 1)
+    test[s->lena - 1] = s->a[0];
+    while (i < s->lena - 1)
     {
         test[i] = s->a[i + 1];
         i++;
@@ -69,15 +65,15 @@ void    ft_rra(t_stack *s)
     s->a = test;
 }
 
-void    ft_rrb(t_stack *s)
+void    ft_rrb(t_lst *s)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->max + 1);
-    test[s->stackb - 1] = s->b[0];
-    while (i < s->stackb - 1)
+    test[s->lenb - 1] = s->b[0];
+    while (i < s->lenb - 1)
     {
         test[i] = s->b[i + 1];
         i++;
@@ -86,10 +82,8 @@ void    ft_rrb(t_stack *s)
     s->b = test;
 }
 
-void    rrr(t_stack *s)
+void    rrr(t_lst *s)
 {
-    s->rrr++;
-    s->coups++;
     ft_rra(s);
     ft_rrb(s);
     printf("rrr\n");

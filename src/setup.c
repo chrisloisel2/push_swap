@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-int     ft_test(char *str, t_stack *s, int max)
+int     ft_test(char *str,  t_lst *s, int max)
 {
     int i;
     long test;
@@ -30,7 +30,7 @@ int     ft_test(char *str, t_stack *s, int max)
     return (1);
 }
 
-int     ft_fill_stack2(char **argv, t_stack *s, int num)
+int     ft_fill_stack2(char **argv,  t_lst *s, int num)
 {
     int i;
     int y;
@@ -38,7 +38,7 @@ int     ft_fill_stack2(char **argv, t_stack *s, int num)
 
     y = 0;
     i = 0;
-    s->max = s->stacka;
+    s->max = s->lena;
     s->a = malloc(sizeof(int)* s->max + 1);
     s->b = malloc(sizeof(int)* s->max + 1);
     s->num = malloc(sizeof(int)* s->max + 1);
@@ -57,11 +57,11 @@ int     ft_fill_stack2(char **argv, t_stack *s, int num)
         i = 0;
         num--;
     }
-    s->stacka = s->max;
+    s->lena = s->max;
     return(0);
 }
 
-int     ft_fill_stack(int num, char **argv, t_stack *s)
+int     ft_fill_stack(int num, char **argv,  t_lst *s)
 {
     int i;
     int y;
@@ -89,13 +89,13 @@ int     ft_fill_stack(int num, char **argv, t_stack *s)
     return(1);
 }
 
-int     ft_check_arg(int num, char **argv, t_stack *s)
+int     ft_check_arg(int num, char **argv,  t_lst *s)
 {
     int i;
 
     i = 0;
-    s->stacka = num;
-    s->stackb = 0;
+    s->lena = num;
+    s->lenb = 0;
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
@@ -111,29 +111,29 @@ int     ft_check_arg(int num, char **argv, t_stack *s)
     return(1);
 }
 
-int     ft_recup_split(char **argv, t_stack *s)
+int     ft_recup_split(char **argv,  t_lst *s)
 {
     int i;
     int len;
 
     len = ft_strlen(argv[1]) - 1;
     i = 0;
-    s->stacka = 1;
-    s->stackb = 0;
+    s->lena = 1;
+    s->lenb = 0;
     while (argv[1][i] != '\0' && (ft_isdigit(argv[1][i + 1]) || 
                 argv[1][i + 1] == '-' || argv[1][i + 1] == ' '))
     {
         if (argv[1][i] == ' ' && (ft_isdigit(argv[1][i + 1]) || 
                 argv[1][i + 1] == '-'))
-            s->stacka++;
+            s->lena++;
         i++;
     }
     if (i == len)
-        return(ft_fill_stack2(argv, s, s->stacka - 1));
+        return(ft_fill_stack2(argv, s, s->lena - 1));
     return (1);
 }
 
-int     ft_recup(int num, char **argv, t_stack *s)
+int     ft_recup(int num, char **argv,  t_lst *s)
 {
     if (num == 2 && (ft_strlen(argv[1]) > 2) && ft_recup_split(argv, s) == 1)
     {

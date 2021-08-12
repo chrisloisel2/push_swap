@@ -25,7 +25,8 @@ SRC		=	main\
 			ft_algo\
 			depush\
 			push\
-			print
+			print\
+			order
 
 O		=	$(addprefix src/, $(addsuffix .o, $(SRC)))
 

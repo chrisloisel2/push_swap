@@ -12,59 +12,53 @@
 
 #include "../swap.h"
 
-void    sa(t_stack *s)
+void    sa(t_lst *s)
 {
     int i;
     int indexa;
     int indexb;
     
-    if (s->stacka < 2)
+    if (s->lena < 2)
         return ;
-    s->sa++;
-    s->coups++;
-    indexa = s->stacka - 1;
-    indexb = s->stacka - 2;
+    indexa = s->lena - 1;
+    indexb = s->lena - 2;
     i = s->a[indexb];
     s->a[indexb] = s->a[indexa];
     s->a[indexa] = i;
     printf("sa\n");
 }
 
-void    sb(t_stack *s)
+void    sb(t_lst *s)
 { 
     int i;
     int indexa;
     int indexb;
     
-    if (s->stackb < 2)
+    if (s->lenb < 2)
         return ;
-    s->sb++;
-    s->coups++;
-    indexa = s->stackb - 1;
-    indexb = s->stackb - 2;
+    indexa = s->lenb - 1;
+    indexb = s->lenb - 2;
     i = s->b[indexb];
     s->b[indexb] = s->b[indexa];
     s->b[indexa] = i;
     printf("sb\n");
 }
 
-void    ss(t_stack *s)
+void    ss(t_lst *s)
 {
     int i;
     int indexa;
     int indexb;
     
-    if (s->stacka < 2 || s->stackb < 2)
+    if (s->lena < 2 || s->lenb < 2)
         return ;
-    s->ss++;
-    s->coups++;
-    indexa = s->stacka - 1;
-    indexb = s->stacka - 2;
+    indexa = s->lena - 1;
+    indexb = s->lena - 2;
     i = s->a[indexb];
     s->a[indexb] = s->a[indexa];
     s->a[indexa] = i;
-    indexa = s->stackb - 1;
-    indexb = s->stackb - 2;
+    indexa = s->lenb - 1;
+    indexb = s->lenb - 2;
     i = s->b[indexb];
     s->b[indexb] = s->b[indexa];
     s->b[indexa] = i;
@@ -72,28 +66,24 @@ void    ss(t_stack *s)
 
 }
 
-void    pa(t_stack *s)
+void    pa(t_lst *s)
 {
-    if (s->stackb < 1)
+    if (s->lenb < 1)
         return ;
-    s->pa++;
-    s->coups++;
-    s->a[s->stacka] = s->b[s->stackb - 1];
-    s->b[s->stackb - 1] = 0;
-    s->stacka++;
-    s->stackb--;
+    s->a[s->lena] = s->b[s->lenb - 1];
+    s->b[s->lenb - 1] = 0;
+    s->lena++;
+    s->lenb--;
     printf("pa\n");
 }
 
-void    pb(t_stack *s)
+void    pb(t_lst *s)
 {
-    if (s->stacka < 1)
+    if (s->lena < 1)
         return ;
-    s->pb++;
-    s->coups++;
-    s->b[s->stackb] = s->a[s->stacka - 1];
-    s->a[s->stacka - 1] = 0;
-    s->stackb++;
-    s->stacka--;
+    s->b[s->lenb] = s->a[s->lena - 1];
+    s->a[s->lena - 1] = 0;
+    s->lenb++;
+    s->lena--;
     printf("pb\n");
 }

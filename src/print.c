@@ -12,18 +12,18 @@
 
 #include "../swap.h"
 
-void    ft_print_stack(t_stack *s)
+void    ft_print_lst(t_lst *s)
 {
     int i;
     int cpy;
     
-    if (s->stacka > s->stackb)
-        i = s->stacka - 1;
+    if (s->lena > s->lenb)
+        i = s->lena - 1;
     else
-        i = s->stackb - 1;
+        i = s->lenb - 1;
     cpy = s->max - 1;
     printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}            {%d}\nnum = ", s->stacka, s->stackb);
+    printf("   {%d}            {%d}\nnum = ", s->lena, s->lenb);
     while (cpy > 0)
     {
         printf("%d , ", s->num[cpy]);
@@ -32,12 +32,12 @@ void    ft_print_stack(t_stack *s)
     printf("%d\n", s->num[cpy]);
     while (i >= 0)
     {
-        if (s->stacka > i)
+        if (s->lena > i)
             printf("|a[%d]", s->a[i]);
         else
             printf("     ");
         printf("    %d       ", i);
-        if (s->stackb > i)
+        if (s->lenb > i)
             printf("b[%d]|\n", s->b[i]);
         else
             printf("\n");
@@ -46,16 +46,16 @@ void    ft_print_stack(t_stack *s)
     printf("\n");
 }
 
-void    ft_print_stack2(t_stack *s)
+void    ft_print_lst2(t_lst *s)
 {
       int i;
 
-    if (s->stacka > s->stackb)
-        i = s->stacka - 1;
+    if (s->lena > s->lenb)
+        i = s->lena - 1;
     else
-        i = s->stackb - 1;
+        i = s->lenb - 1;
     printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}                   {%d}\n", s->stacka, s->stackb);
+    printf("   {%d}                   {%d}\n", s->lena, s->lenb);
     while (i >= 0)
     {    
         printf("|a[%d]", s->a[i]);
