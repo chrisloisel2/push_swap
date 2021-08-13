@@ -35,6 +35,20 @@ t_lst	*lstlast(t_lst *lst)
 	return (t);
 }
 
+void	lstdellast(t_lst **alst)
+{
+	t_lst *p;
+	t_lst *end;
+
+	p = (lstlast(*alst));
+	if (p->prev != NULL)
+	{
+		end = p->prev;
+		end->next = NULL;
+		free(p);
+	}
+}
+
 void	lstadd_back(t_lst **alst, t_lst *new)
 {
 	t_lst *p;
@@ -56,10 +70,10 @@ void	lstadd_back(t_lst **alst, t_lst *new)
     new->range = p->range / 2;
 	new->tl = p->tl;
 	ft_print_lst(new);
-	new->posmax = p->posmin--;
-	new->posmin = new->posmax - new->range;
-    new->max = new->tl[new->posmax];
-    new->min = new->tl[new->posmin];
+	new->posmin = p->posmax + 1;
+	new->posmax = new->posmin + new->range;
+    new->max = new->tl[new->posmax - 1];
+    new->min = new->tl[new->posmin - 1];
 
 
 	new->prev = p;

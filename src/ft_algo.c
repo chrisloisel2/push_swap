@@ -35,33 +35,32 @@ int     ft_milieu(t_lst *s, char c)
 
 void    ft_organizer(t_lst *s, int i)
 {
-    if (i == 1)
-    {
-        ft_smart_push(s);
-    }
-    else
-    {
-        ft_depush(s);
-    }
+    
 }
 
 void    ft_algo(t_lst *s)
 {
     int i;
     i = 0;
-    s->range = s->lena / 2;
-    s->posmax = s->lena - 1;
-    s->posmin = s->posmax - s->range;
+    s->range = (s->lena + 1) / 2;
+    s->posmin = 0;
+    s->posmax = s->posmin + s->range - 1;
     s->max = s->tl[s->posmax];
     s->min = s->tl[s->posmin];
     while ((i = ft_check_order(s)) > 0)
     {
-        ft_organizer(s, i);
-        ft_print_lst(s);
-        if ((i = ft_check_order(s)) == 1)
-        {        
+        if (i == 1)
+        {
+            ft_smart_push(s);
+            ft_print_lst(s);
             lstadd_back(&s, lstnew());
             s = (lstlast(s));
+        }
+        else
+        {
+            ft_depush(s);
+            ft_print_lst(s);
+            s = s->prev;
         }
     }
 }

@@ -12,46 +12,48 @@
 
 #include "../swap.h"
 
-void    sa(t_lst *s)
+int    sa(t_lst *s)
 {
     int i;
     int indexa;
     int indexb;
     
     if (s->lena < 2)
-        return ;
+        return (1);
     indexa = s->lena - 1;
     indexb = s->lena - 2;
     i = s->a[indexb];
     s->a[indexb] = s->a[indexa];
     s->a[indexa] = i;
     printf("sa\n");
+    return (1);
 }
 
-void    sb(t_lst *s)
+int    sb(t_lst *s)
 { 
     int i;
     int indexa;
     int indexb;
     
     if (s->lenb < 2)
-        return ;
+        return (1);
     indexa = s->lenb - 1;
     indexb = s->lenb - 2;
     i = s->b[indexb];
     s->b[indexb] = s->b[indexa];
     s->b[indexa] = i;
     printf("sb\n");
+    return (1);
 }
 
-void    ss(t_lst *s)
+int    ss(t_lst *s)
 {
     int i;
     int indexa;
     int indexb;
     
     if (s->lena < 2 || s->lenb < 2)
-        return ;
+        return (1);
     indexa = s->lena - 1;
     indexb = s->lena - 2;
     i = s->a[indexb];
@@ -63,27 +65,29 @@ void    ss(t_lst *s)
     s->b[indexb] = s->b[indexa];
     s->b[indexa] = i;
     printf("ss\n");
-
+    return (1);
 }
 
-void    pa(t_lst *s)
+int    pa(t_lst *s)
 {
     if (s->lenb < 1)
-        return ;
+        return (1);
     s->a[s->lena] = s->b[s->lenb - 1];
     s->b[s->lenb - 1] = 0;
     s->lena++;
     s->lenb--;
     printf("pa\n");
+    return (1);
 }
 
-void    pb(t_lst *s)
+int    pb(t_lst *s)
 {
     if (s->lena < 1)
-        return ;
+        return (1);
     s->b[s->lenb] = s->a[s->lena - 1];
     s->a[s->lena - 1] = 0;
     s->lenb++;
     s->lena--;
     printf("pb\n");
+    return (1);
 }

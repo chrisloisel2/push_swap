@@ -102,13 +102,13 @@ void    ft_smart_push(t_lst *s)
     int i;
 
     i = s->lena - 1;
-    while (s->lena > ((i + 1) / 2) && (ft_check_order(s) == 1))
+    while (s->lena > s->range && (ft_check_order(s) == 1))
     {
-        while (s->a[s->lena - 1] <= s->min && !speed_push(s))
+        while (s->a[s->lena - 1] <= s->max && !speed_push(s))
             pb(s);
         while (s->a[0] < s->a[s->lena - 1] && !speed_push(s))
             rra(s);
-        while (s->a[s->lena - 1] > s->min && s->lena > ((i + 1) / 2) && !speed_push(s))
+        while (s->a[s->lena - 1] > s->max && s->lena > s->range && !speed_push(s))
             ra(s);
     }
 }

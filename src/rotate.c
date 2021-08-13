@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-void    rra(t_lst *s)
+int    rra(t_lst *s)
 {
     int *test;
     int i;
@@ -28,9 +28,10 @@ void    rra(t_lst *s)
     printf("rra\n");
     free(s->a);
     s->a = test;
+    return (1);
 }
 
-void    rrb(t_lst *s)
+int    rrb(t_lst *s)
 {
     int *test;
     int i;
@@ -46,6 +47,7 @@ void    rrb(t_lst *s)
     printf("rrb\n");
     free(s->b);
     s->b = test;
+    return (1);
 }
 
 void    ft_rra(t_lst *s)
@@ -82,9 +84,10 @@ void    ft_rrb(t_lst *s)
     s->b = test;
 }
 
-void    rrr(t_lst *s)
+int    rrr(t_lst *s)
 {
     ft_rra(s);
     ft_rrb(s);
     printf("rrr\n");
+    return (1);
 }

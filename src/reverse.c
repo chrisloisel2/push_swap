@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-void    ra(t_lst *s)
+int    ra(t_lst *s)
 {
     int *test;
     int i;
@@ -28,15 +28,16 @@ void    ra(t_lst *s)
     free(s->a);
     s->a = test;
     printf("ra\n");
+    return (1);
 }
 
-void    rb(t_lst *s)
+int    rb(t_lst *s)
 {
     int *test;
     int i;
 
     if (s->lenb < 2)
-        return ;
+        return (1);
     i = 0;
     test = malloc(sizeof(int)* s->lenmax);
     test[0] = s->b[s->lenb - 1];
@@ -48,6 +49,7 @@ void    rb(t_lst *s)
     free(s->b);
     s->b = test;
     printf("rb\n");
+    return (1);
 }
 
 void    ft_rb(t_lst *s)
@@ -84,9 +86,10 @@ void    ft_ra(t_lst *s)
     s->a = test;
 }
 
-void    rr(t_lst *s)
+int    rr(t_lst *s)
 {
     ft_rb(s);
     ft_ra(s);
     printf("rr\n");
+    return (1);
 }
