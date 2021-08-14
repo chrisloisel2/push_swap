@@ -12,10 +12,10 @@
 
 #include "../swap.h"
 
-void     ft_full_pb(t_lst *s)
+void     ft_full_pb(t_lst *s, t_stack *r)
 {
-    while (s->lenb > 0)
+    while (r->lenb > 0)
     {
-        pa(s);
+        pa(s, r);
     }
 }

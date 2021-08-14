@@ -12,84 +12,84 @@
 
 #include "../swap.h"
 
-int    ra(t_lst *s)
+int    ra(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax);
-    test[0] = s->a[s->lena - 1];
-    while (i < s->lena - 1)
+    test[0] =  r->a[r->lena - 1];
+    while (i < r->lena - 1)
     {
-        test[i + 1] = s->a[i];
+        test[i + 1] =  r->a[i];
         i++;
     }
-    free(s->a);
-    s->a = test;
+    free( r->a);
+     r->a = test;
     printf("ra\n");
     return (1);
 }
 
-int    rb(t_lst *s)
+int    rb(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
-    if (s->lenb < 2)
+    if (r->lenb < 2)
         return (1);
     i = 0;
     test = malloc(sizeof(int)* s->lenmax);
-    test[0] = s->b[s->lenb - 1];
-    while (i < s->lenb - 1)
+    test[0] =  r->b[r->lenb - 1];
+    while (i < r->lenb - 1)
     {
-        test[i + 1] = s->b[i];
+        test[i + 1] =  r->b[i];
         i++;
     }
-    free(s->b);
-    s->b = test;
+    free( r->b);
+     r->b = test;
     printf("rb\n");
     return (1);
 }
 
-void    ft_rb(t_lst *s)
+void    ft_rb(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax);
-    test[0] = s->b[s->lenb - 1];
-    while (i < s->lenb - 1)
+    test[0] =  r->b[r->lenb - 1];
+    while (i < r->lenb - 1)
     {
-        test[i + 1] = s->b[i];
+        test[i + 1] =  r->b[i];
         i++;
     }
-    free(s->b);
-    s->b = test;
+    free( r->b);
+     r->b = test;
 }
 
-void    ft_ra(t_lst *s)
+void    ft_ra(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax);
-    test[0] = s->a[s->lena - 1];
-    while (i < s->lena - 1)
+    test[0] =  r->a[r->lena - 1];
+    while (i < r->lena - 1)
     {
-        test[i + 1] = s->a[i];
+        test[i + 1] =  r->a[i];
         i++;
     }
-    free(s->a);
-    s->a = test;
+    free( r->a);
+     r->a = test;
 }
 
-int    rr(t_lst *s)
+int    rr(t_lst *s, t_stack *r)
 {
-    ft_rb(s);
-    ft_ra(s);
+    ft_rb(s, r);
+    ft_ra(s, r);
     printf("rr\n");
     return (1);
 }

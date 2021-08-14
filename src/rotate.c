@@ -12,82 +12,82 @@
 
 #include "../swap.h"
 
-int    rra(t_lst *s)
+int    rra(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax + 1);
-    test[s->lena - 1] = s->a[0];
-    while (i < s->lena - 1)
+    test[r->lena - 1] =  r->a[0];
+    while (i < r->lena - 1)
     {
-        test[i] = s->a[i + 1];
+        test[i] =  r->a[i + 1];
         i++;
     }
     printf("rra\n");
-    free(s->a);
-    s->a = test;
+    free( r->a);
+     r->a = test;
     return (1);
 }
 
-int    rrb(t_lst *s)
+int    rrb(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax + 1);
-    test[s->lenb - 1] = s->b[0];
-    while (i < s->lenb - 1)
+    test[r->lenb - 1] =  r->b[0];
+    while (i < r->lenb - 1)
     {
-        test[i] = s->b[i + 1];
+        test[i] =  r->b[i + 1];
         i++;
     }
     printf("rrb\n");
-    free(s->b);
-    s->b = test;
+    free( r->b);
+     r->b = test;
     return (1);
 }
 
-void    ft_rra(t_lst *s)
+void    ft_rra(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax + 1);
-    test[s->lena - 1] = s->a[0];
-    while (i < s->lena - 1)
+    test[r->lena - 1] =  r->a[0];
+    while (i < r->lena - 1)
     {
-        test[i] = s->a[i + 1];
+        test[i] =  r->a[i + 1];
         i++;
     }
-    free(s->a);
-    s->a = test;
+    free( r->a);
+     r->a = test;
 }
 
-void    ft_rrb(t_lst *s)
+void    ft_rrb(t_lst *s, t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
     test = malloc(sizeof(int)* s->lenmax + 1);
-    test[s->lenb - 1] = s->b[0];
-    while (i < s->lenb - 1)
+    test[r->lenb - 1] =  r->b[0];
+    while (i < r->lenb - 1)
     {
-        test[i] = s->b[i + 1];
+        test[i] =  r->b[i + 1];
         i++;
     }
-    free(s->b);
-    s->b = test;
+    free( r->b);
+     r->b = test;
 }
 
-int    rrr(t_lst *s)
+int    rrr(t_lst *s, t_stack *r)
 {
-    ft_rra(s);
-    ft_rrb(s);
+    ft_rra(s, r);
+    ft_rrb(s, r);
     printf("rrr\n");
     return (1);
 }

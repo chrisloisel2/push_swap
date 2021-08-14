@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-int     ft_test(char *str,  t_lst *s, int max)
+int     ft_test(char *str,  t_lst *s, int max, t_stack *r)
 {
     int i;
     long test;
@@ -23,14 +23,14 @@ int     ft_test(char *str,  t_lst *s, int max)
     i = 0;
     while (i < max)
     {
-        if (s->a[i] == test)
+        if ( r->a[i] == test)
             return (0);
         i++;
     }
     return (1);
 }
 
-int     ft_fill_stack2(char **argv,  t_lst *s, int num)
+int     ft_fill_stack2(char **argv,  t_lst *s, int num, t_stack *r)
 {
     int i;
     int y;
@@ -38,9 +38,9 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num)
 
     y = 0;
     i = 0;
-    s->lenmax = s->lena;
-    s->a = malloc(sizeof(int)* s->lenmax + 1);
-    s->b = malloc(sizeof(int)* s->lenmax + 1);
+    s->lenmax = r->lena;
+     r->a = malloc(sizeof(int)* s->lenmax + 1);
+     r->b = malloc(sizeof(int)* s->lenmax + 1);
     s->tl = malloc(sizeof(int)* s->lenmax + 1);
     tab = ft_split(argv[1], ' ');
     while (num >= 0)
@@ -50,27 +50,29 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num)
             i++;
         if (i != ft_strlen(tab[num]))
             return (1);
-        if (!((tab[num][i] == '\0') && ft_test(tab[num], s, y)))
+        if (!((tab[num][i] == '\0') && ft_test(tab[num], s, y, r)))
             return (1);
-        s->a[y] = ft_atoi(tab[num]);
+         r->a[y] = ft_atoi(tab[num]);
         y++;
         i = 0;
         num--;
     }
-    s->lena = s->lenmax;
+    r->lena = s->lenmax;
     return(0);
 }
 
-int     ft_fill_stack(int num, char **argv,  t_lst *s)
+int     ft_fill_stack(int num, char **argv,  t_lst *s, t_stack *r)
 {
     int i;
     int y;
+    int *a;
+    int *b;
 
     y = 0;
     i = 0;
     s->lenmax = num;
-    s->a = malloc(sizeof(int)* num + 1);
-    s->b = malloc(sizeof(int)* num + 1);
+    r->a = malloc(sizeof(int)* num + 1);
+    r->b = malloc(sizeof(int)* num + 1);
     s->tl = malloc(sizeof(int)* num + 1);
     while (num > 0)
     {
@@ -79,9 +81,9 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s)
             i++;
         if (i != ft_strlen(argv[num]))
             return (-1);
-        if (!((argv[num][i] == '\0') && ft_test(argv[num], s, y)))
+        if (!((argv[num][i] == '\0') && ft_test(argv[num], s, y, r)))
             return (-1);
-        s->a[y] = ft_atoi(argv[num]);
+         r->a[y] = ft_atoi(argv[num]);
         y++;
         i = 0;
         num--;
@@ -89,13 +91,13 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s)
     return(1);
 }
 
-int     ft_check_arg(int num, char **argv,  t_lst *s)
+int     ft_check_arg(int num, char **argv,  t_lst *s, t_stack *r)
 {
     int i;
 
     i = 0;
-    s->lena = num;
-    s->lenb = 0;
+    r->lena = num;
+    r->lenb = 0;
     while (num > 0)
     {
         while (argv[num][i] != '\0' && (ft_isdigit(argv[num][i]) || 
@@ -111,37 +113,37 @@ int     ft_check_arg(int num, char **argv,  t_lst *s)
     return(1);
 }
 
-int     ft_recup_split(char **argv,  t_lst *s)
+int     ft_recup_split(char **argv,  t_lst *s, t_stack *r)
 {
     int i;
     int len;
 
     len = ft_strlen(argv[1]) - 1;
     i = 0;
-    s->lena = 1;
-    s->lenb = 0;
+    r->lena = 1;
+    r->lenb = 0;
     while (argv[1][i] != '\0' && (ft_isdigit(argv[1][i + 1]) || 
                 argv[1][i + 1] == '-' || argv[1][i + 1] == ' '))
     {
         if (argv[1][i] == ' ' && (ft_isdigit(argv[1][i + 1]) || 
                 argv[1][i + 1] == '-'))
-            s->lena++;
+            r->lena++;
         i++;
     }
     if (i == len)
-        return(ft_fill_stack2(argv, s, s->lena - 1));
+        return(ft_fill_stack2(argv, s, r->lena - 1, r));
     return (1);
 }
 
-int     ft_recup(int num, char **argv,  t_lst *s)
+int     ft_recup(int num, char **argv,  t_lst *s, t_stack *r)
 {
-    if (num == 2 && (ft_strlen(argv[1]) > 2) && ft_recup_split(argv, s) == 1)
+    if (num == 2 && (ft_strlen(argv[1]) > 2) && ft_recup_split(argv, s, r) == 1)
     {
         printf("ERROR\n");
         return (-1);
     }
-    else if (num > 2 && (ft_check_arg(num - 1, argv, s) == -1 || 
-        ft_fill_stack(num -1, argv, s) == -1))
+    else if (num > 2 && (ft_check_arg(num - 1, argv, s, r) == -1 || 
+        ft_fill_stack(num -1, argv, s, r) == -1))
     {
         printf("ERROR\n");
         return (-1);

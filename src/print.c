@@ -12,18 +12,18 @@
 
 #include "../swap.h"
 
-void    ft_print_lst(t_lst *s)
+void    ft_print_lst(t_lst *s, t_stack *r)
 {
     int i;
     int cpy;
     
-    if (s->lena > s->lenb)
-        i = s->lena - 1;
+    if (r->lena > r->lenb)
+        i = r->lena - 1;
     else
-        i = s->lenb - 1;
+        i = r->lenb - 1;
     cpy = s->lenmax - 1;
-    printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}            {%d}\nnum = ", s->lena, s->lenb);
+    printf("  état de la stack %d\n-----------------------\n", s->core);
+    printf("   {%d}            {%d}\nnum = ", r->lena, r->lenb);
     while (cpy > 0)
     {
         printf("%d , ", s->tl[cpy]);
@@ -32,35 +32,36 @@ void    ft_print_lst(t_lst *s)
     printf("%d\n", s->tl[cpy]);
     while (i >= 0)
     {
-        if (s->lena > i)
-            printf("|a[%d]", s->a[i]);
+        if (r->lena > i)
+            printf("|a[%d]",  r->a[i]);
         else
             printf("     ");
         printf("    %d       ", i);
-        if (s->lenb > i)
-            printf("b[%d]|\n", s->b[i]);
+        if (r->lenb > i)
+            printf("b[%d]|\n",  r->b[i]);
         else
             printf("\n");
         i--;
     }
+    printf("range = %d\n", s->range);
     printf("\n");
 }
 
-void    ft_print_lst2(t_lst *s)
+void    ft_print_lst2(t_lst *s, t_stack *r)
 {
       int i;
 
-    if (s->lena > s->lenb)
-        i = s->lena - 1;
+    if (r->lena > r->lenb)
+        i = r->lena - 1;
     else
-        i = s->lenb - 1;
+        i = r->lenb - 1;
     printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}                   {%d}\n", s->lena, s->lenb);
+    printf("   {%d}                   {%d}\n", r->lena, r->lenb);
     while (i >= 0)
     {    
-        printf("|a[%d]", s->a[i]);
+        printf("|a[%d]",  r->a[i]);
         printf("    %d       ", i);
-        printf("b[%d]|\n", s->b[i]);
+        printf("b[%d]|\n",  r->b[i]);
         i--;
     }
     printf("\n");

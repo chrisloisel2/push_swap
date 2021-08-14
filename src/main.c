@@ -15,14 +15,16 @@
 int     ft_push_swap(int num, char **argv)
 {
     t_lst *s;
+    t_stack *r;
 
     s = lstnew();
-    if (ft_recup(num, argv, s) == -1)
+    r = malloc(sizeof(t_stack));
+    if (ft_recup(num, argv, s, r) == -1)
         return (-1);
-    order(s->tl, s->lena, s->a);
-    ft_algo(s);
-    free(s->a);
-    free(s->b);
+    order(s->tl, r->lena, r->a);
+    ft_algo(s, r);
+    free(r->a);
+    free(r->b);
     free(s->tl);
     free(s);
     return (0);

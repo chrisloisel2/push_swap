@@ -12,22 +12,22 @@
 
 #include "../swap.h"
 
-int     linking(t_lst *s)
+int     linking(t_lst *s, t_stack *r)
 {
-    if (s->tl[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
-        return (sa(s));
-    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 2])
-        return ((sb(s) + pa(s)) - 1);
-    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->b[s->lenb - 1])
-        return (pa(s));
-    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->a[0])
-        return (rra(s));
-    if (s->tl[pos(s, s->a[s->lena - 1]) - 1] == s->b[0])
-        return (rrb(s) + pa(s));
+    if (s->tl[pos(s,  r->a[r->lena - 1], r) + 1] ==  r->a[r->lena - 3])
+        return (sa(s, r));
+    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 2])
+        return ((sb(s, r) + pa(s, r)) - 1);
+    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 1])
+        return (pa(s, r));
+    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->a[0])
+        return (rra(s, r));
+    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[0])
+        return (rrb(s, r) + pa(s, r));
     return (0);
 }
 
-int     ft_inversed_push(t_lst *s, int i)
+int     ft_inversed_push(t_lst *s, int i, t_stack *r)
 {
     int t;
     int y;
@@ -36,98 +36,99 @@ int     ft_inversed_push(t_lst *s, int i)
     t = 0;
     while (i > 2)
     {
-        while (i > 2 && s->b[s->lenb - 1] < s->min)
+        while (i > 2 &&  r->b[r->lenb - 1] < s->min)
         {
-            rb(s);
+            rb(s, r);
             i--;
             t++;
         }
-        while (i > 2 && s->b[s->lenb - 1] >= s->min)
+        while (i > 2 &&  r->b[r->lenb - 1] >= s->min)
         {
-            pa(s);
-            while (s->a[0] != s->tl[s->lenmax - 1] && s->a[0] > s->a[s->lena - 1])
+            pa(s, r);
+            while ( r->a[0] != s->tl[s->lenmax - 1] &&  r->a[0] >  r->a[r->lena - 1])
             {
-                rra(s);
-                sa(s);
+                rra(s, r);
+                sa(s, r);
                 y++;
             }
             while (y > 0)
             {
                 y--;
-                ra(s);
+                ra(s, r);
             }
-            ra(s);
+            ra(s, r);
             i--;
         }
+        ft_print_lst(s, r);
     }
     return (t);
 }
 
-int     ft_depush_two(t_lst *s, int i)
+int     ft_depush_two(t_lst *s, int i, t_stack *r)
 {
     int t;
 
-    t = ft_inversed_push(s, i);
-    sb(s);
-    pa(s);
+    t = ft_inversed_push(s, i, r);
+    sb(s, r);
+    pa(s, r);
     while (t > 0)
     {
-        if (linking(s) == 2)
+        if (linking(s, r) == 2)
             t--;
         else
         {
-            rrb(s);
+            rrb(s, r);
             t--;
         }
     }
     return (1);
 }
 
-int     speed_depush(t_lst *s)
+int     speed_depush(t_lst *s, t_stack *r)
 {
     int topa;
 
-    if (s->lenb > 0 && s->lena > 0)
+    if (r->lenb > 0 && r->lena > 0)
     {
-        topa = pos(s, s->a[s->lena - 1]);
+        topa = pos(s,  r->a[r->lena - 1], r);
         int i;
 
         i = 1;
-        if (s->tl[pos(s, s->a[s->lena - 1]) + 1] == s->a[s->lena - 3])
-            return (sa(s));
-        while (i <= s->lenb && s->tl[topa - 1] != s->b[s->lenb - i])
+        if (s->tl[pos(s,  r->a[r->lena - 1], r) + 1] ==  r->a[r->lena - 3])
+            return (sa(s, r));
+        while (i <= r->lenb && s->tl[topa - 1] !=  r->b[r->lenb - i])
             i++;
-        if (i > s->lenb)
+        if (i > r->lenb)
             return (1);
         if (i > 2)
-            return (ft_depush_two(s, i));
+            return (ft_depush_two(s, i, r));
         if (i == 2)
-            return (sb(s) + pb(s) - 1);
-        if (s->tl[topa - 1] == s->b[s->lenb - 1])
-            return (pa(s));
-        if (s->b[s->lenb - 1] >= s->tl[s->posmin + (s->range / 2)])
-            return (pa(s));
+            return (sb(s, r) + pb(s, r) - 1);
+        if (s->tl[topa - 1] ==  r->b[r->lenb - 1])
+            return (pa(s, r));
+        if ( r->b[r->lenb - 1] >= s->tl[s->posmin + (s->range / 2)])
+            return (pa(s, r));
     }
     return (0);
 }
 
-void     ft_depush(t_lst *s)
+void     ft_depush(t_lst *s, t_stack *r)
 {
-    while (s->lenb > (s->lenmax - s->range) && ft_check_order(s) != 2)
+    while (s->move > 0 && r->a[r->lena - 1] != s->min)
     {
-        linking(s);
-        if (s->b[s->lenb - 1] >= s->min && s->b[s->lenb - 1] <= s->max)
-            speed_depush(s);
+        linking(s, r);
+        if ( r->b[r->lenb - 1] >= s->min &&  r->b[r->lenb - 1] <= s->max)
+            speed_depush(s, r);
         else
         {
-            rb(s);
+            rb(s, r);
             s->push++;
         }
     }
     while (s->push > 0)
     {
-        rrb(s);
-        if (linking(s) == 2)
+        rrb(s, r);
+        if (linking(s, r) == 2)
             s->push--;
         s->push--;
     }

@@ -12,82 +12,84 @@
 
 #include "../swap.h"
 
-int    sa(t_lst *s)
+int    sa(t_lst *s, t_stack *r)
 {
     int i;
     int indexa;
     int indexb;
     
-    if (s->lena < 2)
+    if (r->lena < 2)
         return (1);
-    indexa = s->lena - 1;
-    indexb = s->lena - 2;
-    i = s->a[indexb];
-    s->a[indexb] = s->a[indexa];
-    s->a[indexa] = i;
+    indexa = r->lena - 1;
+    indexb = r->lena - 2;
+    i =  r->a[indexb];
+     r->a[indexb] =  r->a[indexa];
+     r->a[indexa] = i;
     printf("sa\n");
     return (1);
 }
 
-int    sb(t_lst *s)
+int    sb(t_lst *s, t_stack *r)
 { 
     int i;
     int indexa;
     int indexb;
     
-    if (s->lenb < 2)
+    if (r->lenb < 2)
         return (1);
-    indexa = s->lenb - 1;
-    indexb = s->lenb - 2;
-    i = s->b[indexb];
-    s->b[indexb] = s->b[indexa];
-    s->b[indexa] = i;
+    indexa = r->lenb - 1;
+    indexb = r->lenb - 2;
+    i =  r->b[indexb];
+     r->b[indexb] =  r->b[indexa];
+     r->b[indexa] = i;
     printf("sb\n");
     return (1);
 }
 
-int    ss(t_lst *s)
+int    ss(t_lst *s, t_stack *r)
 {
     int i;
     int indexa;
     int indexb;
     
-    if (s->lena < 2 || s->lenb < 2)
+    if (r->lena < 2 || r->lenb < 2)
         return (1);
-    indexa = s->lena - 1;
-    indexb = s->lena - 2;
-    i = s->a[indexb];
-    s->a[indexb] = s->a[indexa];
-    s->a[indexa] = i;
-    indexa = s->lenb - 1;
-    indexb = s->lenb - 2;
-    i = s->b[indexb];
-    s->b[indexb] = s->b[indexa];
-    s->b[indexa] = i;
+    indexa = r->lena - 1;
+    indexb = r->lena - 2;
+    i =  r->a[indexb];
+     r->a[indexb] =  r->a[indexa];
+     r->a[indexa] = i;
+    indexa = r->lenb - 1;
+    indexb = r->lenb - 2;
+    i =  r->b[indexb];
+     r->b[indexb] =  r->b[indexa];
+     r->b[indexa] = i;
     printf("ss\n");
     return (1);
 }
 
-int    pa(t_lst *s)
+int    pa(t_lst *s, t_stack *r)
 {
-    if (s->lenb < 1)
+    if (r->lenb < 1)
         return (1);
-    s->a[s->lena] = s->b[s->lenb - 1];
-    s->b[s->lenb - 1] = 0;
-    s->lena++;
-    s->lenb--;
+     r->a[r->lena] =  r->b[r->lenb - 1];
+     r->b[r->lenb - 1] = 0;
+    r->lena++;
+    r->lenb--;
+    s->move--;
     printf("pa\n");
     return (1);
 }
 
-int    pb(t_lst *s)
+int    pb(t_lst *s, t_stack *r)
 {
-    if (s->lena < 1)
+    if (r->lena < 1)
         return (1);
-    s->b[s->lenb] = s->a[s->lena - 1];
-    s->a[s->lena - 1] = 0;
-    s->lenb++;
-    s->lena--;
+     r->b[r->lenb] =  r->a[r->lena - 1];
+     r->a[r->lena - 1] = 0;
+    r->lenb++;
+    r->lena--;
+    s->move++;
     printf("pb\n");
     return (1);
 }

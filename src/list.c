@@ -61,15 +61,11 @@ void	lstadd_back(t_lst **alst, t_lst *new)
 	p = (lstlast(*alst));
 	p->next = new;
 	new->next = NULL;
-    new->a = p->a;
-    new->b = p->b;
-	new->lena = p->lena;
-	new->lenb = p->lenb;
 	new->lenmax = p->lenmax;
-
+	new->core = p->core + 1;
     new->range = p->range / 2;
 	new->tl = p->tl;
-	ft_print_lst(new);
+	new->move = 0;
 	new->posmin = p->posmax + 1;
 	new->posmax = new->posmin + new->range;
     new->max = new->tl[new->posmax - 1];

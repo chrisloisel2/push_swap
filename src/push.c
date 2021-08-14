@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-int     pos(t_lst *s, int t)
+int     pos(t_lst *s, int t, t_stack *r)
 {
     int i;
 
@@ -22,24 +22,24 @@ int     pos(t_lst *s, int t)
     return (i);
 }
 
-int     push_last_n(t_lst *s, int topa)
+int     push_last_n(t_lst *s, int topa, t_stack *r)
 {
-    if (s->lena > 1 && s->tl[topa] == s->tl[s->lenmax - 1] && s->a[s->lena - 2] == s->tl[(topa - 1)])
+    if (r->lena > 1 && s->tl[topa] == s->tl[s->lenmax - 1] &&  r->a[r->lena - 2] == s->tl[(topa - 1)])
     {
         int y;
 
         y = 0;
-        pb(s);
-        while (s->lena > 1 && s->a[s->lena - 2] == s->tl[(pos(s, s->a[s->lena - 1]) - 1)])
+        pb(s, r);
+        while (r->lena > 1 &&  r->a[r->lena - 2] == s->tl[(pos(s,  r->a[r->lena - 1], r) - 1)])
         {
-            pb(s);
+            pb(s, r);
             y++;
         }
-        ra(s);
+        ra(s, r);
         while(y >= 0)
         {
-            pa(s);
-            ra(s);
+            pa(s, r);
+            ra(s, r);
             y--;
         }
         return (1);
@@ -47,68 +47,69 @@ int     push_last_n(t_lst *s, int topa)
     return (0);
 }
 
-int     speed_push(t_lst *s)
+int     speed_push(t_lst *s, t_stack *r)
 {
     int topb;
     int topa;
     int bota;
 
-    if (s->lenb > 0 && s->lena > 0)
+    if (r->lenb > 0 && r->lena > 0)
     {
-        topb = pos(s, s->a[s->lenb - 1]);
-        if (topb < s->lenmax && s->tl[topb + 1] == s->b[0])
+        topb = pos(s,  r->a[r->lenb - 1], r);
+        if (topb < s->lenmax && s->tl[topb + 1] ==  r->b[0])
         {
-            rrb(s);
+            rrb(s, r);
             return (1);
         }
     }
-    if (s->lena > 0)
+    if (r->lena > 0)
     {
-        topa = pos(s, s->a[s->lena - 1]);
-        bota = pos(s, s->a[0]);
-        if (s->lena > 2 && s->tl[(pos(s, s->a[s->lena - 3])) - 1] == s->a[s->lena - 1])
+        topa = pos(s,  r->a[r->lena - 1], r);
+        bota = pos(s,  r->a[0], r);
+        if (r->lena > 2 && s->tl[(pos(s,  r->a[r->lena - 3], r)) - 1] ==  r->a[r->lena - 1])
         {
-            sa(s);
+            sa(s, r);
             return (1);
         }
-        if (topa > 0 && s->tl[topa - 1] == s->a[s->lena - 2])
+        if (topa > 0 && s->tl[topa - 1] ==  r->a[r->lena - 2])
         {
-            sa(s);
+            sa(s, r);
             return (1);
         }
-        if (push_last_n(s, topa))
+        if (push_last_n(s, topa, r))
             return (1);
-        if (s->lena > 1 && s->tl[topa] == s->tl[s->lenmax - 1])
+        if (r->lena > 1 && s->tl[topa] == s->tl[s->lenmax - 1])
         {
-            ra(s);
-            return (1);
-        }
-        if (s->lena > 1 && s->tl[bota] == s->tl[topa - 1])
-        {
-            ra(s);
+            ra(s, r);
             return (1);
         }
-        if (s->tl[topa - 1] == s->a[0])
+        if (r->lena > 1 && s->tl[bota] == s->tl[topa - 1])
         {
-            rra(s);
+            ra(s, r);
+            return (1);
+        }
+        if (s->tl[topa - 1] ==  r->a[0])
+        {
+            rra(s, r);
             return (1);
         }
     }
     return (0);
 }
 
-void    ft_smart_push(t_lst *s)
+void    ft_smart_push(t_lst *s, t_stack *r)
 {
     int i;
 
-    i = s->lena - 1;
-    while (s->lena > s->range && (ft_check_order(s) == 1))
+    i = r->lena - s->range;
+    while (r->lena > i && (ft_check_order(s, r) == 1))
     {
-        while (s->a[s->lena - 1] <= s->max && !speed_push(s))
-            pb(s);
-        while (s->a[0] < s->a[s->lena - 1] && !speed_push(s))
-            rra(s);
-        while (s->a[s->lena - 1] > s->max && s->lena > s->range && !speed_push(s))
-            ra(s);
+        while ( r->a[r->lena - 1] <= s->max && !speed_push(s, r))
+            pb(s, r);
+        while ( r->a[0] <  r->a[r->lena - 1] && !speed_push(s, r))
+            rra(s, r);
+        while ( r->a[r->lena - 1] > s->max && r->lena > i && !speed_push(s, r))
+            ra(s, r);
+        ft_print_lst(s, r);
     }
 }
