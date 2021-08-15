@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-int     ft_test(char *str,  t_lst *s, int max, t_stack *r)
+int     ft_test(char *str, int max, t_stack *r)
 {
     int i;
     long test;
@@ -50,7 +50,7 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num, t_stack *r)
             i++;
         if (i != ft_strlen(tab[num]))
             return (1);
-        if (!((tab[num][i] == '\0') && ft_test(tab[num], s, y, r)))
+        if (!((tab[num][i] == '\0') && ft_test(tab[num], y, r)))
             return (1);
          r->a[y] = ft_atoi(tab[num]);
         y++;
@@ -65,8 +65,6 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s, t_stack *r)
 {
     int i;
     int y;
-    int *a;
-    int *b;
 
     y = 0;
     i = 0;
@@ -81,7 +79,7 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s, t_stack *r)
             i++;
         if (i != ft_strlen(argv[num]))
             return (-1);
-        if (!((argv[num][i] == '\0') && ft_test(argv[num], s, y, r)))
+        if (!((argv[num][i] == '\0') && ft_test(argv[num], y, r)))
             return (-1);
          r->a[y] = ft_atoi(argv[num]);
         y++;
@@ -91,7 +89,7 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s, t_stack *r)
     return(1);
 }
 
-int     ft_check_arg(int num, char **argv,  t_lst *s, t_stack *r)
+int     ft_check_arg(int num, char **argv, t_stack *r)
 {
     int i;
 
@@ -142,7 +140,7 @@ int     ft_recup(int num, char **argv,  t_lst *s, t_stack *r)
         printf("ERROR\n");
         return (-1);
     }
-    else if (num > 2 && (ft_check_arg(num - 1, argv, s, r) == -1 || 
+    else if (num > 2 && (ft_check_arg(num - 1, argv, r) == -1 || 
         ft_fill_stack(num -1, argv, s, r) == -1))
     {
         printf("ERROR\n");

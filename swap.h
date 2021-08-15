@@ -20,7 +20,7 @@ typedef struct  s_stack
     int     *b;
     int     lena;
     int     lenb;
-    int push;
+    int     coup;
 }               t_stack;
 
 typedef struct  s_lst
@@ -49,11 +49,11 @@ int     ft_check_order(t_lst *s, t_stack *r);
 void    ft_smart_depush(t_lst *s, t_stack *r);
 void    ft_smart_push(t_lst *s, t_stack *r);
 int     speed_push(t_lst *s, t_stack *r);
-int     pos(t_lst *s, int t, t_stack *r);
+int     pos(t_lst *s, int t);
 void    ft_depush(t_lst *s, t_stack *r);
-int     sa(t_lst *s, t_stack *r);
-int     sb(t_lst *s, t_stack *r);
-int     ss(t_lst *s, t_stack *r);
+int     sa(t_stack *r);
+int     sb(t_stack *r);
+int     ss(t_stack *r);
 int     pa(t_lst *s, t_stack *r);
 int     pb(t_lst *s, t_stack *r);
 int     ra(t_lst *s, t_stack *r);

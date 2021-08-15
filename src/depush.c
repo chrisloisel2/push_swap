@@ -14,15 +14,15 @@
 
 int     linking(t_lst *s, t_stack *r)
 {
-    if (s->tl[pos(s,  r->a[r->lena - 1], r) + 1] ==  r->a[r->lena - 3])
-        return (sa(s, r));
-    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 2])
-        return ((sb(s, r) + pa(s, r)) - 1);
-    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 1])
+    if (s->tl[pos(s,  r->a[r->lena - 1]) + 1] ==  r->a[r->lena - 3])
+        return (sa(r));
+    if (s->tl[pos(s,  r->a[r->lena - 1]) - 1] ==  r->b[r->lenb - 2])
+        return ((sb(r) + pa(s, r)) - 1);
+    if (s->tl[pos(s,  r->a[r->lena - 1]) - 1] ==  r->b[r->lenb - 1])
         return (pa(s, r));
-    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->a[0])
+    if (s->tl[pos(s,  r->a[r->lena - 1]) - 1] ==  r->a[0])
         return (rra(s, r));
-    if (s->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[0])
+    if (s->tl[pos(s,  r->a[r->lena - 1]) - 1] ==  r->b[0])
         return (rrb(s, r) + pa(s, r));
     return (0);
 }
@@ -48,7 +48,7 @@ int     ft_inversed_push(t_lst *s, int i, t_stack *r)
             while ( r->a[0] != s->tl[s->lenmax - 1] &&  r->a[0] >  r->a[r->lena - 1])
             {
                 rra(s, r);
-                sa(s, r);
+                sa(r);
                 y++;
             }
             while (y > 0)
@@ -69,7 +69,7 @@ int     ft_depush_two(t_lst *s, int i, t_stack *r)
     int t;
 
     t = ft_inversed_push(s, i, r);
-    sb(s, r);
+    sb(r);
     pa(s, r);
     while (t > 0)
     {
@@ -90,12 +90,12 @@ int     speed_depush(t_lst *s, t_stack *r)
 
     if (r->lenb > 0 && r->lena > 0)
     {
-        topa = pos(s,  r->a[r->lena - 1], r);
+        topa = pos(s,  r->a[r->lena - 1]);
         int i;
 
         i = 1;
-        if (s->tl[pos(s,  r->a[r->lena - 1], r) + 1] ==  r->a[r->lena - 3])
-            return (sa(s, r));
+        if (s->tl[pos(s,  r->a[r->lena - 1]) + 1] ==  r->a[r->lena - 3])
+            return (sa(r));
         while (i <= r->lenb && s->tl[topa - 1] !=  r->b[r->lenb - i])
             i++;
         if (i > r->lenb)
@@ -103,7 +103,7 @@ int     speed_depush(t_lst *s, t_stack *r)
         if (i > 2)
             return (ft_depush_two(s, i, r));
         if (i == 2)
-            return (sb(s, r) + pb(s, r) - 1);
+            return (sb(r) + pb(s, r) - 1);
         if (s->tl[topa - 1] ==  r->b[r->lenb - 1])
             return (pa(s, r));
         if ( r->b[r->lenb - 1] >= s->tl[s->posmin + (s->range / 2)])
@@ -114,7 +114,10 @@ int     speed_depush(t_lst *s, t_stack *r)
 
 void     ft_depush(t_lst *s, t_stack *r)
 {
-    while (s->move > 0 && r->a[r->lena - 1] != s->min)
+    int i;
+    
+    i = 1;
+    while (i != 2 && r->a[r->lena - 1] != s->min)
     {
         linking(s, r);
         if ( r->b[r->lenb - 1] >= s->min &&  r->b[r->lenb - 1] <= s->max)
@@ -124,6 +127,7 @@ void     ft_depush(t_lst *s, t_stack *r)
             rb(s, r);
             s->push++;
         }
+        i = ft_check_order(s, r);
     }
     while (s->push > 0)
     {

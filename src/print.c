@@ -46,23 +46,3 @@ void    ft_print_lst(t_lst *s, t_stack *r)
     printf("range = %d\n", s->range);
     printf("\n");
 }
-
-void    ft_print_lst2(t_lst *s, t_stack *r)
-{
-      int i;
-
-    if (r->lena > r->lenb)
-        i = r->lena - 1;
-    else
-        i = r->lenb - 1;
-    printf("  état de la stack\n-----------------------\n");
-    printf("   {%d}                   {%d}\n", r->lena, r->lenb);
-    while (i >= 0)
-    {    
-        printf("|a[%d]",  r->a[i]);
-        printf("    %d       ", i);
-        printf("b[%d]|\n",  r->b[i]);
-        i--;
-    }
-    printf("\n");
-}

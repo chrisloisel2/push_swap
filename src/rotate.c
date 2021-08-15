@@ -27,7 +27,8 @@ int    rra(t_lst *s, t_stack *r)
     }
     printf("rra\n");
     free( r->a);
-     r->a = test;
+    r->a = test;
+    r->coup++;
     return (1);
 }
 
@@ -46,7 +47,8 @@ int    rrb(t_lst *s, t_stack *r)
     }
     printf("rrb\n");
     free( r->b);
-     r->b = test;
+    r->b = test;
+    r->coup++;
     return (1);
 }
 
@@ -88,6 +90,7 @@ int    rrr(t_lst *s, t_stack *r)
 {
     ft_rra(s, r);
     ft_rrb(s, r);
+    r->coup++;
     printf("rrr\n");
     return (1);
 }

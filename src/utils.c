@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-int    sa(t_lst *s, t_stack *r)
+int    sa(t_stack *r)
 {
     int i;
     int indexa;
@@ -25,11 +25,12 @@ int    sa(t_lst *s, t_stack *r)
     i =  r->a[indexb];
      r->a[indexb] =  r->a[indexa];
      r->a[indexa] = i;
+     r->coup++;
     printf("sa\n");
     return (1);
 }
 
-int    sb(t_lst *s, t_stack *r)
+int    sb(t_stack *r)
 { 
     int i;
     int indexa;
@@ -40,13 +41,14 @@ int    sb(t_lst *s, t_stack *r)
     indexa = r->lenb - 1;
     indexb = r->lenb - 2;
     i =  r->b[indexb];
-     r->b[indexb] =  r->b[indexa];
-     r->b[indexa] = i;
+    r->b[indexb] =  r->b[indexa];
+    r->b[indexa] = i;
+    r->coup++;
     printf("sb\n");
     return (1);
 }
 
-int    ss(t_lst *s, t_stack *r)
+int    ss(t_stack *r)
 {
     int i;
     int indexa;
@@ -77,6 +79,7 @@ int    pa(t_lst *s, t_stack *r)
     r->lena++;
     r->lenb--;
     s->move--;
+    r->coup++;
     printf("pa\n");
     return (1);
 }
@@ -90,6 +93,7 @@ int    pb(t_lst *s, t_stack *r)
     r->lenb++;
     r->lena--;
     s->move++;
+    r->coup++;
     printf("pb\n");
     return (1);
 }

@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-int     pos(t_lst *s, int t, t_stack *r)
+int     pos(t_lst *s, int t)
 {
     int i;
 
@@ -30,7 +30,7 @@ int     push_last_n(t_lst *s, int topa, t_stack *r)
 
         y = 0;
         pb(s, r);
-        while (r->lena > 1 &&  r->a[r->lena - 2] == s->tl[(pos(s,  r->a[r->lena - 1], r) - 1)])
+        while (r->lena > 1 &&  r->a[r->lena - 2] == s->tl[(pos(s,  r->a[r->lena - 1]) - 1)])
         {
             pb(s, r);
             y++;
@@ -55,7 +55,7 @@ int     speed_push(t_lst *s, t_stack *r)
 
     if (r->lenb > 0 && r->lena > 0)
     {
-        topb = pos(s,  r->a[r->lenb - 1], r);
+        topb = pos(s,  r->a[r->lenb - 1]);
         if (topb < s->lenmax && s->tl[topb + 1] ==  r->b[0])
         {
             rrb(s, r);
@@ -64,16 +64,16 @@ int     speed_push(t_lst *s, t_stack *r)
     }
     if (r->lena > 0)
     {
-        topa = pos(s,  r->a[r->lena - 1], r);
-        bota = pos(s,  r->a[0], r);
-        if (r->lena > 2 && s->tl[(pos(s,  r->a[r->lena - 3], r)) - 1] ==  r->a[r->lena - 1])
+        topa = pos(s,  r->a[r->lena - 1]);
+        bota = pos(s,  r->a[0]);
+        if (r->lena > 2 && s->tl[(pos(s,  r->a[r->lena - 3])) - 1] ==  r->a[r->lena - 1])
         {
-            sa(s, r);
+            sa(r);
             return (1);
         }
         if (topa > 0 && s->tl[topa - 1] ==  r->a[r->lena - 2])
         {
-            sa(s, r);
+            sa(r);
             return (1);
         }
         if (push_last_n(s, topa, r))
