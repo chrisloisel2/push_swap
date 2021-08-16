@@ -21,6 +21,7 @@ typedef struct  s_stack
     int     lena;
     int     lenb;
     int     coup;
+    int     rest;
 }               t_stack;
 
 typedef struct  s_lst
@@ -66,5 +67,6 @@ void	lstdellast(t_lst **alst);
 void	lstadd_back(t_lst **alst, t_lst *new);
 t_lst	*lstlast(t_lst *lst);
 t_lst	*lstnew();
+void    ft_print_core(t_lst *s);
 
 #endif

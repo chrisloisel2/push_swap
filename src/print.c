@@ -46,3 +46,18 @@ void    ft_print_lst(t_lst *s, t_stack *r)
     printf("range = %d\n", s->range);
     printf("\n");
 }
+
+void    ft_print_core(t_lst *s)
+{
+    int push;
+    printf("----------core = %d----------\n", s->core);
+    printf(" lenmax[%d]\n", s->lenmax);
+    printf("  range[%d]\n", s->range);
+    printf(" posmax[%d]\n", s->posmax);
+    printf(" posmin[%d]\n", s->posmin);
+    printf("    max[%d]\n", s->max);
+    printf("    min[%d]\n", s->min);
+    printf("   move[%d]\n", s->move);
+    printf("   push[%d]\n", s->push);
+
+}

@@ -26,26 +26,41 @@ void	lstadd_back2(t_lst **alst, t_lst *new, int i)
 	new->next = NULL;
 	new->lenmax = p->lenmax;
 	new->core = p->core + 1;
-    new->range = i / 2;
 	new->tl = p->tl;
 	new->move = 0;
-	new->posmax = p->posmax;
-	new->posmin = new->posmax - new->range;
-    new->max = new->tl[new->posmax - 1];
-    new->min = new->tl[new->posmin - 1];
-
-
 	new->prev = p;
 	new->push = 0;
 }
 
-int    slice(t_lst *s, t_stack *r)
+int    slice_two(t_lst *s, t_stack *r)
 {
-    if  (s->range < 25)
+    int i;
+    int core;
+    t_lst copy;
+
+    i = s->range;
+    if (s->range < 25)
         return (1);
-        lstadd_back2(&s, lstnew(), s->range);
-        lstadd_back2(&s, lstnew(), s->range);
+    copy = *s;
+    i = s->max;
+    s = s->prev;
+    lstdellast(&s);
+    while (s->max != i)
+    {
+        lstadd_back2( &s, lstnew(), i);
         s = lstlast(s);
+        if (copy.range >= 25)
+            s->range = copy.range / 2;
+        else
+            s->range = copy.range;
+        copy.range -= s->range;
+        s->posmin = copy.posmin;
+        copy.posmin += s->range;
+	    s->posmax = s->posmin + s->range;
+        s->max = s->tl[s->posmax - 1];
+        s->min = s->tl[s->posmin - 1];
+        ft_print_core(s);
+    }
     return (1);
 }
 
@@ -70,10 +85,12 @@ void    ft_algo(t_lst *s, t_stack *r)
                 lstadd_back(&s, lstnew());
             s = (lstlast(s));
         }
-        while (ft_check_order(s, r) == 2 && slice(s, r))
+        while (ft_check_order(s, r) == 2 && slice_two(s, r) == 1)
         {
+            s = lstlast(s);
             ft_depush(s , r);
             ft_print_lst(s, r);
+            ft_print_core(s);
             if (s->prev != NULL)
             {
                 s = s->prev;

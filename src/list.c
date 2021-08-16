@@ -41,7 +41,7 @@ void	lstdellast(t_lst **alst)
 	t_lst *end;
 
 	p = (lstlast(*alst));
-	if (p->prev != NULL)
+	if (p != NULL && p->prev != NULL)
 	{
 		end = p->prev;
 		end->next = NULL;

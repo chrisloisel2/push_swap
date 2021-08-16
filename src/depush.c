@@ -117,6 +117,7 @@ void     ft_depush(t_lst *s, t_stack *r)
     int i;
     
     i = 1;
+    ft_print_lst(s, r);
     while (i != 2 && r->a[r->lena - 1] != s->min)
     {
         linking(s, r);
