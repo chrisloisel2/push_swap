@@ -52,6 +52,7 @@ void	lstdellast(t_lst **alst)
 void	lstadd_back(t_lst **alst, t_lst *new)
 {
 	t_lst *p;
+	int i;
 
 	if (*alst == NULL)
 	{
@@ -63,7 +64,8 @@ void	lstadd_back(t_lst **alst, t_lst *new)
 	new->next = NULL;
 	new->lenmax = p->lenmax;
 	new->core = p->core + 1;
-    new->range = p->range / 2;
+    i = p->range / 2;
+	new->range = p->range - i;
 	new->tl = p->tl;
 	new->move = 0;
 	new->posmin = p->posmax + 1;

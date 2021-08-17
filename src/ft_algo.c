@@ -12,7 +12,7 @@
 
 #include "../swap.h"
 
-void	lstadd_back2(t_lst **alst, t_lst *new, int i)
+void	lstadd_back2(t_lst **alst, t_lst *new)
 {
 	t_lst *p;
 
@@ -32,10 +32,9 @@ void	lstadd_back2(t_lst **alst, t_lst *new, int i)
 	new->push = 0;
 }
 
-int    slice_two(t_lst *s, t_stack *r)
+int    slice_two(t_lst *s)
 {
     int i;
-    int core;
     t_lst copy;
 
     i = s->range;
@@ -45,9 +44,9 @@ int    slice_two(t_lst *s, t_stack *r)
     i = s->max;
     s = s->prev;
     lstdellast(&s);
-    while (s->max != i)
+    while (copy.max == i || s->max != i)
     {
-        lstadd_back2( &s, lstnew(), i);
+        lstadd_back2( &s, lstnew());
         s = lstlast(s);
         if (copy.range >= 25)
             s->range = copy.range / 2;
@@ -57,8 +56,9 @@ int    slice_two(t_lst *s, t_stack *r)
         s->posmin = copy.posmin;
         copy.posmin += s->range;
 	    s->posmax = s->posmin + s->range;
-        s->max = s->tl[s->posmax - 1];
-        s->min = s->tl[s->posmin - 1];
+        copy.max = 0;
+        s->max = copy.tl[s->posmax - 1];
+        s->min = copy.tl[s->posmin - 1];
         ft_print_core(s);
     }
     return (1);
@@ -79,13 +79,15 @@ void    ft_algo(t_lst *s, t_stack *r)
     {
         while (ft_check_order(s, r) == 1)
         {
+            ft_print_lst(s, r);
+            ft_print_core(s);
             ft_smart_push(s, r);
             ft_print_lst(s, r);
             if (ft_check_order(s, r) == 1)
                 lstadd_back(&s, lstnew());
             s = (lstlast(s));
         }
-        while (ft_check_order(s, r) == 2 && slice_two(s, r) == 1)
+        while (ft_check_order(s, r) == 2 && slice_two(s) == 1)
         {
             s = lstlast(s);
             ft_depush(s , r);
