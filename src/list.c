@@ -49,6 +49,38 @@ void	lstdellast(t_lst **alst)
 	}
 }
 
+void	lstdelcore(t_lst **alst, int core)
+{
+	t_lst *sup;
+	t_lst *after;
+	t_lst *before;
+
+	sup = (lstlast(*alst));
+	while (sup->prev != NULL && core != sup->core)
+		sup = sup->prev;
+	if (sup->prev != NULL && sup->next != NULL)
+	{
+		after = sup->next;
+		before = sup->prev;
+		before->next = after;
+		after->prev = before;
+		free(sup);
+	}
+	else if (sup->prev == NULL && sup->next != NULL)
+	{
+		after = sup->next;
+		alst = &after;
+		after->prev = NULL;
+		free(sup);
+	}
+	else if (sup->prev != NULL && sup->next == NULL)
+	{
+		before = sup->prev;
+		before = NULL;
+		free(sup);
+	}
+}
+
 void	lstadd_back(t_lst **alst, t_lst *new)
 {
 	t_lst *p;

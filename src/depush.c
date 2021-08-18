@@ -59,7 +59,6 @@ int     ft_inversed_push(t_lst *s, int i, t_stack *r)
             ra(s, r);
             i--;
         }
-        ft_print_lst(s, r);
     }
     return (t);
 }
@@ -117,8 +116,8 @@ void     ft_depush(t_lst *s, t_stack *r)
     int i;
     
     i = 1;
-    ft_print_lst(s, r);
-    while (i != 2 && r->a[r->lena - 1] != s->min)
+ //   ft_print_lst(s, r);
+    while (i != 2 && i != 0)
     {
         linking(s, r);
         if ( r->b[r->lenb - 1] >= s->min &&  r->b[r->lenb - 1] <= s->max)
@@ -128,7 +127,9 @@ void     ft_depush(t_lst *s, t_stack *r)
             rb(s, r);
             s->push++;
         }
-        i = ft_check_order(s, r);
+        if (r->a[r->lena - 1] == s->min || r->lenb == 0)
+            i = ft_check_order(s, r);
+   //     ft_print_lst(s, r);
     }
     while (s->push > 0)
     {

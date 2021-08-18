@@ -32,18 +32,37 @@ void	lstadd_back2(t_lst **alst, t_lst *new)
 	new->push = 0;
 }
 
+void    reorder_three(t_lst *s, t_stack *r)
+{
+    while (ft_check_order(s, r) == 1)
+    {
+        if (r->a[r->lena - 1] == s->tl[0])
+        {
+            ra(s, r);
+        }
+        if (r->a[0] < r->a[r->lena - 1])
+        {
+            rra(s, r);
+        }
+        if (r->a[r->lena - 1] > r->a[r->lena - 1])
+        { 
+            sa(r);
+        }
+    }
+}
+
 int    slice_two(t_lst *s)
 {
     int i;
     t_lst copy;
+    int core;
 
     i = s->range;
     if (s->range < 25)
         return (1);
     copy = *s;
+    core = s->core;
     i = s->max;
-    s = s->prev;
-    lstdellast(&s);
     while (copy.max == i || s->max != i)
     {
         lstadd_back2( &s, lstnew());
@@ -58,9 +77,12 @@ int    slice_two(t_lst *s)
 	    s->posmax = s->posmin + s->range;
         copy.max = 0;
         s->max = copy.tl[s->posmax - 1];
-        s->min = copy.tl[s->posmin - 1];
-        ft_print_core(s);
+        if (s->posmin == 0)
+            s->min = copy.tl[0];
+        else
+            s->min = copy.tl[s->posmin - 1];
     }
+    lstdelcore(&s, core);
     return (1);
 }
 
@@ -79,26 +101,25 @@ void    ft_algo(t_lst *s, t_stack *r)
     {
         while (ft_check_order(s, r) == 1)
         {
-            ft_print_lst(s, r);
-            ft_print_core(s);
-            ft_smart_push(s, r);
-            ft_print_lst(s, r);
-            if (ft_check_order(s, r) == 1)
+            if (r->lena > 3)
+                ft_smart_push(s, r);
+            else
+                reorder_three(s, r);
+            if (ft_check_order(s, r) == 1 && r->lena > 3)
+            {
                 lstadd_back(&s, lstnew());
-            s = (lstlast(s));
+                s = (lstlast(s));
+            }
         }
         while (ft_check_order(s, r) == 2 && slice_two(s) == 1)
         {
             s = lstlast(s);
             ft_depush(s , r);
-            ft_print_lst(s, r);
-            ft_print_core(s);
             if (s->prev != NULL)
             {
                 s = s->prev;
                 lstdellast(&s);
             }
-            ft_print_lst(s, r);
         }
     }
 }

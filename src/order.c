@@ -65,4 +65,3 @@ int     ft_check_order(t_lst *s, t_stack *r)
         return (2);
     return (1);
 }
-

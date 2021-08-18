@@ -110,6 +110,5 @@ void    ft_smart_push(t_lst *s, t_stack *r)
             rra(s, r);
         while ( r->a[r->lena - 1] > s->max && r->lena > i && !speed_push(s, r))
             ra(s, r);
-        ft_print_lst(s, r);
     }
 }

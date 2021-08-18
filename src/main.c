@@ -26,7 +26,8 @@ int     ft_push_swap(int num, char **argv)
     free(r->a);
     free(r->b);
     free(s->tl);
-    free(s);
+    if (s != NULL)
+        free(s);
     return (0);
 }
 

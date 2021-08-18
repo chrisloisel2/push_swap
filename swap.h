@@ -68,5 +68,6 @@ void	lstadd_back(t_lst **alst, t_lst *new);
 t_lst	*lstlast(t_lst *lst);
 t_lst	*lstnew();
 void    ft_print_core(t_lst *s);
+void	lstdelcore(t_lst **alst, int core);
 
 #endif
