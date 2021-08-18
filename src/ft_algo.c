@@ -92,6 +92,8 @@ void    ft_algo(t_lst *s, t_stack *r)
     i = 0;
     s->core = 1;
     s->move = 0;
+    s->next = NULL;
+    s->prev = NULL;
     s->range = r->lena / 2;
     s->posmin = 0;
     s->posmax = s->posmin + s->range - 1;

@@ -12,6 +12,26 @@
 
 #include "../swap.h"
 
+void    free_all(t_lst *s, t_stack *r)
+{
+    t_lst    *x;
+
+    s = lstlast(s);
+    x = NULL;
+    while (s != NULL)
+    {
+        if (s->prev != NULL)
+            x = s->prev;
+        free(s->tl);
+        free (s);
+        s = NULL;
+        s = x;
+    }
+    free(r->a);
+    free(r->b);
+    free(r);
+}
+
 int     ft_push_swap(int num, char **argv)
 {
     t_lst *s;
@@ -23,11 +43,7 @@ int     ft_push_swap(int num, char **argv)
         return (-1);
     order(s->tl, r->lena, r->a);
     ft_algo(s, r);
-    free(r->a);
-    free(r->b);
-    free(s->tl);
-    if (s != NULL)
-        free(s);
+    free_all(s, r);
     return (0);
 }
 

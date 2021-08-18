@@ -46,6 +46,7 @@ void	lstdellast(t_lst **alst)
 		end = p->prev;
 		end->next = NULL;
 		free(p);
+		p = NULL;
 	}
 }
 
@@ -65,6 +66,7 @@ void	lstdelcore(t_lst **alst, int core)
 		before->next = after;
 		after->prev = before;
 		free(sup);
+		sup = NULL;
 	}
 	else if (sup->prev == NULL && sup->next != NULL)
 	{
@@ -72,12 +74,14 @@ void	lstdelcore(t_lst **alst, int core)
 		alst = &after;
 		after->prev = NULL;
 		free(sup);
+		sup = NULL;
 	}
 	else if (sup->prev != NULL && sup->next == NULL)
 	{
 		before = sup->prev;
 		before = NULL;
 		free(sup);
+		sup = NULL;
 	}
 }
 
