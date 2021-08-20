@@ -21,14 +21,13 @@ typedef struct  s_stack
     int     lena;
     int     lenb;
     int     coup;
-    int     rest;
+    int     *tl;
 }               t_stack;
 
 typedef struct  s_lst
 {
     int     core;
     int     lenmax;
-    int     *tl;
     int     min;
     int     max;
     int     range;
@@ -50,7 +49,7 @@ int     ft_check_order(t_lst *s, t_stack *r);
 void    ft_smart_depush(t_lst *s, t_stack *r);
 void    ft_smart_push(t_lst *s, t_stack *r);
 int     speed_push(t_lst *s, t_stack *r);
-int     pos(t_lst *s, int t);
+int     pos(t_lst *s, int t, t_stack *r);
 void    ft_depush(t_lst *s, t_stack *r);
 int     sa(t_stack *r);
 int     sb(t_stack *r);
@@ -64,7 +63,7 @@ int     rra(t_lst *s, t_stack *r);
 int     rrb(t_lst *s, t_stack *r);
 int     rrr(t_lst *s, t_stack *r);
 void	lstdellast(t_lst **alst);
-void	lstadd_back(t_lst **alst, t_lst *new);
+void	lstadd_back(t_lst **alst, t_lst *new, t_stack *r);
 t_lst	*lstlast(t_lst *lst);
 t_lst	*lstnew();
 void    ft_print_core(t_lst *s);

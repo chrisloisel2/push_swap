@@ -30,9 +30,9 @@ void    order(int *d, int x, int *a)
     d[0] = test;
     test = 2147483647;
     i = 0;
-    while (y <= x)
+    while (y < x)
     {
-        while (i <= x)
+        while (i < x)
         {         
             if (a[i] < test && a[i] > d[y - 1])        
                 test = a[i];
@@ -54,7 +54,7 @@ int     ft_check_order(t_lst *s, t_stack *r)
     i = 0;
     if (r->lena == 0)
         return (2);
-    while (i < r->lena && ( r->a[i] == s->tl[y]))
+    while (i < r->lena && ( r->a[i] == r->tl[y]))
     {
         i++;
         y--;

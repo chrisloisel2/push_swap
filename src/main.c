@@ -22,14 +22,20 @@ void    free_all(t_lst *s, t_stack *r)
     {
         if (s->prev != NULL)
             x = s->prev;
-        free(s->tl);
+        else
+            x = NULL;
         free (s);
         s = NULL;
         s = x;
     }
+    free(r->tl);
+    r->tl = NULL;
     free(r->a);
+    r->a = NULL;
     free(r->b);
+    r->b = NULL;
     free(r);
+    r = NULL;
 }
 
 int     ft_push_swap(int num, char **argv)
@@ -41,7 +47,7 @@ int     ft_push_swap(int num, char **argv)
     r = malloc(sizeof(t_stack));
     if (ft_recup(num, argv, s, r) == -1)
         return (-1);
-    order(s->tl, r->lena, r->a);
+    order(r->tl, r->lena, r->a);
     ft_algo(s, r);
     free_all(s, r);
     return (0);

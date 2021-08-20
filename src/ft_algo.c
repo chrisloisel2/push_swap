@@ -26,7 +26,6 @@ void	lstadd_back2(t_lst **alst, t_lst *new)
 	new->next = NULL;
 	new->lenmax = p->lenmax;
 	new->core = p->core + 1;
-	new->tl = p->tl;
 	new->move = 0;
 	new->prev = p;
 	new->push = 0;
@@ -36,22 +35,16 @@ void    reorder_three(t_lst *s, t_stack *r)
 {
     while (ft_check_order(s, r) == 1)
     {
-        if (r->a[r->lena - 1] == s->tl[0])
-        {
+        if (r->a[r->lena - 1] == r->tl[s->lenmax - 1])
             ra(s, r);
-        }
         if (r->a[0] < r->a[r->lena - 1])
-        {
             rra(s, r);
-        }
-        if (r->a[r->lena - 1] > r->a[r->lena - 1])
-        { 
+        if (r->a[r->lena - 1] > r->a[r->lena - 2] || r->a[r->lena - 2] == r->tl[s->lenmax -1])
             sa(r);
-        }
     }
 }
 
-int    slice_two(t_lst *s)
+int    slice_two(t_lst *s, t_stack *r)
 {
     int i;
     t_lst copy;
@@ -76,11 +69,11 @@ int    slice_two(t_lst *s)
         copy.posmin += s->range;
 	    s->posmax = s->posmin + s->range;
         copy.max = 0;
-        s->max = copy.tl[s->posmax - 1];
+        s->max = r->tl[s->posmax - 1];
         if (s->posmin == 0)
-            s->min = copy.tl[0];
+            s->min = r->tl[0];
         else
-            s->min = copy.tl[s->posmin - 1];
+            s->min = r->tl[s->posmin - 1];
     }
     lstdelcore(&s, core);
     return (1);
@@ -96,9 +89,10 @@ void    ft_algo(t_lst *s, t_stack *r)
     s->prev = NULL;
     s->range = r->lena / 2;
     s->posmin = 0;
+	s->push = 0;
     s->posmax = s->posmin + s->range - 1;
-    s->max = s->tl[s->posmax];
-    s->min = s->tl[s->posmin];
+    s->max = r->tl[s->posmax];
+    s->min = r->tl[s->posmin];
     while ((i = ft_check_order(s, r)) > 0)
     {
         while (ft_check_order(s, r) == 1)
@@ -109,11 +103,11 @@ void    ft_algo(t_lst *s, t_stack *r)
                 reorder_three(s, r);
             if (ft_check_order(s, r) == 1 && r->lena > 3)
             {
-                lstadd_back(&s, lstnew());
+                lstadd_back(&s, lstnew(), r);
                 s = (lstlast(s));
             }
         }
-        while (ft_check_order(s, r) == 2 && slice_two(s) == 1)
+        while (ft_check_order(s, r) == 2 && slice_two(s, r) == 1)
         {
             s = lstlast(s);
             ft_depush(s , r);

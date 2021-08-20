@@ -85,7 +85,7 @@ void	lstdelcore(t_lst **alst, int core)
 	}
 }
 
-void	lstadd_back(t_lst **alst, t_lst *new)
+void	lstadd_back(t_lst **alst, t_lst *new, t_stack *r)
 {
 	t_lst *p;
 	int i;
@@ -102,12 +102,12 @@ void	lstadd_back(t_lst **alst, t_lst *new)
 	new->core = p->core + 1;
     i = p->range / 2;
 	new->range = p->range - i;
-	new->tl = p->tl;
 	new->move = 0;
 	new->posmin = p->posmax + 1;
 	new->posmax = new->posmin + new->range;
-    new->max = new->tl[new->posmax - 1];
-    new->min = new->tl[new->posmin - 1];
+    new->max = r->tl[new->posmax - 1];
+    new->min = r->tl[new->posmin - 1];
+	new->push = 0;
 
 
 	new->prev = p;
