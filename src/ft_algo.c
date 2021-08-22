@@ -82,6 +82,7 @@ int    slice_two(t_lst *s, t_stack *r)
 void    ft_algo(t_lst *s, t_stack *r)
 {
     int i;
+
     i = 0;
     s->core = 1;
     s->move = 0;
