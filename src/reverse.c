@@ -49,7 +49,7 @@ int    rb(t_lst *s, t_stack *r)
         i++;
     }
     free( r->b);
-     r->b = test;
+    r->b = test;
     r->coup++;
     r->rb++;
     printf("rb\n");
@@ -70,7 +70,7 @@ void    ft_rb(t_lst *s, t_stack *r)
         i++;
     }
     free( r->b);
-     r->b = test;
+    r->b = test;
 }
 
 void    ft_ra(t_lst *s, t_stack *r)

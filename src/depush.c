@@ -14,16 +14,16 @@
 
 int     linking(t_lst *s, t_stack *r)
 {
-    if (r->tl[pos(s,  r->a[r->lena - 1], r) + 1] ==  r->a[r->lena - 3])
+    if (r->tl[pos(s, r->a[r->lena - 1], r) + 1] ==  r->a[r->lena - 3])
         return (sa(r));
-    if (r->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 2])
-        return ((sb(r) + pa(s, r)) - 1);
-    if (r->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 1])
-        return (pa(s, r));
-    if (r->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->a[0])
+    if (r->tl[pos(s, r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 2])
+        return ((sb(r) + pa(r)) - 1);
+    if (r->tl[pos(s, r->a[r->lena - 1], r) - 1] ==  r->b[r->lenb - 1])
+        return (pa(r));
+    if (r->tl[pos(s, r->a[r->lena - 1], r) - 1] ==  r->a[0])
         return (rra(s, r));
-    if (r->tl[pos(s,  r->a[r->lena - 1], r) - 1] ==  r->b[0])
-        return (rrb(s, r) + pa(s, r));
+    if (r->tl[pos(s, r->a[r->lena - 1], r) - 1] ==  r->b[0])
+        return (rrb(s, r) + pa(r));
     return (0);
 }
 
@@ -44,7 +44,7 @@ int     ft_inversed_push(t_lst *s, int i, t_stack *r)
         }
         while (i > 2 && r->b[r->lenb - 1] >= s->min)
         {
-            pa(s, r);
+            pa(r);
             while (r->a[0] != r->tl[s->lenmax - 1] &&  r->a[0] > r->a[r->lena - 1])
             {
                 rra(s, r);
@@ -69,7 +69,7 @@ int     ft_depush_two(t_lst *s, int i, t_stack *r)
 
     t = ft_inversed_push(s, i, r);
     sb(r);
-    pa(s, r);
+    pa(r);
     while (t > 0)
     {
         if (linking(s, r) == 2)
@@ -102,11 +102,11 @@ int     speed_depush(t_lst *s, t_stack *r)
         if (i > 2)
             return (ft_depush_two(s, i, r));
         if (i == 2)
-            return (sb(r) + pb(s, r) - 1);
+            return (sb(r) + pa(r) - 1);
         if (r->tl[topa - 1] ==  r->b[r->lenb - 1])
-            return (pa(s, r));
+            return (pa(r));
         if ( r->b[r->lenb - 1] >= r->tl[s->posmin + (s->range / 2)])
-            return (pa(s, r));
+            return (pa(r));
     }
     return (0);
 }
@@ -140,7 +140,7 @@ void     ft_depush(t_lst *s, t_stack *r)
     {
         if (!linking(s, r))
         {
-            if ( r->b[r->lenb - 1] >= s->min &&  r->b[r->lenb - 1] <= s->max)
+            if (r->b[r->lenb - 1] >= s->min && r->b[r->lenb - 1] <= s->max)
                 speed_depush(s, r);
             else if (!(r->a[r->lena - 1] <= s->min || r->lenb == 0))
                 ft_smart_roll(s, r);

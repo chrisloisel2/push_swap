@@ -48,7 +48,7 @@ int    rrb(t_lst *s, t_stack *r)
     }
     printf("rrb\n");
     free( r->b);
-    r->b = test;
+   r->b = test;
     r->coup++;
     r->rrb++;
     return (1);
@@ -85,7 +85,7 @@ void    ft_rrb(t_lst *s, t_stack *r)
         i++;
     }
     free( r->b);
-    r->b = test;
+   r->b = test;
 }
 
 int    rrr(t_lst *s, t_stack *r)

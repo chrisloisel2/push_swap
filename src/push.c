@@ -29,16 +29,16 @@ int     push_last_n(t_lst *s, int topa, t_stack *r)
         int y;
 
         y = 0;
-        pb(s, r);
+        pb(r);
         while (r->lena > 1 && r->a[r->lena - 2] == r->tl[(pos(s,  r->a[r->lena - 1], r) - 1)])
         {
-            pb(s, r);
+            pb(r);
             y++;
         }
         ra(s, r);
         while (y >= 0)
         {
-            pa(s, r);
+            pb(r);
             ra(s, r);
             y--;
         }
@@ -53,27 +53,52 @@ int     speed_push(t_lst *s, t_stack *r)
     int topa;
     int bota;
 
-/*    if (r->lenb > 0 && r->lena > 0)
+    while (r->lenb > 1 && r->b[r->lenb - 1] < r->b[0])
+        rb(s, r);
+    if (r->lenb > 3 && r->b[r->lenb - 2] == r->tl[0])
     {
-        topa = pos(s,  r->a[r->lena - 1], r);
-        topb = pos(s,  r->a[r->lenb - 1], r);
-        bota = pos(s,  r->a[0], r);
+        sb(r);
+        rrb(s, r);
+    }
+    if (r->lenb > 0 && r->lena > 0)
+    {
+        topa = pos(s, r->a[r->lena - 1], r);
+        topb = pos(s, r->b[r->lenb - 1], r);
+        bota = pos(s, r->a[0], r);
+
+        if (r->lenb > 3 && r->tl[topb - 1] == r->b[0])
+            return (rrb(s, r) + sb(r) + rb(s, r) + rb(s, r));
+        if (r->lenb > 1 && r->b[r->lenb - 1] < r->b[r->lenb - 2])
+            sb(r);
         if (topb < s->lenmax && r->tl[topb + 1] ==  r->b[0])
-            return (rrb(s, r));
+             return (rrb(s, r));
         if (r->lena > 3 && pos(s,  r->a[r->lena - 3], r) > 0 && r->tl[(pos(s,  r->a[r->lena - 3], r)) - 1] ==  r->a[r->lena - 1])
             return (sa(r));
         if (topa > 0 && pos(s,  r->a[r->lena - 3], r) > 0 && r->tl[topa - 1] ==  r->a[r->lena - 2])
             return (sa(r));
         if (push_last_n(s, topa, r))
             return (1);
-        if (r->lena > 1 && r->tl[topa] == r->tl[s->lenmax - 1])
-            return (ra(s, r));
-        if (r->lena > 1 && r->tl[bota] == r->tl[topa - 1])
-            return (ra(s, r));
-        if (r->tl[topa - 1] ==  r->a[0])
-            return (rra(s, r));
-    }*/
+    }
     return (0);
+}
+
+void     ft_smart_roll2(t_lst *s, t_stack *r)
+{
+    int i;
+    int y;
+
+    i = r->lena - 1;
+    y = 0;
+    while (i > 0 && !(r->a[i] >= s->min &&  r->a[i] <= s->max))
+        i--;
+    y = (r->lena - 1) - i;
+    i = 0;
+    while (i < (r->lena - 1) && !(r->a[i] >= s->min && r->a[i] <= s->max))
+        i++;
+    if (y > i)
+        rra(s, r);
+    else
+        ra(s, r);
 }
 
 void    ft_smart_push(t_lst *s, t_stack *r)
@@ -83,11 +108,10 @@ void    ft_smart_push(t_lst *s, t_stack *r)
     i = r->lenb + s->range;
     while (r->lenb < i && (ft_check_order(s, r) == 1))
     {
-        while (r->a[r->lena - 1] >= s->min && r->a[r->lena - 1] <= s->max && !speed_push(s, r) && r->lenb < i)
-            pb(s, r);
-        while (r->a[0] < r->a[r->lena - 1] && !speed_push(s, r) && r->lenb < i)
-            rra(s, r);
-        while ( r->a[r->lena - 1] > s->max && !speed_push(s, r) && r->lenb < i)
-            ra(s, r);
+        speed_push(s, r);
+        if (r->a[r->lena - 1] >= s->min && r->a[r->lena - 1] <= s->max && r->lenb < i)
+            pb(r);
+        else
+            ft_smart_roll2(s, r);
     }
 }

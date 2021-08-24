@@ -40,7 +40,7 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num, t_stack *r)
     i = 0;
     s->lenmax = r->lena;
      r->a = malloc(sizeof(int)* s->lenmax + 1);
-     r->b = malloc(sizeof(int)* s->lenmax + 1);
+    r->b = malloc(sizeof(int)* s->lenmax + 1);
     r->tl = malloc(sizeof(int)* s->lenmax + 1);
     tab = ft_split(argv[1], ' ');
     while (num >= 0)
@@ -70,7 +70,7 @@ int     ft_fill_stack(int num, char **argv,  t_lst *s, t_stack *r)
     i = 0;
     s->lenmax = num;
     r->a = malloc(sizeof(int)* num + 1);
-    r->b = malloc(sizeof(int)* num + 1);
+   r->b = malloc(sizeof(int)* num + 1);
     r->tl = malloc(sizeof(int)* num + 1);
     while (num > 0)
     {

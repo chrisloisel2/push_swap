@@ -33,7 +33,7 @@ void    free_all(t_lst *s, t_stack *r)
     free(r->a);
     r->a = NULL;
     free(r->b);
-    r->b = NULL;
+   r->b = NULL;
     free(r);
     r = NULL;
 }
@@ -57,6 +57,7 @@ int     ft_push_swap(int num, char **argv)
     r->rra = 0;
     r->rrb = 0;
     r->rrr = 0;
+    r->coup = 0;
 
     if (ft_recup(num, argv, s, r) == -1)
         return (-1);
