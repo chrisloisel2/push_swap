@@ -102,16 +102,13 @@ void	lstadd_back(t_lst **alst, t_lst *new, t_stack *r)
 	new->core = p->core + 1;
     i = p->range / 2;
 	new->range = p->range - i;
-	new->move = 0;
-	new->posmin = p->posmax + 1;
+	new->posmin = p->posmax;
 	new->posmax = new->posmin + new->range;
 	if (new->posmax > p->lenmax)
 		new->posmax = p->max;
-    new->max = r->tl[new->posmax - 1];
-    new->min = r->tl[new->posmin - 1];
-	new->push = 0;
-
-
+    new->max = r->tl[new->posmax];
+    new->min = r->tl[new->posmin];
+	new->bot = 0;
+	new->top = 0;
 	new->prev = p;
-	new->push = 0;
 }

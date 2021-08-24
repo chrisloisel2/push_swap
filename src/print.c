@@ -56,7 +56,7 @@ void    ft_print_core(t_lst *s)
     printf(" posmin[%d]\n", s->posmin);
     printf("    max[%d]\n", s->max);
     printf("    min[%d]\n", s->min);
-    printf("   move[%d]\n", s->move);
-    printf("   push[%d]\n", s->push);
+    printf("   push[%d]\n", s->top);
+    printf("   push[%d]\n", s->bot);
 
 }

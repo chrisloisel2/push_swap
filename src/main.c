@@ -45,6 +45,19 @@ int     ft_push_swap(int num, char **argv)
 
     s = lstnew();
     r = malloc(sizeof(t_stack));
+   
+    r->pa = 0;
+    r->pb = 0;
+    r->sa = 0;
+    r->sb = 0;
+    r->ss = 0;
+    r->ra = 0;
+    r->rb = 0;
+    r->rr = 0;
+    r->rra = 0;
+    r->rrb = 0;
+    r->rrr = 0;
+
     if (ft_recup(num, argv, s, r) == -1)
         return (-1);
     order(r->tl, r->lena, r->a);

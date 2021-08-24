@@ -26,9 +26,9 @@ void	lstadd_back2(t_lst **alst, t_lst *new)
 	new->next = NULL;
 	new->lenmax = p->lenmax;
 	new->core = p->core + 1;
-	new->move = 0;
 	new->prev = p;
-	new->push = 0;
+	new->top = 0;
+	new->bot = 0;
 }
 
 void    reorder_three(t_lst *s, t_stack *r)
@@ -69,11 +69,13 @@ int    slice_two(t_lst *s, t_stack *r)
         copy.posmin += s->range;
 	    s->posmax = s->posmin + s->range;
         copy.max = 0;
-        s->max = r->tl[s->posmax - 1];
+        s->max = r->tl[s->posmax];
+        if (s->max > i)
+            s->max = i;
         if (s->posmin == 0)
             s->min = r->tl[0];
         else
-            s->min = r->tl[s->posmin - 1];
+            s->min = r->tl[s->posmin];
     }
     lstdelcore(&s, core);
     return (1);
@@ -85,12 +87,12 @@ void    ft_algo(t_lst *s, t_stack *r)
 
     i = 0;
     s->core = 1;
-    s->move = 0;
     s->next = NULL;
     s->prev = NULL;
     s->range = r->lena / 2;
     s->posmin = 0;
-	s->push = 0;
+	s->bot = 0;
+	s->top = 0;
     s->posmax = s->posmin + s->range - 1;
     s->max = r->tl[s->posmax];
     s->min = r->tl[s->posmin];

@@ -22,6 +22,18 @@ typedef struct  s_stack
     int     lenb;
     int     coup;
     int     *tl;
+
+    int     pb;
+    int     pa;
+    int     sa;
+    int     sb;
+    int     ss;
+    int     ra;
+    int     rb;
+    int     rr;
+    int     rra;
+    int     rrb;
+    int     rrr;
 }               t_stack;
 
 typedef struct  s_lst
@@ -33,8 +45,8 @@ typedef struct  s_lst
     int     range;
     int     posmax;
 	int     posmin;
-    int     move;
-    int push;
+    int     top;
+    int     bot;
     struct s_lst *next;
     struct s_lst *prev;
 }               t_lst;

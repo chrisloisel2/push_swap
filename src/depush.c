@@ -111,6 +111,26 @@ int     speed_depush(t_lst *s, t_stack *r)
     return (0);
 }
 
+void     ft_smart_roll(t_lst *s, t_stack *r)
+{
+    int i;
+    int y;
+
+    i = r->lenb - 1;
+    y = 0;
+    while (i > 0 && !(r->b[i] >= s->min &&  r->b[i] <= s->max))
+        i--;
+    y = (r->lenb - 1) - i;
+    i = 0;
+    while (i < (r->lenb - 1) && !(r->b[i] >= s->min && r->b[i] <= s->max))
+        i++;
+    if (y > i)
+        rrb(s, r);
+    else
+        rb(s, r);
+    s->bot++;
+}
+
 void     ft_depush(t_lst *s, t_stack *r)
 {
     int i;
@@ -118,22 +138,21 @@ void     ft_depush(t_lst *s, t_stack *r)
     i = 1;
     while (i != 2 && i != 0)
     {
-        linking(s, r);
-        if ( r->b[r->lenb - 1] >= s->min &&  r->b[r->lenb - 1] <= s->max)
-            speed_depush(s, r);
-        else
+        if (!linking(s, r))
         {
-            rb(s, r);
-            s->push++;
+            if ( r->b[r->lenb - 1] >= s->min &&  r->b[r->lenb - 1] <= s->max)
+                speed_depush(s, r);
+            else if (!(r->a[r->lena - 1] <= s->min || r->lenb == 0))
+                ft_smart_roll(s, r);
         }
-        if (r->a[r->lena - 1] == s->min || r->lenb == 0)
+        if (r->a[r->lena - 1] <= s->min || r->lenb == 0)
             i = ft_check_order(s, r);
     }
-    while (s->push > 0)
+    while (s->bot > 0)
     {
         rrb(s, r);
         if (linking(s, r) == 2)
-            s->push--;
-        s->push--;
+            s->bot--;
+        s->bot--;
     }
 }

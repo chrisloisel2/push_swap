@@ -23,9 +23,10 @@ int    sa(t_stack *r)
     indexa = r->lena - 1;
     indexb = r->lena - 2;
     i =  r->a[indexb];
-     r->a[indexb] =  r->a[indexa];
-     r->a[indexa] = i;
-     r->coup++;
+    r->a[indexb] =  r->a[indexa];
+    r->a[indexa] = i;
+    r->coup++;
+    r->sa++;
     printf("sa\n");
     return (1);
 }
@@ -43,6 +44,7 @@ int    sb(t_stack *r)
     i =  r->b[indexb];
     r->b[indexb] =  r->b[indexa];
     r->b[indexa] = i;
+    r->sb++;
     r->coup++;
     printf("sb\n");
     return (1);
@@ -59,13 +61,14 @@ int    ss(t_stack *r)
     indexa = r->lena - 1;
     indexb = r->lena - 2;
     i =  r->a[indexb];
-     r->a[indexb] =  r->a[indexa];
-     r->a[indexa] = i;
+    r->a[indexb] =  r->a[indexa];
+    r->a[indexa] = i;
     indexa = r->lenb - 1;
     indexb = r->lenb - 2;
     i =  r->b[indexb];
-     r->b[indexb] =  r->b[indexa];
-     r->b[indexa] = i;
+    r->b[indexb] =  r->b[indexa];
+    r->b[indexa] = i;
+    r->ss++;
     printf("ss\n");
     return (1);
 }
@@ -74,12 +77,12 @@ int    pa(t_lst *s, t_stack *r)
 {
     if (r->lenb < 1)
         return (1);
-     r->a[r->lena] =  r->b[r->lenb - 1];
-     r->b[r->lenb - 1] = 0;
+    r->a[r->lena] =  r->b[r->lenb - 1];
+    r->b[r->lenb - 1] = 0;
     r->lena++;
     r->lenb--;
-    s->move--;
     r->coup++;
+    r->pa++;
     printf("pa\n");
     return (1);
 }
@@ -92,8 +95,8 @@ int    pb(t_lst *s, t_stack *r)
      r->a[r->lena - 1] = 0;
     r->lenb++;
     r->lena--;
-    s->move++;
     r->coup++;
+    r->pb++;
     printf("pb\n");
     return (1);
 }
