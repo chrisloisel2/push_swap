@@ -24,22 +24,21 @@ void	lstadd_back2(t_lst **alst, t_lst *new)
 	p = (lstlast(*alst));
 	p->next = new;
 	new->next = NULL;
-	new->lenmax = p->lenmax;
 	new->core = p->core + 1;
 	new->prev = p;
 	new->top = 0;
 	new->bot = 0;
 }
 
-void    reorder_three(t_lst *s, t_stack *r)
+void    reorder_three(t_stack *r)
 {
-    while (ft_check_order(s, r) == 1)
+    while (ft_check_order(r) == 1)
     {
-        if (r->a[r->lena - 1] == r->tl[s->lenmax - 1])
-            ra(s, r);
+        if (r->a[r->lena - 1] == r->tl[r->lenmax - 1])
+            ra(r);
         if (r->a[0] < r->a[r->lena - 1])
-            rra(s, r);
-        if (r->a[r->lena - 1] > r->a[r->lena - 2] || r->a[r->lena - 2] == r->tl[s->lenmax -1])
+            rra(r);
+        if (r->a[r->lena - 1] > r->a[r->lena - 2] || r->a[r->lena - 2] == r->tl[r->lenmax -1])
             sa(r);
     }
 }
@@ -96,21 +95,21 @@ void    ft_algo(t_lst *s, t_stack *r)
     s->posmax = s->posmin + s->range - 1;
     s->max = r->tl[s->posmax];
     s->min = r->tl[s->posmin];
-    while ((i = ft_check_order(s, r)) > 0)
+    while ((i = ft_check_order(r)) > 0)
     {
-        while (ft_check_order(s, r) == 1)
+        while (ft_check_order(r) == 1)
         {
             if (r->lena > 3)
                 ft_smart_push(s, r);
             else
-                reorder_three(s, r);
-            if (ft_check_order(s, r) == 1 && r->lena > 3)
+                reorder_three(r);
+            if (ft_check_order(r) == 1 && r->lena > 3)
             {
                 lstadd_back(&s, lstnew(), r);
                 s = (lstlast(s));
             }
         }
-        while (ft_check_order(s, r) == 2 && slice_two(s, r) == 1)
+        while (ft_check_order(r) == 2 && slice_two(s, r) == 1)
         {
             s = lstlast(s);
             ft_depush(s , r);

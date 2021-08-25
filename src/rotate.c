@@ -12,13 +12,13 @@
 
 #include "../swap.h"
 
-int    rra(t_lst *s, t_stack *r)
+int    rra(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax + 1);
+    test = malloc(sizeof(int)* r->lenmax + 1);
     test[r->lena - 1] =  r->a[0];
     while (i < r->lena - 1)
     {
@@ -33,13 +33,13 @@ int    rra(t_lst *s, t_stack *r)
     return (1);
 }
 
-int    rrb(t_lst *s, t_stack *r)
+int    rrb(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax + 1);
+    test = malloc(sizeof(int)* r->lenmax + 1);
     test[r->lenb - 1] =  r->b[0];
     while (i < r->lenb - 1)
     {
@@ -54,13 +54,13 @@ int    rrb(t_lst *s, t_stack *r)
     return (1);
 }
 
-void    ft_rra(t_lst *s, t_stack *r)
+void    ft_rra(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax + 1);
+    test = malloc(sizeof(int)* r->lenmax + 1);
     test[r->lena - 1] =  r->a[0];
     while (i < r->lena - 1)
     {
@@ -71,13 +71,13 @@ void    ft_rra(t_lst *s, t_stack *r)
     r->a = test;
 }
 
-void    ft_rrb(t_lst *s, t_stack *r)
+void    ft_rrb(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax + 1);
+    test = malloc(sizeof(int)* r->lenmax + 1);
     test[r->lenb - 1] =  r->b[0];
     while (i < r->lenb - 1)
     {
@@ -88,10 +88,10 @@ void    ft_rrb(t_lst *s, t_stack *r)
    r->b = test;
 }
 
-int    rrr(t_lst *s, t_stack *r)
+int    rrr(t_stack *r)
 {
-    ft_rra(s, r);
-    ft_rrb(s, r);
+    ft_rra(r);
+    ft_rrb(r);
     r->rrr++;
     r->coup++;
     printf("rrr\n");

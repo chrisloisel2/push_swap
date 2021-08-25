@@ -45,16 +45,16 @@ void    order(int *d, int x, int *a)
     }
 }
 
-int     ft_check_order(t_lst *s, t_stack *r)
+int     ft_check_order(t_stack *r)
 {
     int i;
     int y;
 
-    y = s->lenmax - 1;
+    y = r->lenmax - 1;
     i = 0;
     if (r->lena == 0)
         return (2);
-    while (i < r->lena && ( r->a[i] == r->tl[y]))
+    while (i < r->lena && (r->a[i] == r->tl[y]))
     {
         i++;
         y--;

@@ -30,7 +30,7 @@ int     ft_test(char *str, int max, t_stack *r)
     return (1);
 }
 
-int     ft_fill_stack2(char **argv,  t_lst *s, int num, t_stack *r)
+int     ft_fill_stack2(char **argv, int num, t_stack *r)
 {
     int i;
     int y;
@@ -38,10 +38,10 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num, t_stack *r)
 
     y = 0;
     i = 0;
-    s->lenmax = r->lena;
-     r->a = malloc(sizeof(int)* s->lenmax + 1);
-    r->b = malloc(sizeof(int)* s->lenmax + 1);
-    r->tl = malloc(sizeof(int)* s->lenmax + 1);
+    r->lenmax = r->lena;
+    r->a = malloc(sizeof(int)* r->lenmax + 1);
+    r->b = malloc(sizeof(int)* r->lenmax + 1);
+    r->tl = malloc(sizeof(int)* r->lenmax + 1);
     tab = ft_split(argv[1], ' ');
     while (num >= 0)
     {
@@ -57,18 +57,18 @@ int     ft_fill_stack2(char **argv,  t_lst *s, int num, t_stack *r)
         i = 0;
         num--;
     }
-    r->lena = s->lenmax;
+    r->lena = r->lenmax;
     return(0);
 }
 
-int     ft_fill_stack(int num, char **argv,  t_lst *s, t_stack *r)
+int     ft_fill_stack(int num, char **argv, t_stack *r)
 {
     int i;
     int y;
 
     y = 0;
     i = 0;
-    s->lenmax = num;
+    r->lenmax = num;
     r->a = malloc(sizeof(int)* num + 1);
    r->b = malloc(sizeof(int)* num + 1);
     r->tl = malloc(sizeof(int)* num + 1);
@@ -111,7 +111,7 @@ int     ft_check_arg(int num, char **argv, t_stack *r)
     return(1);
 }
 
-int     ft_recup_split(char **argv,  t_lst *s, t_stack *r)
+int     ft_recup_split(char **argv, t_stack *r)
 {
     int i;
     int len;
@@ -129,19 +129,19 @@ int     ft_recup_split(char **argv,  t_lst *s, t_stack *r)
         i++;
     }
     if (i == len)
-        return(ft_fill_stack2(argv, s, r->lena - 1, r));
+        return(ft_fill_stack2(argv, r->lena - 1, r));
     return (1);
 }
 
-int     ft_recup(int num, char **argv,  t_lst *s, t_stack *r)
+int     ft_recup(int num, char **argv, t_stack *r)
 {
-    if (num == 2 && (ft_strlen(argv[1]) > 2) && ft_recup_split(argv, s, r) == 1)
+    if (num == 2 && (ft_strlen(argv[1]) > 2) && ft_recup_split(argv, r) == 1)
     {
         printf("ERROR\n");
         return (-1);
     }
     else if (num > 2 && (ft_check_arg(num - 1, argv, r) == -1 || 
-        ft_fill_stack(num -1, argv, s, r) == -1))
+        ft_fill_stack(num -1, argv, r) == -1))
     {
         printf("ERROR\n");
         return (-1);

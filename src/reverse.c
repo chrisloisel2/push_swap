@@ -12,13 +12,13 @@
 
 #include "../swap.h"
 
-int    ra(t_lst *s, t_stack *r)
+int    ra(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax);
+    test = malloc(sizeof(int)* r->lenmax);
     test[0] =  r->a[r->lena - 1];
     while (i < r->lena - 1)
     {
@@ -33,7 +33,7 @@ int    ra(t_lst *s, t_stack *r)
     return (1);
 }
 
-int    rb(t_lst *s, t_stack *r)
+int    rb(t_stack *r)
 {
     int *test;
     int i;
@@ -41,7 +41,7 @@ int    rb(t_lst *s, t_stack *r)
     if (r->lenb < 2)
         return (1);
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax);
+    test = malloc(sizeof(int)* r->lenmax);
     test[0] =  r->b[r->lenb - 1];
     while (i < r->lenb - 1)
     {
@@ -56,13 +56,13 @@ int    rb(t_lst *s, t_stack *r)
     return (1);
 }
 
-void    ft_rb(t_lst *s, t_stack *r)
+void    ft_rb(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax);
+    test = malloc(sizeof(int)* r->lenmax);
     test[0] =  r->b[r->lenb - 1];
     while (i < r->lenb - 1)
     {
@@ -73,13 +73,13 @@ void    ft_rb(t_lst *s, t_stack *r)
     r->b = test;
 }
 
-void    ft_ra(t_lst *s, t_stack *r)
+void    ft_ra(t_stack *r)
 {
     int *test;
     int i;
 
     i = 0;
-    test = malloc(sizeof(int)* s->lenmax);
+    test = malloc(sizeof(int)* r->lenmax);
     test[0] =  r->a[r->lena - 1];
     while (i < r->lena - 1)
     {
@@ -90,10 +90,10 @@ void    ft_ra(t_lst *s, t_stack *r)
     r->a = test;
 }
 
-int    rr(t_lst *s, t_stack *r)
+int    rr(t_stack *r)
 {
-    ft_rb(s, r);
-    ft_ra(s, r);
+    ft_rb(r);
+    ft_ra(r);
     r->coup++;
     r->rr++;
     printf("rr\n");

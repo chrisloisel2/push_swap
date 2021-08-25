@@ -21,7 +21,7 @@ void    ft_print_lst(t_lst *s, t_stack *r)
         i = r->lena - 1;
     else
         i = r->lenb - 1;
-    cpy = s->lenmax - 1;
+    cpy = r->lenmax - 1;
     printf("  état de la stack %d\n-----------------------\n", s->core);
     printf("   {%d}            {%d}\nnum = ", r->lena, r->lenb);
     while (cpy > 0)
@@ -50,7 +50,6 @@ void    ft_print_lst(t_lst *s, t_stack *r)
 void    ft_print_core(t_lst *s)
 {
     printf("----------core = %d----------\n", s->core);
-    printf(" lenmax[%d]\n", s->lenmax);
     printf("  range[%d]\n", s->range);
     printf(" posmax[%d]\n", s->posmax);
     printf(" posmin[%d]\n", s->posmin);
