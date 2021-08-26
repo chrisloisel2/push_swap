@@ -29,7 +29,7 @@ int     next(t_stack *r, int nb)
     int i;
 
     i = 0;
-    while (r->tl[i] != nb)
+    while (i < r->lenmax && r->tl[i] != nb)
         i++;
     if (i == r->lenmax)
         return (0);

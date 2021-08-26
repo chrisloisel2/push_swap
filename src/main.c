@@ -33,7 +33,7 @@ void    free_all(t_lst *s, t_stack *r)
     free(r->a);
     r->a = NULL;
     free(r->b);
-   r->b = NULL;
+    r->b = NULL;
     free(r);
     r = NULL;
 }
@@ -63,7 +63,7 @@ int     ft_push_swap(int num, char **argv)
     if (ft_recup(num, argv, r) == -1)
         return (-1);
     order(r->tl, r->lena, r->a);
-    ft_algo(s, r);
+    s = ft_algo(s, r);
     free_all(s, r);
     return (0);
 }

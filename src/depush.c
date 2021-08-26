@@ -20,22 +20,27 @@ int     ft_smart_depush(t_lst *s, t_stack *r)
     int nex;
     int i;
 
-    nex = next(r, r->b[r->lenb - 1]);
+    if (r->lenb > 0)
+        nex = next(r, r->b[r->lenb - 1]);
+    else
+        nex = next(r, r->b[r->lenb]);
     target = prev(r, r->a[r->lena - 1]);
     i = pos(r, r->a[r->lena - 1]) - s->posmin;
     milieu = r->tl[(s->posmin + (i/ 2))];
-    if (target == r->b[r->lenb - 1])
+    if (r->lenb > 0 && target == r->b[r->lenb - 1])
         return (pa(r));
+    if (target == r->b[0])
+        return (rrb(r) + pa(r));
     if (target == r->a[0])
         return (rra(r));
-    if (r->swap == 0 && r->b[r->lenb - 1] == nex)
+    if (r->lenb > 0 && r->swap == 0 && r->b[r->lenb - 1] == nex)
     {
         r->swap = r->b[r->lenb - 1];
         return (pa(r));
     }
-    if (r->b[r->lenb - 1] == r->swap)
+    if (r->lenb > 0 && r->b[r->lenb - 1] == r->swap)
     {
-        while (r->a[r->lena - 1] != prev(r, r->swap))
+        while (r->lena > 0 && r->a[r->lena - 1] != prev(r, r->swap))
         {
             s->bot++;
             ra(r);
@@ -56,7 +61,6 @@ void     ft_smart_roll(t_lst *s, t_stack *r)
 {
     int i;
     int y;
-    int test;
 
     i = r->lenb - 1;
     y = 0;
@@ -70,12 +74,15 @@ void     ft_smart_roll(t_lst *s, t_stack *r)
     if (y > i)
         rrb(r);
     else
-        ft_reversed_depushb(r);
+        rb(r);
+        //ft_reversed_depushb(r);
 }
 
 int     ft_stop_depush(t_lst *s, t_stack *r)
 {
-    if (s->min == r->a[r->lena - 1] && ft_check_order(r))
+    if (s->min == r->a[r->lena - 1] && ft_check_order(r) == 0)
+        return (0);
+    if (s->min == r->a[r->lena - 1] && ft_check_order(r) == 2)
         return (0);
     return (1);
 }
@@ -84,7 +91,9 @@ void     ft_depush(t_lst *s, t_stack *r)
 {
     while (ft_stop_depush(s, r))
     {
-        if (r->b[r->lenb - 1] >= s->min && r->b[r->lenb - 1] <= s->max)
+        if (prev(r, r->a[r->lena - 1]) == r->b[0] || prev(r, r->a[r->lena - 1]) == r->a[0])
+            ft_smart_depush(s, r);
+        else if (r->b[r->lenb - 1] >= s->min && r->b[r->lenb - 1] <= s->max)
             ft_smart_depush(s, r);
         else
             ft_smart_roll(s, r);

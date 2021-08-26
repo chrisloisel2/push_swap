@@ -19,6 +19,7 @@ t_lst	*lstnew()
 	if (!(lsnext = malloc(sizeof(t_lst))))
 		return (NULL);
 	lsnext->next = NULL;
+	lsnext->prev = NULL;
 	return (lsnext);
 }
 
@@ -35,11 +36,13 @@ t_lst	*lstlast(t_lst *lst)
 	return (t);
 }
 
-void	lstdellast(t_lst **alst)
+t_lst	*lstdellast(t_lst **alst)
 {
 	t_lst *p;
 	t_lst *end;
 
+	if (*alst == NULL)
+		return (*alst);
 	p = (lstlast(*alst));
 	if (p != NULL && p->prev != NULL)
 	{
@@ -47,7 +50,9 @@ void	lstdellast(t_lst **alst)
 		end->next = NULL;
 		free(p);
 		p = NULL;
+		*alst = lstlast(end);
 	}
+	return (lstlast(*alst));
 }
 
 void	lstdelcore(t_lst **alst, int core)

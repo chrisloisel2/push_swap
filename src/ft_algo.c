@@ -43,7 +43,7 @@ void    reorder_three(t_stack *r)
     }
 }
 
-int    slice_two(t_lst *s, t_stack *r)
+t_lst    *slice_two(t_lst *s, t_stack *r)
 {
     int i;
     t_lst copy;
@@ -51,7 +51,7 @@ int    slice_two(t_lst *s, t_stack *r)
 
     i = s->range;
     if (s->range < 25)
-        return (1);
+        return (s);
     copy = *s;
     core = s->core;
     i = s->max;
@@ -77,10 +77,10 @@ int    slice_two(t_lst *s, t_stack *r)
             s->min = r->tl[s->posmin];
     }
     lstdelcore(&s, core);
-    return (1);
+    return (lstlast(s));
 }
 
-void    ft_algo(t_lst *s, t_stack *r)
+t_lst	*ft_algo(t_lst *s, t_stack *r)
 {
     int i;
 
@@ -106,18 +106,15 @@ void    ft_algo(t_lst *s, t_stack *r)
             if (ft_check_order(r) == 1 && r->lena > 3)
             {
                 lstadd_back(&s, lstnew(), r);
-                s = (lstlast(s));
+                s = lstlast(s);
             }
         }
-        while (ft_check_order(r) == 2 && slice_two(s, r) == 1)
+        while (ft_check_order(r) == 2)
         {
-            s = lstlast(s);
-            ft_depush(s , r);
-            if (s->prev != NULL)
-            {
-                s = s->prev;
-                lstdellast(&s);
-            }
+            s = slice_two(s, r);
+            ft_depush(s, r);
+            s = lstdellast(&s);
         }
     }
+    return (s = lstlast(s));
 }
