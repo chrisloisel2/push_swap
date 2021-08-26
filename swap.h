@@ -52,8 +52,10 @@ typedef struct  s_lst
     struct s_lst *prev;
 }               t_lst;
 
+void	lstdelcore_two(t_lst **alst, int core);
 int     ft_recup(int num, char **argv, t_stack *r);
 void    ft_print_lst(t_lst *s, t_stack *r);
+int     ft_check_arg(int num, char **argv, t_stack *r);
 void    ft_print_lst2(t_lst *s, t_stack *r);
 t_lst	*ft_algo(t_lst *s, t_stack *r);
 void    ft_full_pb(t_lst *s, t_stack *r);
@@ -74,6 +76,7 @@ int     rr(t_stack *r);
 int     rra(t_stack *r);
 int     rrb(t_stack *r);
 int     rrr(t_stack *r);
+void	ft_setup(t_lst *s, t_stack *r);
 t_lst	*lstdellast(t_lst **alst);
 void	lstadd_back(t_lst **alst, t_lst *new, t_stack *r);
 t_lst	*lstlast(t_lst *lst);
